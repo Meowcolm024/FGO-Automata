@@ -28,13 +28,18 @@ def screenshot() -> str:
     return "sh.png"
 
 # helper function
-def shifter(ord : (int, int), i : int = 10) -> (int, int):
-    return (ord[0] + random.randint(-i, i), ord[1] + random.randint(-i, i))
+def shifter(ord : (int, int), i : int = 10, j : int = 10) -> (int, int):
+    return (ord[0] + random.randint(-i, i), ord[1] + random.randint(-j, j))
 
 def split(path : str, edge : (int, int)):
     img = Image.open(path)
     out = img.crop((edge[0], edge[1], edge[0]+1920, edge[1]+1080))
     out.save("tmp.png")
+
+def get_sh(edge : (int, int)) -> str:
+    screenshot()
+    split("sh.png", edge)
+    return "tmp.png"
 
 # OpenCV related
 def standby(sh : str, tmp : str, threshold : float = 0.9) -> bool:

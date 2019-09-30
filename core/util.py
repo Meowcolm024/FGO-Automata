@@ -1,5 +1,6 @@
 import os, cv2, random
 import numpy as np
+from PIL import Image
 
 # ADB related
 def tap(crd : (int, int)):
@@ -27,11 +28,16 @@ def screenshot() -> str:
     return "sh.png"
 
 # helper function
-def shifter(ord : (int, int), i : int) -> (int, int):
+def shifter(ord : (int, int), i : int = 10) -> (int, int):
     return (ord[0] + random.randint(-i, i), ord[1] + random.randint(-i, i))
 
+def split(path : str, edge : (int, int)):
+    img = Image.open(path)
+    out = img.crop((edge[0], edge[1], edge[0]+1920, edge[1]+1080))
+    out.save("tmp.png")
+
 # OpenCV related
-def standby(sh : str, tmp : str, threshold = 0.9) -> bool:
+def standby(sh : str, tmp : str, threshold : float = 0.9) -> bool:
     img = cv2.imread(sh, 0)
     template = cv2.imread(tmp, 0)
     res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)
@@ -39,7 +45,7 @@ def standby(sh : str, tmp : str, threshold = 0.9) -> bool:
         return True
     return False
 
-def get_crd(sh : str, tmp : str, threshold = 0.9) -> (int, int):
+def get_crd(sh : str, tmp : str, threshold : float = 0.9) -> [(int, int)]:
     img = cv2.imread(sh, 0)
     template = cv2.imread(tmp, 0)
     res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)
@@ -47,4 +53,4 @@ def get_crd(sh : str, tmp : str, threshold = 0.9) -> (int, int):
     loc = np.where(res >= threshold)
     for pt in zip(*loc[::-1]):
         pos.append(pt)
-    return pos[0]
+    return pos

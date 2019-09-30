@@ -1,10 +1,5 @@
-from core.util import shifter, standby, get_crd
+from core.util import screenshot, split
 
-sh = "templates/t1.jpeg"
-tmp = "templates/quick.png"
-
-x = shifter((10,10), 10)
-y = standby(sh, tmp)
-
-print(x)
-print(y)
+# screenshot()
+# left 248 right 172
+split("templates/t1.jpeg", (248, 0))

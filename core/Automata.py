@@ -9,11 +9,11 @@ class Automata():
 
     # battle related
     def select_cards(self, cards : [int]):
-        if not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
+        while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
             time.sleep(0.2)
         # tap ATTACK
         self.tap(crds.ATTACK, 100, 100)
-        time.sleep(0.5)
+        time.sleep(1)
         while len(cards) < 3:
             x = random.randrange(1, 6)
             if x in cards:
@@ -25,18 +25,27 @@ class Automata():
             time.sleep(0.2)
 
     def select_servant_skill(self, skill : int):
-        if not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
+        while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
             time.sleep(0.2)
         self.tap(crds.SERVANT_SKILLS[skill-1])
+        time.sleep(1)
 
     def select_servant(self, servant : int):
-        pass
+        while not util.standby(util.get_sh(self.shifts), "assets/select.png"):
+            time.sleep(0.2)
+        self.tap(crds.TARGETS[servant-1], 150, 150)
 
     def change_servant(self, org : int, tar : int):
-        pass
+        while not util.standby(util.get_sh(self.shifts), "assets/order_change.png"):
+            time.sleep(0.2)
+        self.tap(crds.SERVANTS[org-1], 90, 90)
+        time.sleep(0.1)
+        self.tap(crds.SERVANTS[tar-1], 90, 90)
+        time.sleep(0.1)
+        self.tap((950, 950), 100) # confirm btn
 
     def show_master_skill(self):
-        if not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
+        while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
             time.sleep(0.2)
         self.tap(crds.MASTER)
 
@@ -47,20 +56,33 @@ class Automata():
     def select_checkpoint(self, ckp : str = None):
         if ckp is None:
             ckp = self.checkpoint
-        pass
+        crds = util.get_crd(util.get_sh(self.shifts), self.checkpoint)
+        self.tap(crds[0], 100)
 
     def select_support(self, spt : str = None):
         if spt is None:
             spt = self.support
-        pass
+        x = util.get_crd(util.get_sh(self.shifts), spt)
+        if len(x) == 0:
+            self.tap((860, 430), 300, 100)
+        else:
+            self.tap(x[0])
 
     # after-battle related
     def finish_battle(self):
-        pass
+        while not util.standby(util.get_sh(self.shifts), "assets/item.png"):
+            self.tap((960, 540), 400, 200)
+            time.sleep(0.2)
+        time.sleep(0.2)
+        x = util.get_crd(util.get_sh(self.shifts), "assets/item.png")
+        self.tap(x[0])
 
     # others
-    def next_step(self):
-        pass
+    def start_battle(self):
+        while not util.standby(util.get_sh(self.shifts), "assets/start.png"):
+            time.sleep(0.2)
+        x = util.get_crd(util.get_sh(self.shifts), "assets/start.png")
+        self.tap(x[0])
 
     def tap(self, crd : (int, int), i : int = 10, j : int = 10):
         x = crd[0] + self.shifts[0]

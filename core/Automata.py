@@ -99,6 +99,11 @@ class Automata():
         x = util.get_crd(util.get_sh(self.shifts), "assets/start.png")
         self.tap(x[0])
 
+    def quick_start(self):
+        self.select_checkpoint()
+        self.select_support()
+        self.start_battle()
+
     def tap(self, crd : (int, int), i : int = 10, j : int = 10):
         x = crd[0] + self.shifts[0]
         y = crd[1] + self.shifts[1]

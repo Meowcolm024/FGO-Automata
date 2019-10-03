@@ -36,13 +36,20 @@ ryougi = Automata("assets/checkpoint.png", "assets/qp.png")
 * Notice that the third argument is optional, if you screen resolution is *1920x1080*, just leave it blank or replace it with `(0,0)`.
 * In the third argument, only add them if there are blues straps at the edges. For `(x, y)`, *x* refers to the shifts in x-axis shift, *y* refers to y-axis shift.
 
-### 2.Strating the battle
+### 2.Start battle
 
 ```python
 # start
-shiki.select_checkpoint()
-shiki.select_support()
+shiki.select_checkpoint("assets/checkpoint2.png") # the argument is optional
+shiki.select_support("assets/qp2.png") # the argument is optional
 shiki.start_battle()
+```
+
+* You can choose other checkpoints and supports if needed
+* If you don't need to modify your checkpoints and supports you can use:
+
+```python
+shiki.quick_start()
 ```
 
 ### 3.During battle
@@ -83,7 +90,7 @@ ryougi.select_servant_skill(2, 3)
 shiki.show_master_skill()
 ```
 
-* Notice you may need to this command first
+* Notice you may need to execute this command first
 
 ```python
 # skill w/o target

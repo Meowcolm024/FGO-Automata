@@ -2,9 +2,7 @@ from core.Automata import Automata
 # init
 shiki = Automata("assets/checkpoint.png", "assets/qp2.png", (248, 0))
 # start
-shiki.select_checkpoint()
-shiki.select_support()
-shiki.start_battle()
+shiki.quick_start()
 # battle 1
 shiki.select_servant_skill(4)
 shiki.select_servant_skill(5)

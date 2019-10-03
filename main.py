@@ -1,6 +1,6 @@
 from core.Automata import Automata
 # init
-shiki = Automata("assets/checkpoint.png", "assets/qp.png", (248, 0))
+shiki = Automata("assets/checkpoint.png", "assets/qp2.png", (248, 0))
 # start
 shiki.select_checkpoint()
 shiki.select_support()

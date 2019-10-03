@@ -20,7 +20,11 @@ Here is an example:
 
 ```python
 from core.Automata import Automata
-# init
+```
+
+* First import the package
+
+```python
 shiki = Automata("assets/checkpoint.png", "assets/qp.png", (248, 0))
 ```
 
@@ -49,6 +53,10 @@ shiki.start_battle()
 shiki.select_cards([7])
 ```
 
+```python
+ryougi.select_cards([1,2,3])
+```
+
 * Notice this function receives a *list* of maximum **3** numbers. If the list is empty or has less numbers, more cards from normal cards will be selected randomly.
 * For the numbers' meaning: Number **1~5** refer to the *normal cards* from **left** to **right**. Number **6,7,8** refer to *NP cards*.
 * Cards will be taped in orders
@@ -56,16 +64,18 @@ shiki.select_cards([7])
 #### 2. Select Servant skills
 
 ```python
+# skill w/o target
 shiki.select_servant_skill(4)
 ```
 
 ```python
+# with target Servant
 ryougi.select_servant_skill(2, 3)
 ```
 
 * Notice this function receives a number.
 * The number can be in the range of **1~9**, each refers to the skill counted from left.
-* You can also add the second argument for the target *Servant*
+* You can also add the second argument for the target *Servant*(See: [*Select Servants*](#4-select-servant))
 
 #### 3. Select Master skills
 
@@ -76,22 +86,25 @@ shiki.show_master_skill()
 * Notice you may need to this command first
 
 ```python
+# skill w/o target
 shiki.select_master_skill(2)
 ```
 
 ```python
+# with target Servant
 ryougi.select_master_skill(1, 3)
 ```
 
 ```python
+# Order Change
 rin.select_master_skill(3, 1, 1)
 ```
 
 * Notice this function receives a number.
 * Notice that you might need to first evoke the show func before using the skills
 * The number can be in the range of **1~3**, each refers to the skill counted from left.
-* You can also add the second argument for target *Servant*
-* If the skill is *Order Change*, you can add the third argument(See: *Change Servants*)
+* You can also add the second argument for target *Servant*(See: [*Select Servants*](#4-select-servant))
+* If the skill is *Order Change*, you can add the third argument(See: [*Change Servants*](#5-change-servants))
 
 #### 4. Select Servant
 
@@ -103,7 +116,7 @@ shiki.select_servant(1)
 * Notice this function receives a number.
 * The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
 
-### 5. Change Servants
+#### 5. Change Servants
 
 ```python
 shiki.change_servant(1, 1)

@@ -29,7 +29,7 @@ class Automata():
     def select_servant_skill(self, skill : int, tar :int = 0):
         while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
             time.sleep(0.2)
-        self.tap(crds.SERVANT_SKILLS[skill-1])
+        self.tap(crds.SERVANT_SKILLS[skill-1], 8, 8)
         time.sleep(1)
         if tar != 0:
             self.select_servant(tar)
@@ -56,7 +56,7 @@ class Automata():
     # new: self, skill, org, tar
     # combine select servant
     def select_master_skill(self, skill : int, org : int = 0, tar : int = 0):
-        self.tap(crds.MASTER_SKILLS[skill-1])
+        self.tap(crds.MASTER_SKILLS[skill-1], 8, 8)
         if org != 0 and tar == 0:
             self.select_servant(org)
         elif org != 0 and tar != 0:
@@ -68,11 +68,13 @@ class Automata():
             ckp = self.checkpoint
         crds = util.get_crd(util.get_sh(self.shifts), self.checkpoint)
         self.tap(crds[0], 100)
+        time.sleep(0.5)
 
     def select_support(self, spt : str = None):
         if spt is None:
             spt = self.support
         x = util.get_crd(util.get_sh(self.shifts), spt)
+        print(x)
         if len(x) == 0:
             self.tap((860, 430), 300, 100)
         else:
@@ -81,6 +83,9 @@ class Automata():
     # after-battle related
     def finish_battle(self):
         while not util.standby(util.get_sh(self.shifts), "assets/item.png"):
+            xs = util.get_crd(util.get_sh(self.shifts), "assets/close.png")
+            if len(xs) != 0:
+                self.tap(xs[0])
             self.tap((960, 540), 400, 200)
             time.sleep(0.2)
         time.sleep(0.2)

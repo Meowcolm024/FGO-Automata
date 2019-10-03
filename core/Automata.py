@@ -24,11 +24,15 @@ class Automata():
             self.tap(crds.CARDS[card-1], 50, 100)
             time.sleep(0.2)
 
-    def select_servant_skill(self, skill : int):
+    # new: self, skill, tar
+    # combine select servant
+    def select_servant_skill(self, skill : int, tar :int = 0):
         while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
             time.sleep(0.2)
         self.tap(crds.SERVANT_SKILLS[skill-1])
         time.sleep(1)
+        if tar != 0:
+            self.select_servant(tar)
 
     def select_servant(self, servant : int):
         while not util.standby(util.get_sh(self.shifts), "assets/select.png"):
@@ -49,8 +53,14 @@ class Automata():
             time.sleep(0.2)
         self.tap(crds.MASTER)
 
-    def select_master_skill(self, skill : int):
+    # new: self, skill, org, tar
+    # combine select servant
+    def select_master_skill(self, skill : int, org : int = 0, tar : int = 0):
         self.tap(crds.MASTER_SKILLS[skill-1])
+        if org != 0 and tar == 0:
+            self.select_servant(org)
+        elif org != 0 and tar != 0:
+            self.change_servant(org, tar)
 
     # pre-battle related
     def select_checkpoint(self, ckp : str = None):

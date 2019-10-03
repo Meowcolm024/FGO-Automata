@@ -24,6 +24,10 @@ from core.Automata import Automata
 shiki = Automata("assets/checkpoint.png", "assets/qp.png", (248, 0))
 ```
 
+```python
+ryougi = Automata("assets/checkpoint.png", "assets/qp.png")
+```
+
 * The first argument and the second one refers to the **path** of you **template** of checkpoint and **support servant**.
 * Notice that the third argument is optional, if you screen resolution is *1920x1080*, just leave it blank or replace it with `(0,0)`.
 * In the third argument, only add them if there are blues straps at the edges. For `(x, y)`, *x* refers to the shifts in x-axis shift, *y* refers to y-axis shift.
@@ -55,8 +59,13 @@ shiki.select_cards([7])
 shiki.select_servant_skill(4)
 ```
 
+```python
+ryougi.select_servant_skill(2, 3)
+```
+
 * Notice this function receives a number.
 * The number can be in the range of **1~9**, each refers to the skill counted from left.
+* You can also add the second argument for the target *Servant*
 
 #### 3. Select Master skills
 
@@ -64,13 +73,25 @@ shiki.select_servant_skill(4)
 shiki.show_master_skill()
 ```
 
+* Notice you may need to this command first
+
 ```python
 shiki.select_master_skill(2)
+```
+
+```python
+ryougi.select_master_skill(1, 3)
+```
+
+```python
+rin.select_master_skill(3, 1, 1)
 ```
 
 * Notice this function receives a number.
 * Notice that you might need to first evoke the show func before using the skills
 * The number can be in the range of **1~3**, each refers to the skill counted from left.
+* You can also add the second argument for target *Servant*
+* If the skill is *Order Change*, you can add the third argument(See: *Change Servants*)
 
 #### 4. Select Servant
 
@@ -84,7 +105,12 @@ shiki.select_servant(1)
 
 ### 5. Change Servants
 
-* Will be added soon
+```python
+shiki.change_servant(1, 1)
+```
+
+* This function receives 2 numbers, each should be in the range of **1~3**.
+* The first arg refers to the first 3 Servants and the second one refers to the last 3.
 
 ### 4.Finish battle
 
@@ -92,3 +118,7 @@ shiki.select_servant(1)
 # finish
 shiki.finish_battle()
 ```
+
+## TO-DO
+
+* Add Gold Apples

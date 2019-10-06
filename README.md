@@ -14,7 +14,7 @@ Required libs: *ADB*, *PIL*, *OpenCV* and *numpy*
 
 ## Instructions
 
-### 1.Initialization
+### 1. Initialization
 
 Here is an example:
 
@@ -25,18 +25,19 @@ from core.Automata import Automata
 * First import the package
 
 ```python
-shiki = Automata("assets/checkpoint.png", "assets/qp.png", (248, 0))
+shiki = Automata("assets/checkpoint.png", "assets/qp.png", (0, "assets.silver.png"), (248, 0))
 ```
 
 ```python
 ryougi = Automata("assets/checkpoint.png", "assets/qp.png")
 ```
 
-* The first argument and the second one refers to the **path** of you **template** of checkpoint and **support servant**.
-* Notice that the third argument is optional, if you screen resolution is *1920x1080*, just leave it blank or replace it with `(0,0)`.
-* In the third argument, only add them if there are blues straps at the edges. For `(x, y)`, *x* refers to the shifts in x-axis shift, *y* refers to y-axis shift.
+* The first argument and the second one refers to the **path** of your **template** of checkpoint and **support servant**.
+* Notice that the third argument is optional. It is a *Tuple* of 2 elements. The first item is number, representing how many apples will be consumed. The second one refers to the **path** of your **template** of the type of the apple (incl. *Quartz*).
+* And the fourth argument is also optional, if you screen resolution is *1920x1080*, just leave it blank or replace it with `(0,0)`.
+* In the fourth argument, only add them if there are blues straps at the edges. For `(x, y)`, *x* refers to the shifts in x-axis shift, *y* refers to y-axis shift.
 
-### 2.Start battle
+### 2. Start battle
 
 ```python
 # start
@@ -52,9 +53,9 @@ shiki.start_battle()
 shiki.quick_start()
 ```
 
-### 3.During battle
+### 3. During battle
 
-#### 1.Select cards
+#### 1. Select cards
 
 ```python
 shiki.select_cards([7])
@@ -113,13 +114,14 @@ rin.select_master_skill(3, 1, 1)
 * You can also add the second argument for target *Servant*(See: [*Select Servants*](#4-select-servant))
 * If the skill is *Order Change*, you can add the third argument(See: [*Change Servants*](#5-change-servants))
 
-#### 4. Select Servant
+#### 4.Select Servant
 
 ```python
 shiki.select_servant(1)
 ```
 
-* There are some skills in *FGO* have target servant, if the skill you have chosen is this kind of skill, youmay need to use this function to choose the desired *Servant*.
+* **NOTICE: This function has been integrated to `select_servant_skill` and `select_master_skill`, so you don't need to use it explicitly. (Besides, the reference below is still vaild.)**
+* There are some skills in *FGO* have target servant, if the skill you have chosen is this kind of skill, you may need to use this function to choose the desired *Servant*.
 * Notice this function receives a number.
 * The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
 
@@ -129,6 +131,7 @@ shiki.select_servant(1)
 shiki.change_servant(1, 1)
 ```
 
+* **NOTICE: This function has been integrated to `select_master_skill`, so you don't need to use it explicitly. (Besides, the reference below is still vaild.)**
 * This function receives 2 numbers, each should be in the range of **1~3**.
 * The first arg refers to the first 3 Servants and the second one refers to the last 3.
 

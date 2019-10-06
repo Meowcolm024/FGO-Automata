@@ -9,5 +9,7 @@ x = get_crd(get_sh((248, 0)), "assets/qp2.png")
 
 print(x)
 
-# tester = Automata("", "")
+tester = Automata("", "")
+tester.set_apples(0, "assets/silver.png")
+tester.select_checkpoint()
 # tester.select_cards([6])

@@ -3,9 +3,11 @@ from core import util, crds
 
 class Automata():
     def __init__(self, ckp : str, spt : str = None, sft = (0, 0)):
-        self.shifts = sft
+        self.shifts     = sft
         self.checkpoint = ckp
-        self.support = spt
+        self.support    = spt
+        self.counts     = 0
+        self.apple      = ""
 
     # battle related
     def select_cards(self, cards : [int]):
@@ -68,13 +70,20 @@ class Automata():
             ckp = self.checkpoint
         crds = util.get_crd(util.get_sh(self.shifts), self.checkpoint)
         self.tap(crds[0], 100)
-        time.sleep(0.5)
+        time.sleep(0.2)
+        # check whether out of AP
+        ## Not tested
+        if util.standby(util.get_sh(self.shifts), "assets/noap.png"): # in progress
+            if self.counts > 0:
+                self.eat_apple()
+            else:
+                raise Exception("Out of AP!")
 
     def select_support(self, spt : str = None):
+        time.sleep(0.3)
         if spt is None:
             spt = self.support
         x = util.get_crd(util.get_sh(self.shifts), spt)
-        print(x)
         if len(x) == 0:
             self.tap((860, 430), 300, 100)
         else:
@@ -91,6 +100,20 @@ class Automata():
         time.sleep(0.2)
         x = util.get_crd(util.get_sh(self.shifts), "assets/item.png")
         self.tap(x[0])
+
+    # AP related 
+    ## Not tested
+    def set_apples(self, cnt : int, apl : str):
+        self.counts = cnt
+        self.apple = apl
+
+    def eat_apple(self):
+        x = util.get_crd(util.get_sh(self.shifts), self.apple)
+        self.tap(x[0])
+        self.counts -= 1
+        time.sleep(0.2)
+        y = util.get_crd(util.get_sh(self.shifts), "assets/decide.png")
+        self.tap(y[0])
 
     # others
     def start_battle(self):

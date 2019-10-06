@@ -16,7 +16,7 @@ Required libs: *ADB*, *PIL*, *OpenCV* and *numpy*
 
 ### 1. Initialization
 
-Here is an example:
+#### a. Import package
 
 ```python
 from core.Automata import Automata
@@ -24,8 +24,10 @@ from core.Automata import Automata
 
 * First import the package
 
+#### b. Setup the Class
+
 ```python
-shiki = Automata("assets/checkpoint.png", "assets/qp.png", (0, "assets.silver.png"), (248, 0))
+shiki = Automata("assets/checkpoint.png", (248, 0))
 ```
 
 ```python
@@ -33,9 +35,17 @@ ryougi = Automata("assets/checkpoint.png", "assets/qp.png")
 ```
 
 * The first argument and the second one refers to the **path** of your **template** of checkpoint and **support servant**.
+* And the third argument is also optional, if you screen resolution is *1920x1080*, just leave it blank or replace it with `(0,0)`.
+* In the third argument, only add them if there are blues straps at the edges. For `(x, y)`, *x* refers to the shifts in x-axis shift, *y* refers to y-axis shift.
+
+#### c. AP related (Optional)
+
+```python
+shiki.set_apples(0, "assets.silver.png")
+```
+
+* If you are using it as a automation bot, you may encounter AP problem which need to use *Gold Apples*.
 * Notice that the third argument is optional. It is a *Tuple* of 2 elements. The first item is number, representing how many apples will be consumed. The second one refers to the **path** of your **template** of the type of the apple (incl. *Quartz*).
-* And the fourth argument is also optional, if you screen resolution is *1920x1080*, just leave it blank or replace it with `(0,0)`.
-* In the fourth argument, only add them if there are blues straps at the edges. For `(x, y)`, *x* refers to the shifts in x-axis shift, *y* refers to y-axis shift.
 
 ### 2. Start battle
 

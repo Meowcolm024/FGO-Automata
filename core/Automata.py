@@ -46,7 +46,7 @@ class Automata():
             time.sleep(0.2)
         self.tap(crds.SERVANTS[org-1], 90, 90)
         time.sleep(0.1)
-        self.tap(crds.SERVANTS[tar-1], 90, 90)
+        self.tap(crds.SERVANTS[tar+2], 90, 90)
         time.sleep(0.1)
         self.tap((950, 950), 100) # confirm btn
 

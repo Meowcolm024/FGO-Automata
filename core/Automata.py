@@ -131,3 +131,7 @@ class Automata():
         x = crd[0] + self.shifts[0]
         y = crd[1] + self.shifts[1]
         util.tap(util.shifter((x, y), i, j))
+
+    def wait(self, pic : str):
+        while not util.standby(util.get_sh(self.shifts), pic):
+            time.sleep(0.2)

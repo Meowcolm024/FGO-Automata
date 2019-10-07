@@ -4,15 +4,17 @@
 
 **FGO-Automata** allows you to play FGO just like writting *Python* Script
 
+**注意FGO-Automata适用于国服的Fate/Grand Order.** PS：[中文版README](README_CN.md)
+
 ## Install
 
 Required libs: *ADB*, *PIL*, *OpenCV* and *numpy*
 
-1. Install *ADB*: ```brew cask install android-platform-tools```
+1. Install *ADB*(macOS): ```brew cask install android-platform-tools```
 2. Install *PIL*, *OpenCV* and *numpy*: ```pip install opencv-python numpy pillow```
 3. Clone the repo: ```git clone https://github.com/Meowcolm024/FGO-Automata.git```
 
-## Instructions
+## References
 
 ### 1. Initialization
 
@@ -27,7 +29,7 @@ from core.Automata import Automata
 #### b. Setup the Class
 
 ```python
-shiki = Automata("assets/checkpoint.png", (248, 0))
+shiki = Automata("assets/checkpoint.png", "assets/qp.png", (248, 0))
 ```
 
 ```python
@@ -45,7 +47,7 @@ shiki.set_apples(0, "assets.silver.png")
 ```
 
 * If you are using it as a automation bot, you may encounter AP problem which need to use *Gold Apples*.
-* Notice that the third argument is optional. It is a *Tuple* of 2 elements. The first item is number, representing how many apples will be consumed. The second one refers to the **path** of your **template** of the type of the apple (incl. *Quartz*).
+* Notice that the function recieves 2 arguments. The first item is number, representing how many apples will be consumed. The second one refers to the **path** of your **template** of the type of the apple (incl. *Quartz*).
 
 ### 2. Start battle
 
@@ -124,7 +126,7 @@ rin.select_master_skill(3, 1, 1)
 * You can also add the second argument for target *Servant*(See: [*Select Servants*](#4-select-servant))
 * If the skill is *Order Change*, you can add the third argument(See: [*Change Servants*](#5-change-servants))
 
-#### 4.Select Servant
+#### 4. Select Servant
 
 ```python
 shiki.select_servant(1)
@@ -145,7 +147,7 @@ shiki.change_servant(1, 1)
 * This function receives 2 numbers, each should be in the range of **1~3**.
 * The first arg refers to the first 3 Servants and the second one refers to the last 3.
 
-### 4.Finish battle
+### 4. Finish battle
 
 ```python
 # finish
@@ -155,3 +157,4 @@ shiki.finish_battle()
 ## TO-DO
 
 * Add Gold Apples
+* Advance support

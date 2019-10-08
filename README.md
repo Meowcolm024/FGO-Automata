@@ -1,5 +1,7 @@
 # FGO-Automata
 
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Meowcolm024/FGO-Automata?include_prereleases)
+![GitHub issues](https://img.shields.io/github/issues/Meowcolm024/FGO-Automata)
 ![GitHub](https://img.shields.io/github/license/meowcolm024/FGO-Automata)
 
 **FGO-Automata** allows you to play FGO just like writting *Python* Script
@@ -126,7 +128,7 @@ rin.select_master_skill(3, 1, 1)
 * You can also add the second argument for target *Servant*(See: [*Select Servants*](#4-select-servant))
 * If the skill is *Order Change*, you can add the third argument(See: [*Change Servants*](#5-change-servants))
 
-#### 4. Select Servant
+#### 4. Select Servant (DEPRECATED)
 
 ```python
 shiki.select_servant(1)
@@ -137,7 +139,7 @@ shiki.select_servant(1)
 * Notice this function receives a number.
 * The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
 
-#### 5. Change Servants
+#### 5. Change Servants (DEPRECATED)
 
 ```python
 shiki.change_servant(1, 1)
@@ -154,7 +156,27 @@ shiki.change_servant(1, 1)
 shiki.finish_battle()
 ```
 
+### 5. Other functions
+
+#### 1. Wait for a certain scene
+
+```python
+shiki.wait("assets/checkpoint.png")
+```
+
+* It allows you idle the script till a certain scene
+* It receives an argument of the *path* of the template image.
+
+#### 2. Tap screen
+
+```python
+shiki.tap((100, 100), 0, 0)
+```
+
+* Allows to tap a certain point in the screen
+* The first arg is a tuple of the coordinate `(x, y)`
+* The 2nd and the 3rd args are random shifts in x and y, if you don't want have any shifts, replace with `0`
+
 ## TO-DO
 
-* Add Gold Apples
 * Advance support

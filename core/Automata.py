@@ -66,6 +66,7 @@ class Automata():
 
     # pre-battle related
     def select_checkpoint(self, ckp : str = None):
+        self.wait(self.checkpoint)
         if ckp is None:
             ckp = self.checkpoint
         crds = util.get_crd(util.get_sh(self.shifts), self.checkpoint)

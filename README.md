@@ -97,7 +97,7 @@ ryougi.select_servant_skill(2, 3)
 
 * Notice this function receives a number.
 * The number can be in the range of **1~9**, each refers to the skill counted from left.
-* You can also add the second argument for the target *Servant*(See: [*Select Servants*](#4-select-servant))
+* You can also add the second argument for the target *Servant*(See: [*Select Servants*](#4-select-servant-deprecated))
 
 #### 3. Select Master skills
 
@@ -125,8 +125,8 @@ rin.select_master_skill(3, 1, 1)
 * Notice this function receives a number.
 * Notice that you might need to first evoke the show func before using the skills
 * The number can be in the range of **1~3**, each refers to the skill counted from left.
-* You can also add the second argument for target *Servant*(See: [*Select Servants*](#4-select-servant))
-* If the skill is *Order Change*, you can add the third argument(See: [*Change Servants*](#5-change-servants))
+* You can also add the second argument for target *Servant*(See: [*Select Servants*](#4-select-servant-deprecated))
+* If the skill is *Order Change*, you can add the third argument(See: [*Change Servants*](#5-change-servants-deprecated))
 
 #### 4. Select Servant (DEPRECATED)
 

@@ -1,16 +1,18 @@
-import time, random
+import time
+import random
 from core import util, crds
 
+
 class Automata():
-    def __init__(self, ckp : str, spt : str = None, sft = (0, 0)):
-        self.shifts     = sft
+    def __init__(self, ckp: str, spt: str = None, sft=(0, 0)):
+        self.shifts = sft
         self.checkpoint = ckp
-        self.support    = spt
-        self.counts     = 0
-        self.apple      = ""
+        self.support = spt
+        self.counts = 0
+        self.apple = ""
 
     # battle related
-    def select_cards(self, cards : [int]):
+    def select_cards(self, cards: [int]):
         while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
             time.sleep(0.2)
         # tap ATTACK
@@ -28,7 +30,7 @@ class Automata():
 
     # new: self, skill, tar
     # combine select servant
-    def select_servant_skill(self, skill : int, tar :int = 0):
+    def select_servant_skill(self, skill: int, tar: int = 0):
         while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
             time.sleep(0.2)
         self.tap(crds.SERVANT_SKILLS[skill-1], 8, 8)
@@ -36,19 +38,19 @@ class Automata():
         if tar != 0:
             self.select_servant(tar)
 
-    def select_servant(self, servant : int):
+    def select_servant(self, servant: int):
         while not util.standby(util.get_sh(self.shifts), "assets/select.png"):
             time.sleep(0.2)
         self.tap(crds.TARGETS[servant-1], 150, 150)
 
-    def change_servant(self, org : int, tar : int):
+    def change_servant(self, org: int, tar: int):
         while not util.standby(util.get_sh(self.shifts), "assets/order_change.png"):
             time.sleep(0.2)
         self.tap(crds.SERVANTS[org-1], 90, 90)
         time.sleep(0.1)
         self.tap(crds.SERVANTS[tar+2], 90, 90)
         time.sleep(0.1)
-        self.tap((950, 950), 100) # confirm btn
+        self.tap((950, 950), 100)  # confirm btn
 
     def show_master_skill(self):
         while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
@@ -57,7 +59,7 @@ class Automata():
 
     # new: self, skill, org, tar
     # combine select servant
-    def select_master_skill(self, skill : int, org : int = 0, tar : int = 0):
+    def select_master_skill(self, skill: int, org: int = 0, tar: int = 0):
         self.tap(crds.MASTER_SKILLS[skill-1], 8, 8)
         if org != 0 and tar == 0:
             self.select_servant(org)
@@ -65,7 +67,7 @@ class Automata():
             self.change_servant(org, tar)
 
     # pre-battle related
-    def select_checkpoint(self, ckp : str = None):
+    def select_checkpoint(self, ckp: str = None):
         self.wait(self.checkpoint)
         if ckp is None:
             ckp = self.checkpoint
@@ -73,14 +75,14 @@ class Automata():
         self.tap(crds[0], 100)
         time.sleep(0.2)
         # check whether out of AP
-        ## Not tested
-        if util.standby(util.get_sh(self.shifts), "assets/noap.png"): # in progress
+        # Not tested
+        if util.standby(util.get_sh(self.shifts), "assets/noap.png"):  # in progress
             if self.counts > 0:
                 self.eat_apple()
             else:
                 raise Exception("Out of AP!")
 
-    def select_support(self, spt : str = None):
+    def select_support(self, spt: str = None):
         time.sleep(0.3)
         if spt is None:
             spt = self.support
@@ -102,9 +104,9 @@ class Automata():
         x = util.get_crd(util.get_sh(self.shifts), "assets/item.png")
         self.tap(x[0])
 
-    # AP related 
-    ## Not tested
-    def set_apples(self, cnt : int, apl : str):
+    # AP related
+    # Not tested
+    def set_apples(self, cnt: int, apl: str):
         self.counts = cnt
         self.apple = apl
 
@@ -128,11 +130,11 @@ class Automata():
         self.select_support()
         self.start_battle()
 
-    def tap(self, crd : (int, int), i : int = 10, j : int = 10):
+    def tap(self, crd: (int, int), i: int = 10, j: int = 10):
         x = crd[0] + self.shifts[0]
         y = crd[1] + self.shifts[1]
         util.tap(util.shifter((x, y), i, j))
 
-    def wait(self, pic : str):
+    def wait(self, pic: str):
         while not util.standby(util.get_sh(self.shifts), pic):
             time.sleep(0.2)

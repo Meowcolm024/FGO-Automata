@@ -1,9 +1,13 @@
-import os, cv2, random
+import os
+import cv2
+import random
 import numpy as np
 from PIL import Image
 
+
+
 # ADB related
-def tap(crd : (int, int)):
+def tap(crd: (int, int)):
     cmdTap = 'adb shell input tap {x} {y}'.format(
         x=crd[0],
         y=crd[1]
@@ -11,7 +15,8 @@ def tap(crd : (int, int)):
     print(cmdTap)
     os.system(cmdTap)
 
-def swipe(org : (int, int), tar : (int, int), delay):
+
+def swipe(org: (int, int), tar: (int, int), delay):
     cmdSwipe = 'adb shell input swipe {x1} {y1} {x2} {y2} {delay1}'.format(
         x1=org[0],
         y1=org[1],
@@ -22,27 +27,34 @@ def swipe(org : (int, int), tar : (int, int), delay):
     print(cmdSwipe)
     os.system(cmdSwipe)
 
+
 def screenshot() -> str:
     os.system('adb shell screencap -p /sdcard/sh.png')
     os.system('adb pull /sdcard/sh.png .')
     return "sh.png"
 
 # helper function
-def shifter(ord : (int, int), i : int = 10, j : int = 10) -> (int, int):
+
+
+def shifter(ord: (int, int), i: int = 10, j: int = 10) -> (int, int):
     return (ord[0] + random.randint(-i, i), ord[1] + random.randint(-j, j))
 
-def split(path : str, edge : (int, int)):
+
+def split(path: str, edge: (int, int)):
     img = Image.open(path)
     out = img.crop((edge[0], edge[1], edge[0]+1920, edge[1]+1080))
     out.save("tmp.png")
 
-def get_sh(edge : (int, int)) -> str:
+
+def get_sh(edge: (int, int)) -> str:
     screenshot()
     split("sh.png", edge)
     return "tmp.png"
 
 # OpenCV related
-def standby(sh : str, tmp : str, threshold : float = 0.9) -> bool:
+
+
+def standby(sh: str, tmp: str, threshold: float = 0.9) -> bool:
     img = cv2.imread(sh, 0)
     template = cv2.imread(tmp, 0)
     res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)
@@ -50,7 +62,8 @@ def standby(sh : str, tmp : str, threshold : float = 0.9) -> bool:
         return True
     return False
 
-def get_crd(sh : str, tmp : str, threshold : float = 0.9) -> [(int, int)]:
+
+def get_crd(sh: str, tmp: str, threshold: float = 0.9) -> [(int, int)]:
     img = cv2.imread(sh, 0)
     template = cv2.imread(tmp, 0)
     res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)

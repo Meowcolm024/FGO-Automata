@@ -1,7 +1,7 @@
 # This file stores the coordinates of the buttons
 
 # shifts: 10, 10
-SERVANT_SKILLS = [ 
+SERVANT_SKILLS = [
     # Servatn 1
     (100, 850),
     (250, 850),

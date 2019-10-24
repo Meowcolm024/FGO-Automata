@@ -104,6 +104,10 @@ class Automata():
         x = util.get_crd(util.get_sh(self.shifts), "assets/item.png")
         self.tap(x[0])
 
+    def is_finished(self) -> bool:
+        time.sleep(0.2)
+        return util.standby(util.get_sh(self.shifts), "assets/finish.png", 0.7)
+
     # AP related
     # Not tested
     def set_apples(self, cnt: int, apl: str):

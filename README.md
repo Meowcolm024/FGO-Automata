@@ -20,7 +20,7 @@ Required libs: *ADB*, *PIL*, *OpenCV* and *numpy*
 
 ### 1. Initialization
 
-#### a. Import package
+#### 1. Import package
 
 ```python
 from core.Automata import Automata
@@ -28,7 +28,7 @@ from core.Automata import Automata
 
 * First import the package
 
-#### b. Setup the Class
+#### 2. Setup the Class
 
 ```python
 shiki = Automata("assets/checkpoint.png", "assets/qp.png", (248, 0))
@@ -42,10 +42,10 @@ ryougi = Automata("assets/checkpoint.png", "assets/qp.png")
 * And the third argument is also optional, if you screen resolution is *1920x1080*, just leave it blank or replace it with `(0,0)`.
 * In the third argument, only add them if there are blues straps at the edges. For `(x, y)`, *x* refers to the shifts in x-axis shift, *y* refers to y-axis shift.
 
-#### c. AP related (Optional)
+#### 3. AP related (Optional)
 
 ```python
-shiki.set_apples(0, "assets.silver.png")
+shiki.set_apples(0, "assets/silver.png")
 ```
 
 * If you are using it as a automation bot, you may encounter AP problem which need to use *Gold Apples*.
@@ -178,6 +178,16 @@ shiki.toggle_master_skill()
 
 * You can use this function to turn on/off the _Master_ skill panel.
 
+## Making Templates
+
+Here are two examples of the template:
+
+![checkpoint](assets/event.png)
+
+![support](assets/sp2.png)
+
+* Do notice that your template should be distinctive.
+
 ## TO-DO
 
-* Advance support
+* Advance support selection

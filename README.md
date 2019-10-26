@@ -102,12 +102,6 @@ ryougi.select_servant_skill(2, 3)
 #### 3. Select Master skills
 
 ```python
-shiki.show_master_skill()
-```
-
-* Notice you may need to execute this command first
-
-```python
 # skill w/o target
 shiki.select_master_skill(2)
 ```
@@ -123,7 +117,6 @@ rin.select_master_skill(3, 1, 1)
 ```
 
 * Notice this function receives a number.
-* Notice that you might need to first evoke the show func before using the skills
 * The number can be in the range of **1~3**, each refers to the skill counted from left.
 * You can also add the second argument for target *Servant*(See: [*Select Servants*](#4-select-servant-deprecated))
 * If the skill is *Order Change*, you can add the third argument(See: [*Change Servants*](#5-change-servants-deprecated))
@@ -176,6 +169,14 @@ shiki.tap((100, 100), 0, 0)
 * Allows to tap a certain point in the screen
 * The first arg is a tuple of the coordinate `(x, y)`
 * The 2nd and the 3rd args are random shifts in x and y, if you don't want have any shifts, replace with `0`
+
+#### 3. Toggle Master Skill
+
+```python
+shiki.toggle_master_skill()
+```
+
+* You can use this function to turn on/off the _Master_ skill panel.
 
 ## TO-DO
 

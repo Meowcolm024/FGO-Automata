@@ -91,12 +91,6 @@ ryougi.select_servant_skill(2, 3)
 #### 3. 选择御主技能
 
 ```python
-shiki.show_master_skill()
-```
-
-* 需要先执行这个语句
-
-```python
 # skill w/o target
 shiki.select_master_skill(2)
 ```

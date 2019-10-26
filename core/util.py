@@ -5,7 +5,6 @@ import numpy as np
 from PIL import Image
 
 
-
 # ADB related
 def tap(crd: (int, int)):
     cmdTap = 'adb shell input tap {x} {y}'.format(
@@ -33,9 +32,8 @@ def screenshot() -> str:
     os.system('adb pull /sdcard/sh.png .')
     return "sh.png"
 
+
 # helper function
-
-
 def shifter(ord: (int, int), i: int = 10, j: int = 10) -> (int, int):
     return (ord[0] + random.randint(-i, i), ord[1] + random.randint(-j, j))
 
@@ -51,9 +49,8 @@ def get_sh(edge: (int, int)) -> str:
     split("sh.png", edge)
     return "tmp.png"
 
+
 # OpenCV related
-
-
 def standby(sh: str, tmp: str, threshold: float = 0.9) -> bool:
     img = cv2.imread(sh, 0)
     template = cv2.imread(tmp, 0)

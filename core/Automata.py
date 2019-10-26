@@ -33,7 +33,7 @@ class Automata():
     def select_servant_skill(self, skill: int, tar: int = 0):
         while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
             time.sleep(0.2)
-        self.tap(crds.SERVANT_SKILLS[skill-1], 8, 8)
+        self.tap(crds.SERVANT_SKILLS[skill-1], 5, 5)
         time.sleep(1)
         if tar != 0:
             self.select_servant(tar)
@@ -52,14 +52,14 @@ class Automata():
         time.sleep(0.1)
         self.tap((950, 950), 100)  # confirm btn
 
-    def show_master_skill(self):
+    def toggle_master_skill(self):
         while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
             time.sleep(0.2)
         self.tap(crds.MASTER)
 
-    # new: self, skill, org, tar
-    # combine select servant
+
     def select_master_skill(self, skill: int, org: int = 0, tar: int = 0):
+        self.toggle_master_skill()
         self.tap(crds.MASTER_SKILLS[skill-1], 8, 8)
         if org != 0 and tar == 0:
             self.select_servant(org)
@@ -104,6 +104,7 @@ class Automata():
         x = util.get_crd(util.get_sh(self.shifts), "assets/item.png")
         self.tap(x[0])
 
+    # FLAWED
     def is_finished(self) -> bool:
         time.sleep(0.2)
         return util.standby(util.get_sh(self.shifts), "assets/finish.png", 0.7)

@@ -11,7 +11,7 @@ shiki.select_cards([7])
 shiki.select_servant_skill(9)
 shiki.select_cards([8])
 # battle 3
-shiki.show_master_skill()
+# shiki.toggle_master_skill()
 shiki.select_master_skill(2, 1)
 shiki.select_servant_skill(1)
 shiki.select_servant_skill(2)

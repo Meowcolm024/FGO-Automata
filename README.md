@@ -8,6 +8,35 @@
 
 **注意FGO-Automata适用于国服的Fate/Grand Order.** PS：[中文版README](README_CN.md)
 
+## Table of Contents
+
+<details>
+
+- [FGO-Automata](#fgo-automata)
+  - [Table of Contents](#table-of-contents)
+  - [Install](#install)
+  - [References](#references)
+    - [1. Initialization](#1-initialization)
+      - [1. Import package](#1-import-package)
+      - [2. Setup the Class](#2-setup-the-class)
+      - [3. AP related (Optional)](#3-ap-related-optional)
+    - [2. Start battle](#2-start-battle)
+    - [3. During battle](#3-during-battle)
+      - [1. Select cards](#1-select-cards)
+      - [2. Select Servant skills](#2-select-servant-skills)
+      - [3. Select Master skills](#3-select-master-skills)
+      - [4. Select Servant (DEPRECATED)](#4-select-servant-deprecated)
+      - [5. Change Servants (DEPRECATED)](#5-change-servants-deprecated)
+    - [4. Finish battle](#4-finish-battle)
+    - [5. Other functions](#5-other-functions)
+      - [1. Wait for a certain scene](#1-wait-for-a-certain-scene)
+      - [2. Tap screen](#2-tap-screen)
+      - [3. Toggle Master Skill](#3-toggle-master-skill)
+  - [Making Templates](#making-templates)
+  - [TO-DO](#to-do)
+
+</details>
+
 ## Install
 
 Required libs: *ADB*, *PIL*, *OpenCV* and *numpy*

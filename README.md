@@ -4,9 +4,11 @@
 ![GitHub issues](https://img.shields.io/github/issues/Meowcolm024/FGO-Automata)
 ![GitHub](https://img.shields.io/github/license/meowcolm024/FGO-Automata)
 
-**FGO-Automata** allows you to play FGO just like writting *Python* Script
+**FGO-Automata** allows you to play _Fate/GO_ just like writting *Python* Script
 
 **注意FGO-Automata适用于国服的Fate/Grand Order.** PS：[中文版README](README_CN.md)
+
+If you're playing with other versions of _Fate/GO_ (like TW or US), you may need to remake the template images in `/assets`
 
 ## Table of Contents
 
@@ -41,7 +43,9 @@
 
 Required libs: *ADB*, *PIL*, *OpenCV* and *numpy*
 
-1. Install *ADB*(macOS): ```brew cask install android-platform-tools```
+1. Install *ADB*
+   - macOS: ```brew cask install android-platform-tools```
+   - Windows: ```choco install adb```
 2. Install *PIL*, *OpenCV* and *numpy*: ```pip install opencv-python numpy pillow```
 3. Clone the repo: ```git clone https://github.com/Meowcolm024/FGO-Automata.git```
 
@@ -74,6 +78,7 @@ ryougi = Automata("assets/checkpoint.png", "assets/qp.png")
 #### 3. AP related (Optional)
 
 ```python
+# .set_apples(<number of the apples>, <path to the apples>)
 shiki.set_apples(0, "assets/silver.png")
 ```
 
@@ -101,6 +106,7 @@ shiki.quick_start()
 #### 1. Select cards
 
 ```python
+# .select_cards(<list of the desired cards(in order)>)
 shiki.select_cards([7])
 ```
 
@@ -116,43 +122,52 @@ ryougi.select_cards([1,2,3])
 
 ```python
 # skill w/o target
+# .select_servant_skill(<id of the skill>)
 shiki.select_servant_skill(4)
-```
-
-```python
-# with target Servant
-ryougi.select_servant_skill(2, 3)
 ```
 
 * Notice this function receives a number.
 * The number can be in the range of **1~9**, each refers to the skill counted from left.
-* You can also add the second argument for the target *Servant*(See: [*Select Servants*](#4-select-servant-deprecated))
+
+```python
+# with target Servant
+# select_servant_skill(<id of the skill>, <id of the target servant>)
+ryougi.select_servant_skill(2, 3)
+```
+
+* You can also add the second argument for the target *Servant*(See: [*Select Servants*](#4-select-servant-deprecated)). The second argument receives a number. The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
 
 #### 3. Select Master skills
 
 ```python
 # skill w/o target
+# .select_master_skill(<id of the skill>)
 shiki.select_master_skill(2)
-```
-
-```python
-# with target Servant
-ryougi.select_master_skill(1, 3)
-```
-
-```python
-# Order Change
-rin.select_master_skill(3, 1, 1)
 ```
 
 * Notice this function receives a number.
 * The number can be in the range of **1~3**, each refers to the skill counted from left.
-* You can also add the second argument for target *Servant*(See: [*Select Servants*](#4-select-servant-deprecated))
-* If the skill is *Order Change*, you can add the third argument(See: [*Change Servants*](#5-change-servants-deprecated))
+
+```python
+# with target Servant
+# .select_master_skill(<id of the skill>, <id of the target servant>)
+ryougi.select_master_skill(1, 3)
+```
+
+* You can also add the second argument for target *Servant*(See: [*Select Servants*](#4-select-servant-deprecated)). The second argument receives a number. The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
+
+```python
+# Order Change
+# .select_master_skill(<id of the skill>, <id of the first servant>, <id of the second servant>)
+rin.select_master_skill(3, 1, 1)
+```
+
+* If the skill is *Order Change*, you can add the third argument(See: [*Change Servants*](#5-change-servants-deprecated)). In the second and third argument, each should be a number in the range of **1~3**. The second arg refers to the first 3 Servants and the third one refers to the last 3.
 
 #### 4. Select Servant (DEPRECATED)
 
 ```python
+# .select_servant(<id of the skill>)
 shiki.select_servant(1)
 ```
 
@@ -164,6 +179,7 @@ shiki.select_servant(1)
 #### 5. Change Servants (DEPRECATED)
 
 ```python
+# .change_servant(<id of the first servant>, <id of the second servant>)
 shiki.change_servant(1, 1)
 ```
 
@@ -177,6 +193,8 @@ shiki.change_servant(1, 1)
 # finish
 shiki.finish_battle()
 ```
+
+* This function allows the program tap through the ending of battle.
 
 ### 5. Other functions
 
@@ -213,9 +231,13 @@ Here are two examples of the template:
 
 ![checkpoint](assets/event.png)
 
+* This is a template of a _checkpoint_
+
 ![support](assets/sp2.png)
 
-* Do notice that your template should be distinctive.
+* This is a template of the _support_
+
+**Notice that your template should be distinctive.**
 
 ## TO-DO
 

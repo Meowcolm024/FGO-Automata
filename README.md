@@ -241,4 +241,4 @@ Here are two examples of the template:
 
 ## TO-DO
 
-* Advance support selection
+- [ ] Advance support selection

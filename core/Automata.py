@@ -92,6 +92,21 @@ class Automata():
         else:
             self.tap(x[0])
 
+    # advance support
+    def advance_suppoet(self):
+        """
+        not targey not found -> scroll down
+        update oncce
+        """
+        pass
+
+    def update_support(self) -> bool:
+        """
+        return True if update succeeded
+        if not, return False
+        """
+        pass
+
     # after-battle related
     def finish_battle(self):
         while not util.standby(util.get_sh(self.shifts), "assets/item.png"):

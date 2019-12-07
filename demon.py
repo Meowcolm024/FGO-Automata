@@ -8,7 +8,7 @@ class BB():
         spt = input("Enter the name of the Support (template image name, WITHOUT extension name): ")
         sft_x = input("Enter shifts of X coordinate (Enter 0 if your res is 1920x1080): ")
         sft_y = input("Enter shifts of Y coordinate (Enter 0 if your res is 1920x1080): ")
-        sc = f"bb = Automata(assets/{ckp}.png, assets/{spt}.png, ({sft_x}, {sft_y}))" # class name: bb
+        sc = f"bb = Automata(\"Automata(assets/{ckp}.png\", \"assets/{spt}.png\", ({sft_x}, {sft_y}))" # class name: bb
         self.script.append(sc)
 
     def menu(self) -> bool: 
@@ -78,12 +78,18 @@ class BB():
         n = input("Enter Card order: ")
         self.script.append(f"bb.select_cards([{n}])")
 
-    def main(self):
+    def start(self) -> str:
         print("FGO-Automata Demon")
         print("----------")
         print("This script will help you create your FGO-Automat Script")
         print("----------")
         input("Press any key to continue: ")
+        print("----------")
+        name = input("Enter script name: ")
+        print("----------")
+        return name
+
+    def setup_battle(self):
         btl = [False, False, False]
         # init
         self.init_sc()
@@ -100,10 +106,13 @@ class BB():
             btl[2] = self.menu()
         # end
         self.script.append("bb.finish_battle()")
-        print(self.script)
-        """
-        TODO: convert to file
-        """
+
+    def main(self):
+        name = self.start()
+        self.setup_battle()
+        file = open(name + ".py", "w+")
+        content = '\n'.join(self.script)
+        file.write(content)
 
 
 if __name__ == "__main__":

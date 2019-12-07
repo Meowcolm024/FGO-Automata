@@ -10,6 +10,10 @@
 2. 安装 *PIL*, *OpenCV* 和 *numpy*: ```pip install opencv-python numpy pillow```
 3. Clone 这个 repo: ```git clone https://github.com/Meowcolm024/FGO-Automata.git```
 
+## 设定
+
+对于*Windows*用户，双击`config.bat`以配置脚本。
+
 ## 指南
 
 ### 1. 初始化

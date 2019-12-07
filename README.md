@@ -17,6 +17,7 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
 - [FGO-Automata](#fgo-automata)
   - [Table of Contents](#table-of-contents)
   - [Install](#install)
+  - [Setup](#setup)
   - [References](#references)
     - [1. Initialization](#1-initialization)
       - [1. Import package](#1-import-package)
@@ -48,6 +49,14 @@ Required libs: *ADB*, *PIL*, *OpenCV* and *numpy*
    - Windows: ```choco install adb```
 2. Install *PIL*, *OpenCV* and *numpy*: ```pip install opencv-python numpy pillow```
 3. Clone the repo: ```git clone https://github.com/Meowcolm024/FGO-Automata.git```
+
+## Setup
+
+There are mainly 3 ways to set up the script:
+
+- If you are familiar with _Python_, you can try to manually write the scipt. (See: [References](#references))
+- If you are using _Windows_, double click `config.bat` to set up the script.
+- If you are using _macOS_(or _Linux_), run `demon.py` to set up the script.
 
 ## References
 

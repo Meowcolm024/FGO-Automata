@@ -18,21 +18,18 @@ class BB():
         print("----------")
         print("1 = select Servant skill(optional)")
         print("2 = select Master sill(optional)")
-        print("3 = select Card order")
-        print("4 = fininsh current battle setting")
+        print("3 = select Card order and finish current battle setting")
         print("----------")
         # select
         n = input("Select a number: ")
-        if n == 1:
+        if n == "1":
             self.sv_skill()
             return False
-        elif n == 2:
+        elif n == "2":
             self.ms_skill()
             return False
-        elif n == 3:
+        elif n == "3":
             self.crd_order()
-            return False
-        elif n == 4:
             return True
         return False
 
@@ -43,24 +40,70 @@ class BB():
         print("2 = skill w/ target servant")
         print("----------")
         n = input("Select the type of the Servant skill: ")
-        if n == 1:
+        if n == "1":
             x = input("Enter skill id (1~9 count from left): ")
             self.script.append(f"bb.select_servant_skill({x})")
-        if n == 2:
+        if n == "2":
             x = input("Enter skill id (1~9 count from left): ")
-            y = input("Enter target id(1~3 count from left): ")
+            y = input("Enter target id (1~3 count from left): ")
             self.script.append(f"bb.select_servant_skill({x}, {y})")
 
     def ms_skill(self):
-        pass
+        print("----------")
+        print("Master skill types:")
+        print("1 = skill w/o target servant")
+        print("2 = skill w/ target servant")
+        print("3 = Order Change")
+        print("----------")
+        n = input("Select the type of the Master skill: ")
+        if n == "1":
+            x = input("Enter skill id (1~3 count from left): ")
+            self.script.append(f"bb.select_master_skill({x})")
+        if n == "2":
+            x = input("Enter skill id (1~3 count from left): ")
+            y = input("Enter target id (1~3 count from left): ")
+            self.script.append(f"bb.select_master_skill({x}, {y})")
+        if n == "3":
+            x = input("ID of Servant on the Left (1~3 count from left): ")
+            y = input("ID of Servant on the Right (1~3 count from left): ")
+            self.script.append(f"bb.select_master_skill(3, {x}, {y})")
 
     def crd_order(self):
-        pass
+        print("----------")
+        print("Card Order:")
+        print("Card id: 1~5 -> normal card, 6,7,8 -> NP card")
+        print("if you only want to select 1 card, enter ONE number")
+        print("for multiple cards, separate each digits like: 1,2,3")
+        print("----------")
+        n = input("Enter Card order: ")
+        self.script.append(f"bb.select_cards([{n}])")
 
     def main(self):
+        print("FGO-Automata Demon")
+        print("----------")
+        print("This script will help you create your FGO-Automat Script")
+        print("----------")
+        input("Press any key to continue: ")
+        btl = [False, False, False]
+        # init
         self.init_sc()
+        # battle 1
+        while not btl[0]:
+            btl[0] = self.menu()
+        self.battle += 1
+        # battle 2
+        while not btl[1]:
+            btl[1] = self.menu()
+        self.battle += 1
+        # battle 3
+        while not btl[2]:
+            btl[2] = self.menu()
+        # end
+        self.script.append("bb.finish_battle()")
         print(self.script)
-        pass
+        """
+        TODO: convert to file
+        """
 
 
 if __name__ == "__main__":

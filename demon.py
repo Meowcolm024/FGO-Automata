@@ -4,22 +4,33 @@ class BB():
         self.battle = 1
 
     def init_sc(self):  # checkpoint, support, shifts
-        ckp = input("Enter the name of the Checkpoint (template image name, WITHOUT extension name): ")
-        spt = input("Enter the name of the Support (template image name, WITHOUT extension name): ")
-        sft_x = input("Enter shifts of X coordinate (Enter 0 if your res is 1920x1080): ")
-        sft_y = input("Enter shifts of Y coordinate (Enter 0 if your res is 1920x1080): ")
+        print("------------------------------------------------------------")
+        print("Enter the name of the Checkpoint (template image name, WITHOUT extension name)")
+        ckp = input("Checkpoint: ")
+
+        print("------------------------------------------------------------")
+        print("Enter the name of the Support (template image name, WITHOUT extension name)")
+        spt = input("Suppport: ")
+
+        print("------------------------------------------------------------")
+        print("Enter shifts of X coordinate (Enter 0 if your res is 1920x1080)")
+        sft_x = input("X shift: ")
+
+        print("Enter shifts of Y coordinate (Enter 0 if your res is 1920x1080)")
+        sft_y = input("Y shift: ")
+
         sc = f"bb = Automata(\"Automata(assets/{ckp}.png\", \"assets/{spt}.png\", ({sft_x}, {sft_y}))" # class name: bb
         self.script.append(sc)
 
     def menu(self) -> bool: 
         # menu
-        print("----------")
-        print("BATTLE:", self.battle)
-        print("----------")
+        print("------------------------------------------------------------")
+        print("BATTLE", self.battle)
+        print("------------------------------------------------------------")
         print("1 = select Servant skill(optional)")
         print("2 = select Master sill(optional)")
         print("3 = select Card order and finish current battle setting")
-        print("----------")
+        print("------------------------------------------------------------")
         # select
         n = input("Select a number: ")
         if n == "1":
@@ -34,11 +45,11 @@ class BB():
         return False
 
     def sv_skill(self):
-        print("----------")
+        print("------------------------------------------------------------")
         print("Servant skill types:")
         print("1 = skill w/o target servant")
         print("2 = skill w/ target servant")
-        print("----------")
+        print("------------------------------------------------------------")
         n = input("Select the type of the Servant skill: ")
         if n == "1":
             x = input("Enter skill id (1~9 count from left): ")
@@ -49,12 +60,12 @@ class BB():
             self.script.append(f"bb.select_servant_skill({x}, {y})")
 
     def ms_skill(self):
-        print("----------")
+        print("------------------------------------------------------------")
         print("Master skill types:")
         print("1 = skill w/o target servant")
         print("2 = skill w/ target servant")
         print("3 = Order Change")
-        print("----------")
+        print("------------------------------------------------------------")
         n = input("Select the type of the Master skill: ")
         if n == "1":
             x = input("Enter skill id (1~3 count from left): ")
@@ -69,24 +80,26 @@ class BB():
             self.script.append(f"bb.select_master_skill(3, {x}, {y})")
 
     def crd_order(self):
-        print("----------")
+        print("------------------------------------------------------------")
         print("Card Order:")
         print("Card id: 1~5 -> normal card, 6,7,8 -> NP card")
         print("if you only want to select 1 card, enter ONE number")
         print("for multiple cards, separate each digits like: 1,2,3")
-        print("----------")
+        print("------------------------------------------------------------")
         n = input("Enter Card order: ")
         self.script.append(f"bb.select_cards([{n}])")
 
     def start(self) -> str:
-        print("FGO-Automata Demon")
-        print("----------")
+        print("**********************")
+        print("* FGO-Automata Demon *")
+        print("**********************")
+        print("------------------------------------------------------------")
         print("This script will help you create your FGO-Automat Script")
-        print("----------")
+        print("------------------------------------------------------------")
         input("Press any key to continue: ")
-        print("----------")
+        print("------------------------------------------------------------")
         name = input("Enter script name: ")
-        print("----------")
+        print("------------------------------------------------------------")
         return name
 
     def setup_battle(self):
@@ -94,22 +107,29 @@ class BB():
         # init
         self.init_sc()
         # battle 1
+        self.script.append("# BATTLE " + str(self.battle))
         while not btl[0]:
             btl[0] = self.menu()
         self.battle += 1
         # battle 2
+        self.script.append("# BATTLE " + str(self.battle))
         while not btl[1]:
             btl[1] = self.menu()
         self.battle += 1
         # battle 3
+        self.script.append("# BATTLE " + str(self.battle))
         while not btl[2]:
             btl[2] = self.menu()
-        # end
+        # end'
+        self.script.append("# FINISH")
         self.script.append("bb.finish_battle()")
 
     def main(self):
         name = self.start()
         self.setup_battle()
+        print("------------------------------------------------------------")
+        print("Setup finished!")
+        print(f"Run {name}.py to start the script")
         file = open(name + ".py", "w+")
         content = '\n'.join(self.script)
         file.write(content)

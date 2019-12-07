@@ -6,22 +6,40 @@ if exist core/Automata.py (pause) else (goto wrong)
 echo ---------------------------------------------------------------------------------
 set /p name=请设置文件名(无需添加默认后缀.py,按Enter确认):
 echo from core.Automata import Automata > %name%.py
+echo # start  >> %name%.py
 echo 请设置游戏画面偏移坐标(若为1920x1080则x,y均填0):
 set /p x=x=
 set /p y=y=
-echo ---------------------------------------------------------------------------------
-echo 1=狗粮初级   2=狗粮中级   3=狗粮上级   4=狗粮超级
-echo 5=修炼场初级 6=修炼场中级 7=修炼场上级 8=修炼场超级
-echo 9=QP本初级   10=QP本中级  11=QP本上级  12=QP本超级
-echo ---------------------------------------------------------------------------------
-set /p start=请选择关卡(输入对应数字):
 set /p support=请设置助战图片(放于assets中,格式为xxx.png):
-echo # start  >> %name%.py
-echo fgo = Automata("assets/%start%.png", "assets/%support%", (%x%, %y%)) >> %name%.py
+goto :select
+:select
+cls
+echo ---------------------------------------------------------------------------------
+echo 请选择每日副本
+echo 1=狗粮 2=修炼场 3=QP本
+set /p stage=请选择(输入对应数字):
+if %stage%==1 (goto :ember) else if %stage%==2 (goto :training) else if %stage%==3 (goto :qp) else (goto :select)
+:ember
+echo 1=狗粮初级   2=狗粮中级   3=狗粮上级   4=狗粮超级
+echo ---------------------------------------------------------------------------------
+set /p start1=请选择等级(输入对应数字):
+echo fgo = Automata("assets/Ember%start1%.png", "assets/%support%", (%x%, %y%)) >> %name%.py
+goto :appleconfirm
+:training
+echo ---------------------------------------------------------------------------------
+echo 1=修炼场初级 2=修炼场中级 3=修炼场上级 4=修炼场超级
+set /p start2=请选择等级(输入对应数字):
+echo fgo = Automata("assets/Training%start2%.png", "assets/%support%", (%x%, %y%)) >> %name%.py
+goto :appleconfirm
+:qp
+echo ---------------------------------------------------------------------------------
+echo 1=QP本初级   2=QP本中级  3=QP本上级  4=QP本超级
+set /p start3=请选择等级(输入对应数字):
+echo fgo = Automata("assets/Qp%start3%.png", "assets/%support%", (%x%, %y%)) >> %name%.py
 goto :appleconfirm
 :appleconfirm
 set /p apple=是否使用苹果 是输入1 否输入2:
-if %apple% GTR 2 (goto :applewrong) else (goto :applenext)
+if %apple% gtr 2 (goto :applewrong) else (goto :applenext)
 :applewrong
 echo 请输入1或2!
 pause
@@ -33,9 +51,14 @@ echo 错误!请将本脚本放于FGO-Automata目录中
 pause
 exit
 :eat
-set /p a1=金苹果输入g 银苹果输入s:
+set /p a1=金苹果输入1 银苹果输入2:
 set /p a2=输入数量:
-echo fgo.set_apples(%a2%, "assets/%a1%.png") >> %name%.py
+if %a1%==1 (goto :gold) else if %a1%==2 (goto :silver) else (goto :eat)
+:gold
+echo fgo.set_apples(%a2%, "assets/gold.png")>>%name%.py
+goto :game
+:silver
+echo fgo.set_apples(%a2%, "assets/silver.png")>>%name%.py
 goto :game
 :game
 echo fgo.quick_start() >> %name%.py

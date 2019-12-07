@@ -72,12 +72,14 @@ if %num%==1 (goto :skill) else if %num%==2 (goto :master) else if %num%==3 (goto
 :skill
 cls
 echo ---------------------------------------------------------------------------------
+echo 使用前请关闭技能使用确认!
 echo 输入1为没有目标从者的技能,输入2为有目标从者的技能,输入其它返回菜单:
 set /p sc=请输入数字:
 if %sc%==1 (goto :1) else if %sc%==2 (goto :2) else (goto :menu)
 :1
 set /p s1=对于没有目标从者的技能（如“直死之魔眼”）则输入数字1～9，从左往右数。:
 echo fgo.select_servant_skill(%s1%) >> %name%.py
+echo 添加完成
 set /p sc1=是否继续添加从者技能 1为是 2为否:
 echo ---------------------------------------------------------------------------------
 if %sc1%==1 (goto :skill) else (goto :menu)
@@ -87,6 +89,7 @@ echo 第一个同上，第二个为目标从者（1～3，从左到右对应的从者）
 set /p n1=第一个数字:
 set /p n2=第二个数字:
 echo fgo.select_servant_skill(%n1%, %n2%) >> %name%.py
+echo 添加完成
 set /p sc1=是否继续添加从者技能 1为是 2为否:
 echo ---------------------------------------------------------------------------------
 if %sc1%==1 (goto :skill) else (goto :menu)
@@ -94,12 +97,13 @@ if %sc1%==1 (goto :skill) else (goto :menu)
 cls
 echo ---------------------------------------------------------------------------------
 echo 输入1为没有目标从者的御主技能,输入2为有目标从者的御主技能
-echo 输入3添加Order Change技能,,输入其它返回菜单:
+echo 输入3添加Order Change技能(需要礼装),输入其它返回菜单:
 set /p sc=请输入数字:
 if %sc%==1 (goto :3) else if %sc%==2 (goto :4) else if %sc%==3 (goto :oc) else (goto :menu)
 :3
 set /p s1=对于没有目标从者的御主技能,则输入数字1～3，从左往右数。:
 echo fgo.select_master_skill(%s1%) >> %name%.py
+echo 添加完成
 set /p sc2=是否继续添加御主技能 1为是 2为否:
 echo ---------------------------------------------------------------------------------
 if %sc2%==1 (goto :master) else (goto :menu)
@@ -109,6 +113,7 @@ echo 第一个同上，第二个为目标从者（1～3，从左到右对应的从者）
 set /p n1=第一个数字:
 set /p n2=第二个数字:
 echo fgo.select_master_skill(%n1%, %n2%) >> %name%.py
+echo 添加完成
 set /p sc3=是否继续添加御主技能 1为是 2为否:
 echo ---------------------------------------------------------------------------------
 if %sc3%==1 (goto :master) else (goto :menu)
@@ -117,8 +122,9 @@ set /p o1=请输入被替换的从者(1～3，前三个从左到右对应的从者):
 set /p o2=请输入上场的从者(1～3，后三个从左到右对应的从者):
 echo fgo.select_master_skill(3, %o1%, %o2%) >> %name%.py
 echo Order Change添加完成
-pause
-goto :menu
+set /p sc4=是否继续添加御主技能 1为是 2为否:
+echo ---------------------------------------------------------------------------------
+if %sc4%==1 (goto :master) else (goto :menu)
 :card
 cls
 echo ---------------------------------------------------------------------------------
@@ -131,6 +137,7 @@ echo 若多张卡请用半角英文符号[ , ]分隔 如 1,2,3
 set /p sel=请输入:
 echo fgo.select_cards([%sel%]) >> %name%.py
 echo 出卡顺序完成
+pause
 echo ---------------------------------------------------------------------------------
 goto :menu
 :extra
@@ -182,7 +189,7 @@ echo py %name%.py >> run.bat
 echo goto :main >> run.bat
 goto complete
 :complete
-echo 完成~ 复读脚本请运行run.bat 正常运行请py %name%.py
+echo 完成 复读脚本请运行run.bat 正常运行请py %name%.py
 echo ---------------------------------------------------------------------------------
 pause
 exit

@@ -18,7 +18,15 @@ set /p start=请选择关卡(输入对应数字):
 set /p support=请设置助战图片(放于assets中,格式为xxx.png):
 echo # start  >> %name%.py
 echo fgo = Automata("assets/%start%.png", "assets/%support%", (%x%, %y%)) >> %name%.py
+goto :appleconfirm
+:appleconfirm
 set /p apple=是否使用苹果 是输入1 否输入2:
+if %apple% GTR 2 (goto :applewrong) else (goto :applenext)
+:applewrong
+echo 请输入1或2!
+pause
+goto :appleconfirm
+:applenext
 if %apple%==1 (goto :eat) else if %apple%==2 (goto :game) else (goto :game)
 :wrong
 echo 错误!请将本脚本放于FGO-Automata目录中
@@ -36,7 +44,7 @@ goto :battle
 cls
 echo ---------------------------------------------------------------------------------
 echo 请按顺序输入回合数(不可未设置第二回合直接设置第一回合!)
-echo 1=第一回合 2=第二回合 3=第三回合 4=结束设置
+echo 1=第一回合 2=第二回合 3=第三回合 4=结束设置[必须]
 set /p ro=请输入数字:
 if %ro%==1 (goto :battle1) else if %ro%==2 (goto :battle2) else if %ro%==3 (goto :battle3) else if %ro%==4 (goto :finish) else (goto :battle)
 :battle1
@@ -64,7 +72,8 @@ if %num%==1 (goto :skill) else if %num%==2 (goto :master) else if %num%==3 (goto
 :skill
 cls
 echo ---------------------------------------------------------------------------------
-set /p sc=输入1为没有目标从者的技能,输入2为有目标从者的技能,输入其它返回菜单:
+echo 输入1为没有目标从者的技能,输入2为有目标从者的技能,输入其它返回菜单:
+set /p sc=请输入数字:
 if %sc%==1 (goto :1) else if %sc%==2 (goto :2) else (goto :menu)
 :1
 set /p s1=对于没有目标从者的技能（如“直死之魔眼”）则输入数字1～9，从左往右数。:
@@ -84,8 +93,10 @@ if %sc1%==1 (goto :skill) else (goto :menu)
 :master
 cls
 echo ---------------------------------------------------------------------------------
-set /p sc=输入1为没有目标从者的御主技能,输入2为有目标从者的御主技能,输入其它返回菜单:
-if %sc%==1 (goto :3) else if %sc%==2 (goto :4) else (goto :menu)
+echo 输入1为没有目标从者的御主技能,输入2为有目标从者的御主技能
+echo 输入3添加Order Change技能,,输入其它返回菜单:
+set /p sc=请输入数字:
+if %sc%==1 (goto :3) else if %sc%==2 (goto :4) else if %sc%==3 (goto :oc) else (goto :menu)
 :3
 set /p s1=对于没有目标从者的御主技能,则输入数字1～3，从左往右数。:
 echo fgo.select_master_skill(%s1%) >> %name%.py
@@ -101,6 +112,13 @@ echo fgo.select_master_skill(%n1%, %n2%) >> %name%.py
 set /p sc3=是否继续添加御主技能 1为是 2为否:
 echo ---------------------------------------------------------------------------------
 if %sc3%==1 (goto :master) else (goto :menu)
+:oc
+set /p o1=请输入被替换的从者(1～3，前三个从左到右对应的从者):
+set /p o2=请输入上场的从者(1～3，后三个从左到右对应的从者):
+echo fgo.select_master_skill(3, %o1%, %o2%) >> %name%.py
+echo Order Change添加完成
+pause
+goto :menu
 :card
 cls
 echo ---------------------------------------------------------------------------------

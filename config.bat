@@ -2,7 +2,17 @@
 mode con cols=81 lines=25
 color AF
 echo 请确认已将本脚本放于FGO-Automata目录中
-if exist core/Automata.py (pause) else (goto wrong)
+if exist core/Automata.py (pause&&goto :init) else (goto wrong)
+:init
+echo ---------------------------------------------------------------------------------
+echo 1=配置.py文件[必须]                    2=重复运行.py文件
+set /p zero=请选择(输入对应数字):
+if %zero%==1 (goto :create) else if %zero%==2 (goto :end) else (goto :init)
+:wrong
+echo 错误!请将本脚本放于FGO-Automata目录中
+pause
+exit
+:create
 echo ---------------------------------------------------------------------------------
 set /p name=请设置文件名(无需添加默认后缀.py,按Enter确认):
 echo from core.Automata import Automata > %name%.py
@@ -12,6 +22,19 @@ set /p x=x=
 set /p y=y=
 set /p support=请设置助战图片(放于assets中,格式为xxx.png):
 goto :select
+:end
+set /p lim=请设置重复次数:
+set num=0
+:main
+set /p namezero=请输入要运行的文件名(无需添加默认后缀.py,按Enter确认):
+goto :re1
+:re1
+if %num%==%lim% (pause&&echo.循环已完成&&exit) else (goto :re2)
+:re2
+py %namezero%.py
+set /a num+=1
+echo 第%num%次运行完成
+goto :re1
 :select
 cls
 echo ---------------------------------------------------------------------------------
@@ -46,19 +69,14 @@ pause
 goto :appleconfirm
 :applenext
 if %apple%==1 (goto :eat) else if %apple%==2 (goto :game) else (goto :game)
-:wrong
-echo 错误!请将本脚本放于FGO-Automata目录中
-pause
-exit
 :eat
 set /p a1=金苹果输入1 银苹果输入2:
-set /p a2=输入数量:
 if %a1%==1 (goto :gold) else if %a1%==2 (goto :silver) else (goto :eat)
 :gold
-echo fgo.set_apples(%a2%, "assets/gold.png")>>%name%.py
+echo fgo.set_apples(1, "assets/gold.png")>>%name%.py
 goto :game
 :silver
-echo fgo.set_apples(%a2%, "assets/silver.png")>>%name%.py
+echo fgo.set_apples(1, "assets/silver.png")>>%name%.py
 goto :game
 :game
 echo fgo.quick_start() >> %name%.py
@@ -67,7 +85,7 @@ goto :battle
 cls
 echo ---------------------------------------------------------------------------------
 echo 请按顺序输入回合数(不可未设置第二回合直接设置第一回合!)
-echo 1=第一回合 2=第二回合 3=第三回合 4=结束设置[必须]
+echo 1=Battle_1 2=Battle_2 3=Battle_3 4=结束设置[必须]
 set /p ro=请输入数字:
 if %ro%==1 (goto :battle1) else if %ro%==2 (goto :battle2) else if %ro%==3 (goto :battle3) else if %ro%==4 (goto :finish) else (goto :battle)
 :battle1
@@ -203,16 +221,13 @@ cls
 echo #finish >> %name%.py
 echo ---------------------------------------------------------------------------------
 echo fgo.finish_battle() >> %name%.py
-set /p run=是否生成复读脚本 是输入1 否输入2:
-if %run%==1 (goto :bat) else (goto :complete)
-:bat
-echo @echo off > run.bat
-echo :main >> run.bat
-echo py %name%.py >> run.bat
-echo goto :main >> run.bat
-goto complete
+echo 完成 如需重复运行请运行该文件 正常运行请py %name%.py
+echo 是否即刻运行? 1=是 2=否
+set /p run=请输入数字:
+if %run%==1 (goto :end) else (goto :complete)
 :complete
-echo 完成 复读脚本请运行run.bat 正常运行请py %name%.py
+pause
+exit
 echo ---------------------------------------------------------------------------------
 pause
 exit

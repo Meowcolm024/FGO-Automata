@@ -39,9 +39,9 @@ goto :re1
 cls
 echo ---------------------------------------------------------------------------------
 echo 请选择每日副本
-echo 1=狗粮 2=修炼场 3=QP本
+echo 1=狗粮 2=修炼场 3=QP本 4=自定义
 set /p stage=请选择(输入对应数字):
-if %stage%==1 (goto :ember) else if %stage%==2 (goto :training) else if %stage%==3 (goto :qp) else (goto :select)
+if %stage%==1 (goto :ember) else if %stage%==2 (goto :training) else if %stage%==3 (goto :qp) else if %stage%==4 (goto :custom) else (goto :select)
 :ember
 echo 1=狗粮初级   2=狗粮中级   3=狗粮上级   4=狗粮超级
 echo ---------------------------------------------------------------------------------
@@ -59,6 +59,11 @@ echo ---------------------------------------------------------------------------
 echo 1=QP本初级   2=QP本中级  3=QP本上级  4=QP本超级
 set /p start3=请选择等级(输入对应数字):
 echo fgo = Automata("assets/Qp%start3%.png", "assets/%support%", (%x%, %y%)) >> %name%.py
+goto :appleconfirm
+:custom
+echo ---------------------------------------------------------------------------------
+set /p start4=请输入自定义关卡图片名(png,请放置于assets目录中,不需要输入后缀)
+echo fgo = Automata("assets/%start4%.png", "assets/%support%", (%x%, %y%)) >> %name%.py
 goto :appleconfirm
 :appleconfirm
 set /p apple=是否使用苹果 是输入1 否输入2:

@@ -19,7 +19,7 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
   - [Table of Contents](#table-of-contents)
   - [Install](#install)
   - [Setup](#setup)
-  - [⚠️Notice](#%e2%9a%a0%ef%b8%8fnotice)
+  - [⚠️ Notice](#%e2%9a%a0%ef%b8%8f-notice)
   - [References](#references)
     - [1. Initialization](#1-initialization)
       - [1. Import package](#1-import-package)
@@ -56,17 +56,17 @@ Required libs: *ADB*, *PIL*, *OpenCV* and *numpy*
 
 There are mainly 3 ways to set up the script:
 
-- If you are familiar with _Python_, you can try to manually write the scipt. (See: [References](#references))
+- If you are familiar with _Python_, you can try to manually write the scipt. (See: [References](#references)) (You can also checkout the [example.py](example.py))
 - If you are using _Windows_, double click `config.bat` to set up the script.（中文）
 - If you are using _macOS_(or _Linux_), run `demon.py` to set up the script.
 
-## ⚠️Notice
+## ⚠️ Notice
 
 When using FGO-Automata as a automation script, notice the following things:
 
 1. Turn **OFF** skill confirmation(*Quick Cast*).
 2. When using `config.bat` or `demon.py`, make sure you can pass the Checkpoint within **3 turns**.
-3. Recommended: turn ON *Speed Up Death Animation* and **2x Speed**
+3. Recommended: turn ON *Speed Up Death Animation* and *2x Speed*
 
 ## References
 

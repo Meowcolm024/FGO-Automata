@@ -1,9 +1,9 @@
 # FGO-Automata
 
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Meowcolm024/FGO-Automata?include_prereleases)
-![GitHub issues](https://img.shields.io/github/issues/Meowcolm024/FGO-Automata)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/Meowcolm024/FGO-Automata)
-![GitHub](https://img.shields.io/github/license/meowcolm024/FGO-Automata)
+[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Meowcolm024/FGO-Automata?include_prereleases)](https://github.com/Meowcolm024/FGO-Automata/releases)
+[![GitHub issues](https://img.shields.io/github/issues/Meowcolm024/FGO-Automata)](https://github.com/Meowcolm024/FGO-Automata/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/Meowcolm024/FGO-Automata)](https://github.com/Meowcolm024/FGO-Automata/pulls)
+[![GitHub](https://img.shields.io/github/license/meowcolm024/FGO-Automata)](https://github.com/Meowcolm024/FGO-Automata/blob/master/LICENSE)
 
 **FGO-Automata** allows you to play _Fate/GO_ just like writting *Python* Script
 
@@ -26,6 +26,11 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
       - [2. Setup the Class](#2-setup-the-class)
       - [3. AP related (Optional)](#3-ap-related-optional)
     - [2. Start battle](#2-start-battle)
+      - [1. Quick Start (Recommended)](#1-quick-start-recommended)
+      - [2. Reset Checkpoint (Optional)](#2-reset-checkpoint-optional)
+      - [3. Reset Support (Optional)](#3-reset-support-optional)
+      - [4. Use Advance Support Selection (Optional)](#4-use-advance-support-selection-optional)
+      - [5. Start Battle (Optional)](#5-start-battle-optional)
     - [3. During battle](#3-during-battle)
       - [1. Select cards](#1-select-cards)
       - [2. Select Servant skills](#2-select-servant-skills)
@@ -37,6 +42,7 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
       - [1. Wait for a certain scene](#1-wait-for-a-certain-scene)
       - [2. Tap screen](#2-tap-screen)
       - [3. Toggle Master Skill](#3-toggle-master-skill)
+      - [4. Update Support List](#4-update-support-list)
   - [Making Templates](#making-templates)
   - [TO-DO](#to-do)
 
@@ -108,22 +114,48 @@ shiki.set_apples(0, "assets/silver.png")
 
 ### 2. Start battle
 
-```python
-# start
-shiki.select_checkpoint("assets/checkpoint2.png") # the argument is optional
-shiki.select_support("assets/qp2.png") # the argument is optional
-shiki.start_battle()
-```
-
-* You can choose other checkpoints and supports if needed
-* If you don't need to modify your checkpoints and supports you can use:
+#### 1. Quick Start (Recommended)
 
 ```python
 shiki.quick_start()
 ```
 
+* If you don't need to modify your checkpoints and supports you can use this. (Then you can skip the following 4 articles)
+
+#### 2. Reset Checkpoint (Optional)
+
+```python
+shiki.select_checkpoint("assets/checkpoint2.png") # the argument is optional
+```
+
+* This method is implemented in `.quick_start()` without the argument.
+* You can reset checkpoint image if needed.
+
+#### 3. Reset Support (Optional)
+
+```python
+# start
+shiki.select_support("assets/qp2.png") # the argument is optional
+```
+
+
+* This method is implemented in `.quick_start()` without the argument.
+* * You can reset support image if needed.
+
 > **About support selection**  
 > It will onlt select the *support servant* in first page(the first 3 servants) if there isn't any match, it will automatically select the **first** support servant by default
+
+#### 4. Use Advance Support Selection (Optional)
+
+> This part is not finished
+
+#### 5. Start Battle (Optional)
+
+```python
+shiki.start_battle()
+```
+
+- If you did **NOT** use `.quick_start()`, you need to use this command to start the battle.
 
 ### 3. During battle
 
@@ -249,6 +281,15 @@ shiki.toggle_master_skill()
 
 * You can use this function to turn on/off the _Master_ skill panel.
 
+#### 4. Update Support List
+
+```python
+# .update_support() -> bool
+x = shiki.update_support()
+```
+
+* It returns `True` if the *support list* is successfully updated, otherwise is `False`.
+
 ## Making Templates
 
 Here are two examples of the template:
@@ -261,8 +302,12 @@ Here are two examples of the template:
 
 * This is a template of the _support_
 
+> The template image of the support can either be an image of a *Craft Essence* or a *Servant*.  
+> You can use the *filter feature* in the game to filter the crafts and use an image of a desired *Servant* for selection.
+
 **Notice that your template should be distinctive.**
 
 ## TO-DO
 
 - [ ] Advance support selection
+- [ ] Dynamic battle analysis

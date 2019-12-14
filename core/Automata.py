@@ -94,13 +94,14 @@ class Automata():
     # advance support
     def advance_suppoet(self, spt: str = None):
         """
-        NOT FINISHED
+         NOT TESTED!
         """
         time.sleep(0.3)
         if spt is None:
             spt = self.support
         x = util.get_crd(util.get_sh(self.shifts), spt)
         counter = False
+        times = 0
         while len(x) == 0:
             if not counter:
                 self.swipe((1000, 800), (1000, 300), 0.5 +
@@ -110,9 +111,13 @@ class Automata():
                 update = self.update_support()
                 if update:
                     counter = False
+                    if times > 5: 
+                        raise Exception("Desired support not found!")
                 else:
                     time.sleep(3)
+            time.sleep(0.5)
             x = util.get_crd(util.get_sh(self.shifts), spt)
+            times += 1
         self.tap(x[0])
 
     def update_support(self) -> bool:
@@ -123,7 +128,7 @@ class Automata():
             self.tap((1240, 840), 10, 5)
             return True
         else:
-            self.tap((900, 800))
+            self.tap((950, 840))
             return False
 
     # after-battle related

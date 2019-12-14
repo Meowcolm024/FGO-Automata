@@ -21,22 +21,54 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
   - [Setup](#setup)
   - [⚠️ Notice](#%e2%9a%a0%ef%b8%8f-notice)
   - [References](#references)
-    - [1. Initialization](#1-initialization)
-      - [1. Import package](#1-import-package)
-      - [2. Setup the Class](#2-setup-the-class)
-      - [3. AP related (Optional)](#3-ap-related-optional)
-    - [2. Start battle](#2-start-battle)
-    - [3. During battle](#3-during-battle)
-      - [1. Select cards](#1-select-cards)
-      - [2. Select Servant skills](#2-select-servant-skills)
-      - [3. Select Master skills](#3-select-master-skills)
-      - [4. Select Servant (DEPRECATED)](#4-select-servant-deprecated)
-      - [5. Change Servants (DEPRECATED)](#5-change-servants-deprecated)
-    - [4. Finish battle](#4-finish-battle)
-    - [5. Other functions](#5-other-functions)
-      - [1. Wait for a certain scene](#1-wait-for-a-certain-scene)
-      - [2. Tap screen](#2-tap-screen)
-      - [3. Toggle Master Skill](#3-toggle-master-skill)
+    - [<ol>
+<li>Initialization</li>
+</ol>](#ol-liinitializationli-ol)
+      - [<ol>
+<li>Import package</li>
+</ol>](#ol-liimport-packageli-ol)
+      - [<ol start="2">
+<li>Setup the Class</li>
+</ol>](#ol-start%222%22-lisetup-the-classli-ol)
+      - [<ol start="3">
+<li>AP related (Optional)</li>
+</ol>](#ol-start%223%22-liap-related-optionalli-ol)
+    - [<ol start="2">
+<li>Start battle</li>
+</ol>](#ol-start%222%22-listart-battleli-ol)
+    - [<ol start="3">
+<li>During battle</li>
+</ol>](#ol-start%223%22-liduring-battleli-ol)
+      - [<ol>
+<li>Select cards</li>
+</ol>](#ol-liselect-cardsli-ol)
+      - [<ol start="2">
+<li>Select Servant skills</li>
+</ol>](#ol-start%222%22-liselect-servant-skillsli-ol)
+      - [<ol start="3">
+<li>Select Master skills</li>
+</ol>](#ol-start%223%22-liselect-master-skillsli-ol)
+      - [<ol start="4">
+<li>Select Servant (DEPRECATED)</li>
+</ol>](#ol-start%224%22-liselect-servant-deprecatedli-ol)
+      - [<ol start="5">
+<li>Change Servants (DEPRECATED)</li>
+</ol>](#ol-start%225%22-lichange-servants-deprecatedli-ol)
+    - [<ol start="4">
+<li>Finish battle</li>
+</ol>](#ol-start%224%22-lifinish-battleli-ol)
+    - [<ol start="5">
+<li>Other functions</li>
+</ol>](#ol-start%225%22-liother-functionsli-ol)
+      - [<ol>
+<li>Wait for a certain scene</li>
+</ol>](#ol-liwait-for-a-certain-sceneli-ol)
+      - [<ol start="2">
+<li>Tap screen</li>
+</ol>](#ol-start%222%22-litap-screenli-ol)
+      - [<ol start="3">
+<li>Toggle Master Skill</li>
+</ol>](#ol-start%223%22-litoggle-master-skillli-ol)
   - [Making Templates](#making-templates)
   - [TO-DO](#to-do)
 
@@ -54,11 +86,13 @@ Required libs: *ADB*, *PIL*, *OpenCV* and *numpy*
 
 ## Setup
 
-There are mainly 3 ways to set up the script:
+There are mainly 3 ways to set up *FGO-Automata*(as automation script):
 
 - If you are familiar with _Python_, you can try to manually write the scipt. (See: [References](#references)) (You can also checkout the [example.py](example.py))
 - If you are using _Windows_, double click `config.bat` to set up the script.（中文）
 - If you are using _macOS_(or _Linux_), run `demon.py` to set up the script.
+
+You can also use *FGO-Automata* as an API in your own project, just import the package :)
 
 ## ⚠️ Notice
 
@@ -119,6 +153,9 @@ shiki.start_battle()
 ```python
 shiki.quick_start()
 ```
+
+> **About support selection**  
+> It will onlt select the *support servant* in first page(the first 3 servants) if there isn't any match, it will automatically select the **first** support servant by default
 
 ### 3. During battle
 

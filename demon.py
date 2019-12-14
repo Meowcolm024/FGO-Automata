@@ -5,11 +5,11 @@ class BB():
 
     def init_sc(self):  # checkpoint, support, shifts
         print("------------------------------------------------------------")
-        print("Enter the name of the Checkpoint (template image name, WITHOUT extension name)")
+        print("Enter the name of the Checkpoint image (PNG in /assets) (WITHOUT extension name)")
         ckp = input("Checkpoint: ")
 
         print("------------------------------------------------------------")
-        print("Enter the name of the Support (template image name, WITHOUT extension name)")
+        print("Enter the name of the Support image (PNG in /assets) (WITHOUT extension name)")
         spt = input("Suppport: ")
 
         print("------------------------------------------------------------")
@@ -19,8 +19,9 @@ class BB():
         print("Enter shifts of Y coordinate (Enter 0 if your res is 1920x1080)")
         sft_y = input("Y shift: ")
 
-        sc = f"bb = Automata(\"Automata(assets/{ckp}.png\", \"assets/{spt}.png\", ({sft_x}, {sft_y}))" # class name: bb
+        sc = f"bb = Automata(\"assets/{ckp}.png\", \"assets/{spt}.png\", ({sft_x}, {sft_y}))" # class name: bb
         self.script.append(sc)
+        self.script.append("bb.quick_start()")
 
     def menu(self) -> bool: 
         # menu

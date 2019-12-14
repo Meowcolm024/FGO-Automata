@@ -57,7 +57,6 @@ class Automata():
             time.sleep(0.2)
         self.tap(crds.MASTER)
 
-
     def select_master_skill(self, skill: int, org: int = 0, tar: int = 0):
         self.toggle_master_skill()
         self.tap(crds.MASTER_SKILLS[skill-1], 8, 8)
@@ -93,19 +92,39 @@ class Automata():
             self.tap(x[0])
 
     # advance support
-    def advance_suppoet(self):
+    def advance_suppoet(self, spt: str = None):
         """
-        not targey not found -> scroll down
-        update oncce
+        NOT FINISHED
         """
-        pass
+        time.sleep(0.3)
+        if spt is None:
+            spt = self.support
+        x = util.get_crd(util.get_sh(self.shifts), spt)
+        counter = False
+        while len(x) == 0:
+            if not counter:
+                self.swipe((1000, 800), (1000, 300), 0.5 +
+                           0.1 * random.randrange(1, 10))
+                counter = True
+            else:
+                update = self.update_support()
+                if update:
+                    counter = False
+                else:
+                    time.sleep(3)
+            x = util.get_crd(util.get_sh(self.shifts), spt)
+        self.tap(x[0])
 
     def update_support(self) -> bool:
-        """
-        return True if update succeeded
-        if not, return False
-        """
-        pass
+        btn = util.get_crd(util.get_sh(self.shifts), "assets/update.png")
+        self.tap(btn[0], 1, 1)
+        time.sleep(0.1)
+        if util.standby(util.get_sh(self.shifts), "assets/uplist.png"):
+            self.tap((1240, 840), 10, 5)
+            return True
+        else:
+            self.tap((900, 800))
+            return False
 
     # after-battle related
     def finish_battle(self):
@@ -154,6 +173,14 @@ class Automata():
         x = crd[0] + self.shifts[0]
         y = crd[1] + self.shifts[1]
         util.tap(util.shifter((x, y), i, j))
+
+    def swipe(self, org: (int, int), tar: (int, int), delay, sfts: (int, int) = (10, 10),):
+        original = (org[0] + self.shifts[0], org[1] + self.shifts[1])
+        target = (tar[0] + self.shifts[0], tar[1] + self.shifts[1])
+        util.swipe(
+            util.shifter(original, sfts[0], sfts[1]),
+            util.shifter(target, sfts[0], sfts[1]),
+            delay)
 
     def wait(self, pic: str):
         while not util.standby(util.get_sh(self.shifts), pic):

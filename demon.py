@@ -107,20 +107,12 @@ class BB():
         btl = [False, False, False]
         # init
         self.init_sc()
-        # battle 1
-        self.script.append("# BATTLE " + str(self.battle))
-        while not btl[0]:
-            btl[0] = self.menu()
-        self.battle += 1
-        # battle 2
-        self.script.append("# BATTLE " + str(self.battle))
-        while not btl[1]:
-            btl[1] = self.menu()
-        self.battle += 1
-        # battle 3
-        self.script.append("# BATTLE " + str(self.battle))
-        while not btl[2]:
-            btl[2] = self.menu()
+        # battles
+        for i in range(3):
+            self.script.append("# BATTLE " + str(self.battle))
+            while not btl[i]:
+                btl[i] = self.menu()
+            self.battle += 1
         # end'
         self.script.append("# FINISH")
         self.script.append("bb.finish_battle()")

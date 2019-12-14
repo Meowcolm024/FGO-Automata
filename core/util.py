@@ -21,7 +21,7 @@ def swipe(org: (int, int), tar: (int, int), delay):
         y1=org[1],
         x2=tar[0],
         y2=tar[1],
-        delay1=delay
+        delay1=int(delay*1000)
     )
     print(cmdSwipe)
     os.system(cmdSwipe)

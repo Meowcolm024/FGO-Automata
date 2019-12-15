@@ -122,6 +122,9 @@ shiki.quick_start()
 
 * If you don't need to modify your checkpoints and supports you can use this. (Then you can skip the following 4 articles)
 
+> **Experimental!!**  
+> In the `quick_start()` method, there is an optional parameter `advance`. By default, it is `False`, but you can set it to `True` to enable the [`Advance Support Selection`](#4-use-advance-support-selection-optional).
+
 #### 2. Reset Checkpoint (Optional)
 
 ```python
@@ -147,7 +150,13 @@ shiki.select_support("assets/qp2.png") # the argument is optional
 
 #### 4. Use Advance Support Selection (Optional)
 
-> This part is not finished
+```python
+shiki.advance_suppoet(spt="assets/sp3.png", tms=1)
+```
+
+* This is the advance support selection, it will check the first 3 support, if none matches, it will scroll down to have another check. If there is still isn't any matches, it will try to update the support list, then repeat the cycle.
+* The argument `spt` is optional, you can override the original support servant.
+* The argument `tms` is the times the script will update the support list, default is `3`.
 
 #### 5. Start Battle (Optional)
 

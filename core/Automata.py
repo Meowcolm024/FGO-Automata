@@ -10,7 +10,7 @@ class Automata():
         ----------
             ckp: str
         Path to the checkpoint image
-        
+
             spt: str
         Path to the support image
 
@@ -20,7 +20,7 @@ class Automata():
         self.shifts = sft
         self.checkpoint = ckp
         self.support = spt
-        self.counts = 0 # apple counts
+        self.counts = 0  # apple counts
         self.apple = ""
 
     # battle related
@@ -44,7 +44,7 @@ class Automata():
             time.sleep(0.2)
         # tap ATTACK
         self.tap(crds.ATTACK, 100, 100)
-        time.sleep(1)
+        time.sleep(1.3)
         while len(cards) < 3:
             x = random.randrange(1, 6)
             if x in cards:
@@ -52,7 +52,7 @@ class Automata():
             cards.append(x)
         # tap CARDS
         for card in cards:
-            self.tap(crds.CARDS[card-1], 50, 100)
+            self.tap(crds.CARDS[card-1], 40, 90)
             time.sleep(0.2)
 
     # new: self, skill, tar
@@ -67,7 +67,7 @@ class Automata():
             tar: int, optional
         The id of target servant. 1~3 counted from left.
         (If the skill has target servant)
-        
+
         Examples
         --------
         Here are examples::
@@ -91,7 +91,7 @@ class Automata():
         """
         while not util.standby(util.get_sh(self.shifts), "assets/select.png"):
             time.sleep(0.2)
-        self.tap(crds.TARGETS[servant-1], 150, 150)
+        self.tap(crds.TARGETS[servant-1], 100, 100)
 
     def change_servant(self, org: int, tar: int):
         """ Change Servant
@@ -190,16 +190,27 @@ class Automata():
             self.tap(x[0])
 
     # advance support
-    def advance_suppoet(self, spt: str = None):
-        """
-        NOT TESTED!
+    def advance_suppoet(self, spt: str = None, tms: int = 3):
+        """ Advance Support Selection
+        Parameters
+        ----------
+            spt: str, optional
+        Override the initially set support.
+        
+            tms: int, optional
+        Max support list update times. (Default: 3)
+
+        Raises
+        ------
+            Exception("Desired support not found!")
+        Raises when reached maxium update times.
         """
         time.sleep(0.3)
         if spt is None:
             spt = self.support
         x = util.get_crd(util.get_sh(self.shifts), spt)
         counter = False
-        times = 0
+        times = tms
         while len(x) == 0:
             if not counter:
                 self.swipe((1000, 800), (1000, 300), 0.5 +
@@ -209,13 +220,13 @@ class Automata():
                 update = self.update_support()
                 if update:
                     counter = False
-                    if times > 5: 
+                    times -= 1
+                    if times < 0:
                         raise Exception("Desired support not found!")
                 else:
                     time.sleep(3)
             time.sleep(0.5)
             x = util.get_crd(util.get_sh(self.shifts), spt)
-            times += 1
         self.tap(x[0])
 
     def update_support(self) -> bool:
@@ -282,12 +293,22 @@ class Automata():
         x = util.get_crd(util.get_sh(self.shifts), "assets/start.png")
         self.tap(x[0])
 
-    def quick_start(self):
+    def quick_start(self, advance = False):
         """ Quick Start
         Select the default `checkpoint`, `support` and start the battle.
+
+        Parameters
+        ----------
+            advance: bool, optional
+        Set to `True` if you want to enable `advance support selection`, `False` to use the normal support selection.
+        By default, it is `False`
+        
         """
         self.select_checkpoint()
-        self.select_support()
+        if advance:
+            self.advance_suppoet()
+        else:
+            self.select_support()
         self.start_battle()
 
     def tap(self, crd: (int, int), i: int = 10, j: int = 10):

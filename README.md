@@ -294,15 +294,21 @@ x = shiki.update_support()
 
 Here are two examples of the template:
 
-![checkpoint](assets/event.png)
+<details>
 
-* This is a template of a _checkpoint_
+![checkpoint](assets/event.png)
+![another checkpoint](assets/Training4.png)
+
+* These are templates of _checkpoints_
 
 ![support](assets/sp2.png)
+![another support](assets/sp3.png)
 
-* This is a template of the _support_
+* These are templates of _supports_
 
-> The template image of the support can either be an image of a *Craft Essence* or a *Servant*.  
+</details>
+
+> The template image of the support can either be an image of a *Craft Essence* or a *Servant*(You don't need to precisely cut the image like above.).  
 > You can use the *filter feature* in the game to filter the crafts and use an image of a desired *Servant* for selection.
 
 **Notice that your template should be distinctive.**

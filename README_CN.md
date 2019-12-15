@@ -125,3 +125,17 @@ rin.select_master_skill(3, 1, 1)
 # finish
 shiki.finish_battle()
 ```
+
+## 制作模板图片
+
+以下是模板图片的两个例子：
+
+![checkpoint](assets/event.png)
+
+* 关卡模板图片
+
+![support](assets/sp2.png)
+
+* 助战模板图片
+
+> 关于助战的模板图片，可以考虑先用游戏中的礼装过滤，再使用从者头像作为助战的模板图片。

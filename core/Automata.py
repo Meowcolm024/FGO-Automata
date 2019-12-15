@@ -5,14 +5,41 @@ from core import util, crds
 
 class Automata():
     def __init__(self, ckp: str, spt: str = None, sft=(0, 0)):
+        """
+        Parameters
+        ----------
+            ckp: str
+        Path to the checkpoint image
+        
+            spt: str
+        Path to the support image
+
+            sft: (int, int), optional
+        Coordinate shifts in (x, y). When there are blues straps at the edges.
+        """
         self.shifts = sft
         self.checkpoint = ckp
         self.support = spt
-        self.counts = 0
+        self.counts = 0 # apple counts
         self.apple = ""
 
     # battle related
     def select_cards(self, cards: [int]):
+        """ Select Order Cards
+        Parameters
+        ----------
+            cards: [int]
+        A list of numbers of the card id (1~5 -> normal cards, 6,7,8 -> NP cards). 
+        It should have maximum 3 number.   
+
+        Examples
+        --------
+        Here are examples::
+
+            select_cards([6]) # left the rest 2 randomly choosen
+            select_cards([6,2]) # left the last 1 randomly choosen
+            select_cards([1,2,3])
+        """
         while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
             time.sleep(0.2)
         # tap ATTACK
@@ -31,6 +58,23 @@ class Automata():
     # new: self, skill, tar
     # combine select servant
     def select_servant_skill(self, skill: int, tar: int = 0):
+        """ Select Servant Skill
+        Parameters
+        ----------
+            skill: int
+        The id of the skill. 1~9 counted from left.
+
+            tar: int, optional
+        The id of target servant. 1~3 counted from left.
+        (If the skill has target servant)
+        
+        Examples
+        --------
+        Here are examples::
+
+            select_servant_skill(1) # skill w/o target servants
+            select_servant_skill(3, 2) # skill w/ target servants
+        """
         while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
             time.sleep(0.2)
         self.tap(crds.SERVANT_SKILLS[skill-1], 5, 5)
@@ -39,11 +83,26 @@ class Automata():
             self.select_servant(tar)
 
     def select_servant(self, servant: int):
+        """ Select Servant
+        Parameters
+        ----------
+            servant: int
+        The id of the servant. 1~3 counted from left.
+        """
         while not util.standby(util.get_sh(self.shifts), "assets/select.png"):
             time.sleep(0.2)
         self.tap(crds.TARGETS[servant-1], 150, 150)
 
     def change_servant(self, org: int, tar: int):
+        """ Change Servant
+        Parameters
+        ----------
+            org: int
+        Servant id on the left side(1~3) 
+
+            tar: int
+        Servant id on the right side(1~3)
+        """
         while not util.standby(util.get_sh(self.shifts), "assets/order_change.png"):
             time.sleep(0.2)
         self.tap(crds.SERVANTS[org-1], 90, 90)
@@ -58,6 +117,28 @@ class Automata():
         self.tap(crds.MASTER)
 
     def select_master_skill(self, skill: int, org: int = 0, tar: int = 0):
+        """ Servant Master Skill
+        Parameters
+        ----------
+            skill: int
+        Skill id 1~3, counted from left.
+
+            org: int, optional
+        Target servant id 1~3, counted from left.(When only 2 args)
+        When implemented the 3rd arg, it is the id of the servants on the left side(1~3)
+
+            tar: int, optional
+        Servant id on the right side(1~3)
+
+        Examples
+        --------
+        Here are examples::
+
+            select_master_skill(1) # skill w/o target servants
+            select_master_skill(2, 2) # skill w/ target servants
+            select_master_skill(3, 1, 1) # Order Change
+
+        """
         self.toggle_master_skill()
         self.tap(crds.MASTER_SKILLS[skill-1], 8, 8)
         if org != 0 and tar == 0:
@@ -67,6 +148,17 @@ class Automata():
 
     # pre-battle related
     def select_checkpoint(self, ckp: str = None):
+        """ Select Checkpoint
+        Parameters
+        ----------
+            ckp: str, optional
+        Override the initially set checkpoint.
+
+        Raises
+        ------
+            Exception("Out of AP!")
+        When out of AP.
+        """
         self.wait(self.checkpoint)
         if ckp is None:
             ckp = self.checkpoint
@@ -82,6 +174,12 @@ class Automata():
                 raise Exception("Out of AP!")
 
     def select_support(self, spt: str = None):
+        """ Select Support
+        Parameters
+        ----------
+            spt: str, optional
+        Override the initially set support.
+        """
         time.sleep(0.3)
         if spt is None:
             spt = self.support
@@ -94,7 +192,7 @@ class Automata():
     # advance support
     def advance_suppoet(self, spt: str = None):
         """
-         NOT TESTED!
+        NOT TESTED!
         """
         time.sleep(0.3)
         if spt is None:
@@ -121,6 +219,12 @@ class Automata():
         self.tap(x[0])
 
     def update_support(self) -> bool:
+        """ Update Support List
+        Returns
+        -------
+            bool
+        `True` if successfully updated, otherwise is `False`.
+        """
         btn = util.get_crd(util.get_sh(self.shifts), "assets/update.png")
         self.tap(btn[0], 1, 1)
         time.sleep(0.1)
@@ -151,6 +255,15 @@ class Automata():
     # AP related
     # Not tested
     def set_apples(self, cnt: int, apl: str):
+        """ Set Apples
+        Parameters
+        ----------
+            cnt: int
+        Number of the apples willl be used.
+
+            apl: str
+        Path to the image of the apple.
+        """
         self.counts = cnt
         self.apple = apl
 
@@ -170,6 +283,9 @@ class Automata():
         self.tap(x[0])
 
     def quick_start(self):
+        """ Quick Start
+        Select the default `checkpoint`, `support` and start the battle.
+        """
         self.select_checkpoint()
         self.select_support()
         self.start_battle()

@@ -150,6 +150,8 @@ shiki.select_support("assets/qp2.png") # the argument is optional
 #### 4. Use Advance Support Selection (Optional)
 
 ```python
+rin.advance_support()  # w/o any param
+ryougiadvance_support(tms=5)  # update time only
 shiki.advance_support(spt="assets/sp3.png", tms=1)
 ```
 
@@ -323,5 +325,5 @@ Here are two examples of the template:
 
 ## TO-DO
 
-- [ ] Advance support selection
+- [x] Advance support selection
 - [ ] Dynamic battle analysis

@@ -28,7 +28,7 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
     - [2. Start battle](#2-start-battle)
       - [1. Quick Start (Recommended)](#1-quick-start-recommended)
       - [2. Reset Checkpoint (Optional)](#2-reset-checkpoint-optional)
-      - [3. Reset Support (Optional)](#3-reset-support-optional)
+      - [3. Reset Support (DEPRECATED)](#3-reset-support-deprecated)
       - [4. Use Advance Support Selection (Optional)](#4-use-advance-support-selection-optional)
       - [5. Start Battle (Optional)](#5-start-battle-optional)
     - [3. During battle](#3-during-battle)
@@ -117,13 +117,12 @@ shiki.set_apples(0, "assets/silver.png")
 #### 1. Quick Start (Recommended)
 
 ```python
+# .quick_start(advance=True)
 shiki.quick_start()
 ```
 
 * If you don't need to modify your checkpoints and supports you can use this. (Then you can skip the following 4 articles)
-
-> **Experimental!!**  
-> In the `quick_start()` method, there is an optional parameter `advance`. By default, it is `False`, but you can set it to `True` to enable the [`Advance Support Selection`](#4-use-advance-support-selection-optional).
+* By default, this method will use the `Advance Support Selection`(See [Advance Support Selection](#4-use-advance-support-selection-optional)). But you can also turn it OFF, which use the old way, by setting `advance=False`.
 
 #### 2. Reset Checkpoint (Optional)
 
@@ -134,14 +133,14 @@ shiki.select_checkpoint("assets/checkpoint2.png") # the argument is optional
 * This method is implemented in `.quick_start()` without the argument.
 * You can reset checkpoint image if needed.
 
-#### 3. Reset Support (Optional)
+#### 3. Reset Support (DEPRECATED)
 
 ```python
 # start
 shiki.select_support("assets/qp2.png") # the argument is optional
 ```
 
-
+* **NOTICE: The function of this method is replaced by `Advance Support Selection`**
 * This method is implemented in `.quick_start()` without the argument.
 * * You can reset support image if needed.
 
@@ -151,7 +150,7 @@ shiki.select_support("assets/qp2.png") # the argument is optional
 #### 4. Use Advance Support Selection (Optional)
 
 ```python
-shiki.advance_suppoet(spt="assets/sp3.png", tms=1)
+shiki.advance_support(spt="assets/sp3.png", tms=1)
 ```
 
 * This is the advance support selection, it will check the first 3 support, if none matches, it will scroll down to have another check. If there is still isn't any matches, it will try to update the support list, then repeat the cycle.

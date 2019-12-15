@@ -190,7 +190,7 @@ class Automata():
             self.tap(x[0])
 
     # advance support
-    def advance_suppoet(self, spt: str = None, tms: int = 3):
+    def advance_support(self, spt: str = None, tms: int = 3):
         """ Advance Support Selection
         Parameters
         ----------
@@ -293,7 +293,7 @@ class Automata():
         x = util.get_crd(util.get_sh(self.shifts), "assets/start.png")
         self.tap(x[0])
 
-    def quick_start(self, advance = False):
+    def quick_start(self, advance = True):
         """ Quick Start
         Select the default `checkpoint`, `support` and start the battle.
 
@@ -306,7 +306,7 @@ class Automata():
         """
         self.select_checkpoint()
         if advance:
-            self.advance_suppoet()
+            self.advance_support()
         else:
             self.select_support()
         self.start_battle()

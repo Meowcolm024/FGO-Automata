@@ -35,8 +35,8 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
       - [1. Select cards](#1-select-cards)
       - [2. Select Servant skills](#2-select-servant-skills)
       - [3. Select Master skills](#3-select-master-skills)
-      - [4. Select Servant (DEPRECATED)](#4-select-servant-deprecated)
-      - [5. Change Servants (DEPRECATED)](#5-change-servants-deprecated)
+      - [4. Select Servant](#4-select-servant)
+      - [5. Change Servants](#5-change-servants)
     - [4. Finish battle](#4-finish-battle)
     - [5. Other functions](#5-other-functions)
       - [1. Wait for a certain scene](#1-wait-for-a-certain-scene)
@@ -91,16 +91,14 @@ from core.Automata import Automata
 #### 2. Setup the Class
 
 ```python
-shiki = Automata("assets/checkpoint.png", "assets/qp.png", (248, 0))
-```
-
-```python
-ryougi = Automata("assets/checkpoint.png", "assets/qp.png")
+rin = Automata("assets/checkpoint.png", "assets/qp.png")
+shiki = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0))
+ryougi = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0), apl=(1, "assets/silver.png"))
 ```
 
 * The first argument and the second one refers to the **path** of your **template** of checkpoint and **support servant**.
-* And the third argument is also optional, if you screen resolution is *1920x1080*, just leave it blank or replace it with `(0,0)`.
-* In the third argument, only add them if there are blues straps at the edges. For `(x, y)`, *x* refers to the shifts in x-axis shift, *y* refers to y-axis shift.
+* For the *optional* param `sft`: if you screen resolution is *1920x1080*, just ignore it. But if there are blues straps at the edges, it is the shift of the top left corner. For `(x, y)`, *x* refers to the shifts in x-axis shift, *y* refers to y-axis shift.
+* For the *optional* param `apl`: it is a tuple of `(int, str)`, the first item is number, representing how many apples will be consumed. The second one refers to the **path** of your **template** of the type of the apple (incl. *Quartz*). **(It has the same function as `set_apples`)**
 
 #### 3. AP related (Optional)
 
@@ -109,6 +107,7 @@ ryougi = Automata("assets/checkpoint.png", "assets/qp.png")
 shiki.set_apples(0, "assets/silver.png")
 ```
 
+* **NOTICE: It will override the set apples and the counter**
 * If you are using it as a automation bot, you may encounter AP problem which need to use *Gold Apples*.
 * Notice that the function recieves 2 arguments. The first item is number, representing how many apples will be consumed. The second one refers to the **path** of your **template** of the type of the apple (incl. *Quartz*).
 
@@ -151,7 +150,7 @@ shiki.select_support("assets/qp2.png") # the argument is optional
 
 ```python
 rin.advance_support()  # w/o any param
-ryougiadvance_support(tms=5)  # update time only
+ryougi.advance_support(tms=5)  # update time only
 shiki.advance_support(spt="assets/sp3.png", tms=1)
 ```
 
@@ -174,9 +173,7 @@ shiki.start_battle()
 ```python
 # .select_cards(<list of the desired cards(in order)>)
 shiki.select_cards([7])
-```
-
-```python
+rin.select_cards([8,6])
 ryougi.select_cards([1,2,3])
 ```
 
@@ -201,7 +198,7 @@ shiki.select_servant_skill(4)
 ryougi.select_servant_skill(2, 3)
 ```
 
-* You can also add the second argument for the target *Servant*(See: [*Select Servants*](#4-select-servant-deprecated)). The second argument receives a number. The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
+* You can also add the second argument for the target *Servant*(See: [*Select Servants*](#4-select-servant)). The second argument receives a number. The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
 
 #### 3. Select Master skills
 
@@ -220,7 +217,7 @@ shiki.select_master_skill(2)
 ryougi.select_master_skill(1, 3)
 ```
 
-* You can also add the second argument for target *Servant*(See: [*Select Servants*](#4-select-servant-deprecated)). The second argument receives a number. The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
+* You can also add the second argument for target *Servant*(See: [*Select Servants*](#4-select-servant)). The second argument receives a number. The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
 
 ```python
 # Order Change
@@ -228,9 +225,9 @@ ryougi.select_master_skill(1, 3)
 rin.select_master_skill(3, 1, 1)
 ```
 
-* If the skill is *Order Change*, you can add the third argument(See: [*Change Servants*](#5-change-servants-deprecated)). In the second and third argument, each should be a number in the range of **1~3**. The second arg refers to the first 3 Servants and the third one refers to the last 3.
+* If the skill is *Order Change*, you can add the third argument(See: [*Change Servants*](#5-change-servants)). In the second and third argument, each should be a number in the range of **1~3**. The second arg refers to the first 3 Servants and the third one refers to the last 3.
 
-#### 4. Select Servant (DEPRECATED)
+#### 4. Select Servant
 
 ```python
 # .select_servant(<id of the skill>)
@@ -242,7 +239,7 @@ shiki.select_servant(1)
 * Notice this function receives a number.
 * The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
 
-#### 5. Change Servants (DEPRECATED)
+#### 5. Change Servants
 
 ```python
 # .change_servant(<id of the first servant>, <id of the second servant>)

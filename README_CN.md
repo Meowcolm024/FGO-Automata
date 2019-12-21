@@ -76,7 +76,7 @@ shiki.select_checkpoint("assets/checkpoint2.png") # the argument is optional
 
 ```python
 rin.advance_support()  # w/o any param
-ryougiadvance_support(tms=5)  # update time only
+ryougi.advance_support(tms=5)  # update time only
 shiki.advance_support(spt="assets/sp3.png", tms=1)
 ```
 

@@ -4,7 +4,7 @@ from core import util, crds
 
 
 class Automata():
-    def __init__(self, ckp: str, spt: str = None, sft=(0, 0)):
+    def __init__(self, ckp: str, spt: str, sft=(0, 0), apl: (int, str) = (0, "")):
         """
         Parameters
         ----------
@@ -15,13 +15,23 @@ class Automata():
         Path to the support image
 
             sft: (int, int), optional
-        Coordinate shifts in (x, y). When there are blues straps at the edges.
+        Coordinate shifts in (x, y). When there are blues straps at the edges. (Default: (0, 0))
+
+            apl: (int, str), optional
+        Number of the apples willl be used and the Path to the image of the apple. (Default: (0, ""))
+
+        Examples
+        --------
+        Here are examples::
+
+            shiki = Automata("assets/checkpoint.png", "assets/qp.png")
+            bb = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0), apl=(1, "assets/silver.png"))
         """
         self.shifts = sft
         self.checkpoint = ckp
         self.support = spt
-        self.counts = 0  # apple counts
-        self.apple = ""
+        self.counts = apl[0]  # apple counts
+        self.apple = apl[1]
 
     # battle related
     def select_cards(self, cards: [int]):

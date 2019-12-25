@@ -3,7 +3,7 @@ import cv2
 import random
 import numpy as np
 from PIL import Image
-
+import logging
 
 # ADB related
 def tap(crd: (int, int)):
@@ -11,7 +11,7 @@ def tap(crd: (int, int)):
         x=crd[0],
         y=crd[1]
     )
-    print(cmdTap)
+    logging.info(cmdTap)
     os.system(cmdTap)
 
 
@@ -23,13 +23,14 @@ def swipe(org: (int, int), tar: (int, int), delay):
         y2=tar[1],
         delay1=int(delay*1000)
     )
-    print(cmdSwipe)
+    logging.info(cmdSwipe)
     os.system(cmdSwipe)
 
 
 def screenshot() -> str:
-    os.system('adb shell screencap -p /sdcard/sh.png')
-    os.system('adb pull /sdcard/sh.png .')
+    # os.system('adb shell screencap -p /sdcard/sh.png')
+    # os.system('adb pull /sdcard/sh.png .')
+    os.system('adb exec-out screencap -p > sh.png')
     return "sh.png"
 
 

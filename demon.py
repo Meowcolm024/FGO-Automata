@@ -1,6 +1,11 @@
 class BB():
     def __init__(self):
-        self.script = ["from core.Automata import Automata"]
+        self.script = [
+            "from core.Automata import Automata",
+            "import logging",
+            "logging.basicConfig(filename='automata.log',filemode='w',level=logging.INFO,format='%(asctime)s %("
+            "levelname)s %(message)s',datefmt='%y/%m/%d %I:%M:%S %p') "
+        ]
         self.battle = 1
 
     def init_sc(self):  # checkpoint, support, shifts
@@ -19,17 +24,17 @@ class BB():
         print("Enter shifts of Y coordinate (Enter 0 if your res is 1920x1080)")
         sft_y = input("Y shift: ")
 
-        sc = f"bb = Automata(\"assets/{ckp}.png\", \"assets/{spt}.png\", ({sft_x}, {sft_y}))" # class name: bb
+        sc = f"bb = Automata(\"assets/{ckp}.png\", \"assets/{spt}.png\", ({sft_x}, {sft_y}))"  # class name: bb
         self.script.append(sc)
         self.script.append("bb.quick_start()")
 
-    def menu(self) -> bool: 
+    def menu(self) -> bool:
         # menu
         print("------------------------------------------------------------")
         print("BATTLE", self.battle)
         print("------------------------------------------------------------")
         print("1 = select Servant skill(optional)")
-        print("2 = select Master sill(optional)")
+        print("2 = select Master skill(optional)")
         print("3 = select Card order and finish current battle setting")
         print("------------------------------------------------------------")
         # select

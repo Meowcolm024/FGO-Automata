@@ -43,6 +43,7 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
       - [2. Tap screen](#2-tap-screen)
       - [3. Toggle Master Skill](#3-toggle-master-skill)
       - [4. Update Support List](#4-update-support-list)
+      - [5. Get Current Battle ID](#5-get-current-battle-id)
   - [Making Templates](#making-templates)
   - [TO-DO](#to-do)
 
@@ -56,7 +57,7 @@ Required libs: *ADB*, *PIL*, *OpenCV* and *numpy*
    - macOS: ```brew cask install android-platform-tools```
    - Windows: ```choco install adb```
 2. Install *PIL*, *OpenCV* and *numpy*: ```pip install opencv-python numpy pillow pytesseract```
-3. Install *Tesseract*
+3. Install *Tesseract* (Required by `pytesseract`)
    - macOS: ```brew install tesseract```
    - Windows: Click [here](https://github.com/tesseract-ocr/tesseract/wiki#windows)
 4. Clone the repo: ```git clone https://github.com/Meowcolm024/FGO-Automata.git```
@@ -299,6 +300,15 @@ x = shiki.update_support()
 ```
 
 * It returns `True` if the *support list* is successfully updated, otherwise is `False`.
+
+#### 5. Get Current Battle ID
+
+```python
+# .get_current_battle -> int
+x = shiki.get_current_battle()
+```
+
+* Returns the number of current battle id (like `1`, `2` or `3`)
 
 ## Making Templates
 

@@ -208,7 +208,7 @@ class Automata():
         ----------
             spt: str, optional
         Override the initially set support.
-        
+
             tms: int, optional
         Max support list update times. (Default: 3)
 
@@ -342,7 +342,7 @@ class Automata():
         self.tap(x[0])
         print("[INFO] Battle started.")
 
-    def quick_start(self, advance = True):
+    def quick_start(self, advance=True):
         """ Quick Start
         Select the default `checkpoint`, `support` and start the battle.
 
@@ -351,7 +351,7 @@ class Automata():
             advance: bool, optional
         Set to `True` if you want to enable `advance support selection`, `False` to use the normal support selection.
         By default, it is `False`
-        
+
         """
         self.select_checkpoint()
         if advance:
@@ -365,7 +365,7 @@ class Automata():
         y = crd[1] + self.shifts[1]
         util.tap(util.shifter((x, y), i, j))
 
-    def swipe(self, org: (int, int), tar: (int, int), delay, sfts: (int, int) = (10, 10),):
+    def swipe(self, org: (int, int), tar: (int, int), delay, sfts: (int, int) = (10, 10)):
         original = (org[0] + self.shifts[0], org[1] + self.shifts[1])
         target = (tar[0] + self.shifts[0], tar[1] + self.shifts[1])
         util.swipe(

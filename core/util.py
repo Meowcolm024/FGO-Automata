@@ -71,8 +71,10 @@ def get_crd(sh: str, tmp: str, threshold: float = 0.85) -> [(int, int)]:
         pos.append(pt)
     return pos
 
+
 def get_battle_id(img_path: str):
     img = Image.open(img_path)
     region = img.crop((1292, 20, 1329, 55))
-    text = image_to_string(region, config='--psm 7 --oem 3 -c tessedit_char_whitelist=1234')
+    text = image_to_string(
+        region, config='--psm 7 --oem 3 -c tessedit_char_whitelist=1234')
     return int(text[0])

@@ -4,6 +4,7 @@ import random
 import numpy as np
 from PIL import Image
 import logging
+from pytesseract import image_to_string
 
 # ADB related
 def tap(crd: (int, int)):
@@ -69,3 +70,9 @@ def get_crd(sh: str, tmp: str, threshold: float = 0.85) -> [(int, int)]:
     for pt in zip(*loc[::-1]):
         pos.append(pt)
     return pos
+
+def get_battle_id(img_path: str):
+    img = Image.open(img_path)
+    region = img.crop((1292, 20, 1329, 55))
+    text = image_to_string(region, config='--psm 7 --oem 3 -c tessedit_char_whitelist=1234')
+    return int(text[0])

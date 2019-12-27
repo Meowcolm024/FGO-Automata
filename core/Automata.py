@@ -260,8 +260,36 @@ class Automata():
             return False
 
     def get_current_battle(self) -> int:
+        """ Get current Battle ID
+        Returns
+        -------
+            int
+        a number of current battle
         """
-        function to get current battle using Tesseract (planned)
+        return util.get_battle_id(util.get_sh())
+
+    def reached_battle(self, btl: int) -> bool:
+        """ Reached Battle
+        Check whether reached a certain battle
+
+        Parameters
+        ----------
+            btl: int
+        The battle id.
+
+        Returns
+        -------
+            bool
+        `True` if reached the expected battle, otherwise `False`
+
+        """
+        cur = self.get_current_battle()
+        return True if btl == cur else False
+
+    # Dynamic battle related
+    def use_dynamica(self):
+        """
+        activate fully automated control(future feature)
         """
         pass
 

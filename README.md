@@ -55,8 +55,11 @@ Required libs: *ADB*, *PIL*, *OpenCV* and *numpy*
 1. Install *ADB*
    - macOS: ```brew cask install android-platform-tools```
    - Windows: ```choco install adb```
-2. Install *PIL*, *OpenCV* and *numpy*: ```pip install opencv-python numpy pillow```
-3. Clone the repo: ```git clone https://github.com/Meowcolm024/FGO-Automata.git```
+2. Install *PIL*, *OpenCV* and *numpy*: ```pip install opencv-python numpy pillow pytesseract```
+3. Install *Tesseract*
+   - macOS: ```brew install tesseract```
+   - Windows: Click [here](https://github.com/tesseract-ocr/tesseract/wiki#windows)
+4. Clone the repo: ```git clone https://github.com/Meowcolm024/FGO-Automata.git```
 
 ## Setup
 
@@ -323,5 +326,5 @@ Here are two examples of the template:
 ## TO-DO
 
 - [x] Advance support selection
-- [ ] Battle recognition
+- [x] Battle recognition
 - [ ] Dynamic battle analysis (See: [FGO-One](https://github.com/Meowcolm024/FGO-One) for the idea)

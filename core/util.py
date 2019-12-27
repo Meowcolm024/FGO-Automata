@@ -51,7 +51,7 @@ def get_sh(edge: (int, int)) -> str:
 
 
 # OpenCV related
-def standby(sh: str, tmp: str, threshold: float = 0.8) -> bool:
+def standby(sh: str, tmp: str, threshold: float = 0.85) -> bool:
     img = cv2.imread(sh, 0)
     template = cv2.imread(tmp, 0)
     res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)
@@ -60,7 +60,7 @@ def standby(sh: str, tmp: str, threshold: float = 0.8) -> bool:
     return False
 
 
-def get_crd(sh: str, tmp: str, threshold: float = 0.8) -> [(int, int)]:
+def get_crd(sh: str, tmp: str, threshold: float = 0.85) -> [(int, int)]:
     img = cv2.imread(sh, 0)
     template = cv2.imread(tmp, 0)
     res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)

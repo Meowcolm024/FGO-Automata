@@ -326,4 +326,5 @@ Here are two examples of the template:
 ## TO-DO
 
 - [x] Advance support selection
-- [ ] Dynamic battle analysis
+- [ ] Battle recognition
+- [ ] Dynamic battle analysis (See: [FGO-One](https://github.com/Meowcolm024/FGO-One) for the idea)

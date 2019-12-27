@@ -249,6 +249,12 @@ class Automata():
             self.tap((950, 840))
             return False
 
+    def get_current_battle(self) -> int:
+        """
+        function to get current battle using Tesseract (planned)
+        """
+        pass
+
     # after-battle related
     def finish_battle(self):
         while not util.standby(util.get_sh(self.shifts), "assets/item.png"):

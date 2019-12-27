@@ -54,6 +54,7 @@ class Automata():
         for card in cards:
             self.tap(crds.CARDS[card-1], 40, 90)
             time.sleep(0.2)
+        print("[INFO] Selected cards: ", cards)
 
     # new: self, skill, tar
     # combine select servant
@@ -172,6 +173,7 @@ class Automata():
                 self.eat_apple()
             else:
                 raise Exception("Out of AP!")
+        print("[INFO] Checkpoint selected.")
 
     def select_support(self, spt: str = None):
         """ Select Support
@@ -228,6 +230,7 @@ class Automata():
             time.sleep(0.5)
             x = util.get_crd(util.get_sh(self.shifts), spt)
         self.tap(x[0])
+        print("[INFO] Support selected.")
 
     def update_support(self) -> bool:
         """ Update Support List
@@ -257,6 +260,7 @@ class Automata():
         time.sleep(0.2)
         x = util.get_crd(util.get_sh(self.shifts), "assets/item.png")
         self.tap(x[0])
+        print("[INFO] Battle Finished.")
 
     # FLAWED
     def is_finished(self) -> bool:
@@ -292,6 +296,7 @@ class Automata():
             time.sleep(0.2)
         x = util.get_crd(util.get_sh(self.shifts), "assets/start.png")
         self.tap(x[0])
+        print("[INFO] Battle started.")
 
     def quick_start(self, advance = True):
         """ Quick Start

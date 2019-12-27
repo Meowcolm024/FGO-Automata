@@ -28,9 +28,8 @@ def swipe(org: (int, int), tar: (int, int), delay):
 
 
 def screenshot() -> str:
-    # os.system('adb shell screencap -p /sdcard/sh.png')
-    # os.system('adb pull /sdcard/sh.png .')
-    os.system('adb exec-out screencap -p > sh.png')
+    os.system('adb shell screencap -p /sdcard/sh.png')
+    os.system('adb pull /sdcard/sh.png .')
     return "sh.png"
 
 
@@ -52,7 +51,7 @@ def get_sh(edge: (int, int)) -> str:
 
 
 # OpenCV related
-def standby(sh: str, tmp: str, threshold: float = 0.9) -> bool:
+def standby(sh: str, tmp: str, threshold: float = 0.8) -> bool:
     img = cv2.imread(sh, 0)
     template = cv2.imread(tmp, 0)
     res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)
@@ -61,7 +60,7 @@ def standby(sh: str, tmp: str, threshold: float = 0.9) -> bool:
     return False
 
 
-def get_crd(sh: str, tmp: str, threshold: float = 0.9) -> [(int, int)]:
+def get_crd(sh: str, tmp: str, threshold: float = 0.8) -> [(int, int)]:
     img = cv2.imread(sh, 0)
     template = cv2.imread(tmp, 0)
     res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)

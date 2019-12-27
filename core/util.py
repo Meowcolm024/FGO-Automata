@@ -3,7 +3,7 @@ import cv2
 import random
 import numpy as np
 from PIL import Image
-
+import logging
 
 # ADB related
 def tap(crd: (int, int)):
@@ -11,7 +11,7 @@ def tap(crd: (int, int)):
         x=crd[0],
         y=crd[1]
     )
-    print(cmdTap)
+    logging.info(cmdTap)
     os.system(cmdTap)
 
 
@@ -23,7 +23,7 @@ def swipe(org: (int, int), tar: (int, int), delay):
         y2=tar[1],
         delay1=int(delay*1000)
     )
-    print(cmdSwipe)
+    logging.info(cmdSwipe)
     os.system(cmdSwipe)
 
 
@@ -51,7 +51,7 @@ def get_sh(edge: (int, int)) -> str:
 
 
 # OpenCV related
-def standby(sh: str, tmp: str, threshold: float = 0.9) -> bool:
+def standby(sh: str, tmp: str, threshold: float = 0.85) -> bool:
     img = cv2.imread(sh, 0)
     template = cv2.imread(tmp, 0)
     res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)
@@ -60,7 +60,7 @@ def standby(sh: str, tmp: str, threshold: float = 0.9) -> bool:
     return False
 
 
-def get_crd(sh: str, tmp: str, threshold: float = 0.9) -> [(int, int)]:
+def get_crd(sh: str, tmp: str, threshold: float = 0.85) -> [(int, int)]:
     img = cv2.imread(sh, 0)
     template = cv2.imread(tmp, 0)
     res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)

@@ -303,13 +303,13 @@ Here are two examples of the template:
 
 <details>
 
-![checkpoint](assets/event.png)
+![checkpoint](assets/eg-ckp.png)
 ![another checkpoint](assets/Training4.png)
 
 * These are templates of _checkpoints_
 
-![support](assets/sp2.png)
-![another support](assets/sp3.png)
+![support](assets/eg-sp2.png)
+![another support](assets/eg-sp3.png)
 
 * These are templates of _supports_
 
@@ -323,4 +323,5 @@ Here are two examples of the template:
 ## TO-DO
 
 - [x] Advance support selection
-- [ ] Dynamic battle analysis
+- [ ] Battle recognition
+- [ ] Dynamic battle analysis (See: [FGO-One](https://github.com/Meowcolm024/FGO-One) for the idea)

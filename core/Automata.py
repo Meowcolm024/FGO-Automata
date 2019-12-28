@@ -305,13 +305,16 @@ class Automata():
         """
         NOT TESTED!
         """
-        while not self.reached_battle(target):  # repeat until reached battle
-            # end if finished battle
-            if util.standby(util.get_sh(self.shifts), "assets/finish.png", 0.7):
-                return
+        while True:  # repeat until reached battle
             # wait for turn start
             while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
                 time.sleep(0.2)
+                # end if finished battle
+                if util.standby("tmp.png", "assets/finish.png", 0.8):
+                    return
+            
+            if self.reached_battle(target):
+                return
             # select cards
             self.dynamica_select()
             time.sleep(1)

@@ -83,10 +83,17 @@ def get_crd(sh: str, tmp: str, threshold: float = 0.85) -> [(int, int)]:
 
 def get_battle_id(img_path: str):
     img = Image.open(img_path)
-    region = img.crop((1292, 20, 1329, 55))
+    region = img.crop((1286, 15, 1378, 62))
+    # region.save("tes.png")
     text = image_to_string(
-        region, config='--psm 7 --oem 3 -c tessedit_char_whitelist=1234')
-    return int(text[0])
+        region, config='--psm 7 --oem 3 -c tessedit_char_whitelist=/1234')
+    print(text)
+    try:
+        x = int(text[0])
+    except IndexError:
+        return 0
+    else:
+        return int(text[0])
 
 
 def split_cards(img: str):

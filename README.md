@@ -43,7 +43,8 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
       - [2. Tap screen](#2-tap-screen)
       - [3. Toggle Master Skill](#3-toggle-master-skill)
       - [4. Update Support List](#4-update-support-list)
-      - [5. Get Current Battle ID](#5-get-current-battle-id)
+      - [5. Battle ID related](#5-battle-id-related)
+    - [6. Dynamic Battle](#6-dynamic-battle)
   - [Making Templates](#making-templates)
   - [TO-DO](#to-do)
 
@@ -51,7 +52,7 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
 
 ## Install
 
-Required libs: *ADB*, *PIL*, *OpenCV* and *numpy*
+Required libs: *ADB*, *PIL*, *OpenCV*,  *numpy* and *pytesseract*
 
 1. Install *ADB*
    - macOS: ```brew cask install android-platform-tools```
@@ -301,7 +302,7 @@ x = shiki.update_support()
 
 * It returns `True` if the *support list* is successfully updated, otherwise is `False`.
 
-#### 5. Get Current Battle ID
+#### 5. Battle ID related
 
 ```python
 # .get_current_battle -> int
@@ -309,6 +310,27 @@ x = shiki.get_current_battle()
 ```
 
 * Returns the number of current battle id (like `1`, `2` or `3`)
+
+```python
+# .reached_battle(target) -> bool
+x = shiki.reached_battle(2)
+```
+
+* Receives a number of the target battle (like `2` in battle `2/3`)
+* Returns `True` if reached else `False`
+
+### 6. Dynamic Battle
+
+```python
+# use_dynamica(target)
+shiki.use_dynamica(2)
+```
+
+* The param `target` is the target battle id.
+* It allows the script to run fully automatically (See: [FGO-One](https://github.com/Meowcolm024/FGO-One) for the basic idea and how it works)
+* Do notice that `tesseract` **fails frequently**
+
+> The `Dynamica` will ignore *Brave Chain*, *NP Cards* and *Skills*
 
 ## Making Templates
 
@@ -337,4 +359,4 @@ Here are two examples of the template:
 
 - [x] Advance support selection
 - [x] Battle recognition
-- [ ] Dynamic battle analysis (See: [FGO-One](https://github.com/Meowcolm024/FGO-One) for the idea)
+- [x] Dynamic battle analysis (See: [FGO-One](https://github.com/Meowcolm024/FGO-One) for the idea)

@@ -4,6 +4,7 @@ import random
 import numpy as np
 from PIL import Image
 import logging
+from pytesseract import image_to_string
 
 # ADB related
 def tap(crd: (int, int)):
@@ -60,6 +61,15 @@ def standby(sh: str, tmp: str, threshold: float = 0.85) -> bool:
     return False
 
 
+def check_color(sh: str, tmp: str, threshold: float = 0.8) -> bool:
+    img = cv2.imread(sh, cv2.IMREAD_COLOR)
+    template = cv2.imread(tmp, cv2.IMREAD_COLOR)
+    res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)
+    if (res >= threshold).any():
+        return True
+    return False
+
+
 def get_crd(sh: str, tmp: str, threshold: float = 0.85) -> [(int, int)]:
     img = cv2.imread(sh, 0)
     template = cv2.imread(tmp, 0)
@@ -69,3 +79,32 @@ def get_crd(sh: str, tmp: str, threshold: float = 0.85) -> [(int, int)]:
     for pt in zip(*loc[::-1]):
         pos.append(pt)
     return pos
+
+
+def get_battle_id(img_path: str):
+    img = Image.open(img_path)
+    region = img.crop((1286, 15, 1378, 62))
+    # region.save("tes.png")
+    text = image_to_string(
+        region, config='--psm 7 --oem 3 -c tessedit_char_whitelist=/1234')
+    print(text)
+    try:
+        x = int(text[0])
+    except IndexError:
+        return 0
+    else:
+        return int(text[0])
+
+
+def split_cards(img: str):
+    im = Image.open(img)
+    img_size = im.size
+    x = img_size[0] // 5
+    y = img_size[1] // 2 - 50
+    for i in range(5):
+        left = i*x
+        up = y
+        right = left + x
+        low = up + y
+        region = im.crop((left, up, right, low))
+        region.save(f"./temp/{i}.png")

@@ -1,10 +1,11 @@
 import time
 import random
 from core import util, crds
+from core.Dynamica import Dynamica
 
 
 class Automata():
-    def __init__(self, ckp: str, spt: str = None, sft=(0, 0)):
+    def __init__(self, ckp: str, spt: str, sft=(0, 0), apl: (int, str) = (0, "")):
         """
         Parameters
         ----------
@@ -15,13 +16,23 @@ class Automata():
         Path to the support image
 
             sft: (int, int), optional
-        Coordinate shifts in (x, y). When there are blues straps at the edges.
+        Coordinate shifts in (x, y). When there are blues straps at the edges. (Default: (0, 0))
+
+            apl: (int, str), optional
+        Number of the apples willl be used and the Path to the image of the apple. (Default: (0, ""))
+
+        Examples
+        --------
+        Here are examples::
+
+            shiki = Automata("assets/checkpoint.png", "assets/qp.png")
+            bb = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0), apl=(1, "assets/silver.png"))
         """
         self.shifts = sft
         self.checkpoint = ckp
         self.support = spt
-        self.counts = 0  # apple counts
-        self.apple = ""
+        self.counts = apl[0]  # apple counts
+        self.apple = apl[1]
 
     # battle related
     def select_cards(self, cards: [int]):
@@ -198,7 +209,7 @@ class Automata():
         ----------
             spt: str, optional
         Override the initially set support.
-        
+
             tms: int, optional
         Max support list update times. (Default: 3)
 
@@ -250,10 +261,63 @@ class Automata():
             return False
 
     def get_current_battle(self) -> int:
+        """ Get current Battle ID
+        Returns
+        -------
+            int
+        a number of current battle
         """
-        function to get current battle using Tesseract (planned)
+        return util.get_battle_id(util.get_sh(self.shifts))
+
+    def reached_battle(self, btl: int) -> bool:
+        """ Reached Battle
+        Check whether reached a certain battle
+
+        Parameters
+        ----------
+            btl: int
+        The battle id.
+
+        Returns
+        -------
+            bool
+        `True` if reached the expected battle, otherwise `False`
+
         """
-        pass
+        cur = self.get_current_battle()
+        return True if btl == cur else False
+
+    # Dynamic battle related
+    def dynamica_select(self):
+        # tap Attack to show cards
+        self.tap(crds.ATTACK, 100, 100)
+        time.sleep(1)
+        # init the class
+        dym = Dynamica(sft=self.shifts)
+        util.get_sh(self.shifts)
+        util.split_cards("tmp.png")
+        out = dym.dynamic_battle()  # get order
+        for i in out:
+            self.tap(crds.CARDS[i], 40, 90)
+            time.sleep(0.2)
+
+    def use_dynamica(self, target: int):
+        """
+        NOT TESTED!
+        """
+        while True:  # repeat until reached battle
+            # wait for turn start
+            while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
+                time.sleep(0.2)
+                # end if finished battle
+                if util.standby("tmp.png", "assets/finish.png", 0.8):
+                    return
+            
+            if self.reached_battle(target):
+                return
+            # select cards
+            self.dynamica_select()
+            time.sleep(1)
 
     # after-battle related
     def finish_battle(self):
@@ -304,7 +368,7 @@ class Automata():
         self.tap(x[0])
         print("[INFO] Battle started.")
 
-    def quick_start(self, advance = True):
+    def quick_start(self, advance=True):
         """ Quick Start
         Select the default `checkpoint`, `support` and start the battle.
 
@@ -313,7 +377,7 @@ class Automata():
             advance: bool, optional
         Set to `True` if you want to enable `advance support selection`, `False` to use the normal support selection.
         By default, it is `False`
-        
+
         """
         self.select_checkpoint()
         if advance:
@@ -327,7 +391,7 @@ class Automata():
         y = crd[1] + self.shifts[1]
         util.tap(util.shifter((x, y), i, j))
 
-    def swipe(self, org: (int, int), tar: (int, int), delay, sfts: (int, int) = (10, 10),):
+    def swipe(self, org: (int, int), tar: (int, int), delay, sfts: (int, int) = (10, 10)):
         original = (org[0] + self.shifts[0], org[1] + self.shifts[1])
         target = (tar[0] + self.shifts[0], tar[1] + self.shifts[1])
         util.swipe(

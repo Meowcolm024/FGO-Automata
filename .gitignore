@@ -5,3 +5,4 @@ tmp.png
 /core/__init__.pyc
 test.py
 *.log
+/temp

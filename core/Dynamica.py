@@ -2,8 +2,14 @@ from core.Card import Card
 from core import util
 
 class Dynamica():
-    def __init__(self, crd: [Card]=[], sft=(0, 0)):
-        self.cards = crd
+    def __init__(self, sft=(0, 0)):
+        """
+        Parameters
+        ----------
+            sft: (int, int), optional
+        Coordinate shifts in (x, y). When there are blues straps at the edges. (Default: (0, 0))
+        """
+        self.cards = []
         self.shifts = sft
 
     def read_cards(self):
@@ -57,3 +63,14 @@ class Dynamica():
                         max_comb = [fst, sec, trd]
         # print(max_atk)
         return max_comb
+
+    def dynamic_battle(self) -> int:
+        """ Dynamic Battle
+        Returns
+        -------
+            list: int
+        Card order
+        """
+        self.read_cards()
+        out = [i.identity for i in self.arrange_cards()]
+        return out

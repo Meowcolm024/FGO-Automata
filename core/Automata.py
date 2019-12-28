@@ -1,6 +1,7 @@
 import time
 import random
 from core import util, crds
+from core.Dynamica import Dynamica
 
 
 class Automata():
@@ -266,7 +267,7 @@ class Automata():
             int
         a number of current battle
         """
-        return util.get_battle_id(util.get_sh())
+        return util.get_battle_id(util.get_sh(self.shifts))
 
     def reached_battle(self, btl: int) -> bool:
         """ Reached Battle
@@ -287,11 +288,33 @@ class Automata():
         return True if btl == cur else False
 
     # Dynamic battle related
-    def use_dynamica(self):
+    def dynamica_select(self):
+        # tap Attack to show cards
+        self.tap(crds.ATTACK, 100, 100)
+        time.sleep(1)
+        # init the class
+        dym = Dynamica(sft=self.shifts)
+        util.get_sh(self.shifts)
+        util.split_cards("tmp.png")
+        out = dym.dynamic_battle()  # get order
+        for i in out:
+            self.tap(crds.CARDS[i], 40, 90)
+            time.sleep(0.2)
+
+    def use_dynamica(self, target: int):
         """
-        activate fully automated control(future feature)
+        NOT TESTED!
         """
-        pass
+        while not self.reached_battle(target):  # repeat until reached battle
+            # end if finished battle
+            if util.standby(util.get_sh(self.shifts), "assets/finish.png", 0.7):
+                return
+            # wait for turn start
+            while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
+                time.sleep(0.2)
+            # select cards
+            self.dynamica_select()
+            time.sleep(1)
 
     # after-battle related
     def finish_battle(self):

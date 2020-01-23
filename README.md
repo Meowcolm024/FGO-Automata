@@ -1,9 +1,9 @@
 # FGO-Automata
 
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Meowcolm024/FGO-Automata?include_prereleases)
-![GitHub issues](https://img.shields.io/github/issues/Meowcolm024/FGO-Automata)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/Meowcolm024/FGO-Automata)
-![GitHub](https://img.shields.io/github/license/meowcolm024/FGO-Automata)
+[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Meowcolm024/FGO-Automata?include_prereleases)](https://github.com/Meowcolm024/FGO-Automata/releases)
+[![GitHub issues](https://img.shields.io/github/issues/Meowcolm024/FGO-Automata)](https://github.com/Meowcolm024/FGO-Automata/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/Meowcolm024/FGO-Automata)](https://github.com/Meowcolm024/FGO-Automata/pulls)
+[![GitHub](https://img.shields.io/github/license/meowcolm024/FGO-Automata)](https://github.com/Meowcolm024/FGO-Automata/blob/master/LICENSE)
 
 **FGO-Automata** allows you to play _Fate/GO_ just like writting *Python* Script
 
@@ -26,17 +26,25 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
       - [2. Setup the Class](#2-setup-the-class)
       - [3. AP related (Optional)](#3-ap-related-optional)
     - [2. Start battle](#2-start-battle)
+      - [1. Quick Start (Recommended)](#1-quick-start-recommended)
+      - [2. Reset Checkpoint (Optional)](#2-reset-checkpoint-optional)
+      - [3. Reset Support (DEPRECATED)](#3-reset-support-deprecated)
+      - [4. Use Advance Support Selection (Optional)](#4-use-advance-support-selection-optional)
+      - [5. Start Battle (Optional)](#5-start-battle-optional)
     - [3. During battle](#3-during-battle)
       - [1. Select cards](#1-select-cards)
       - [2. Select Servant skills](#2-select-servant-skills)
       - [3. Select Master skills](#3-select-master-skills)
-      - [4. Select Servant (DEPRECATED)](#4-select-servant-deprecated)
-      - [5. Change Servants (DEPRECATED)](#5-change-servants-deprecated)
+      - [4. Select Servant](#4-select-servant)
+      - [5. Change Servants](#5-change-servants)
     - [4. Finish battle](#4-finish-battle)
     - [5. Other functions](#5-other-functions)
       - [1. Wait for a certain scene](#1-wait-for-a-certain-scene)
       - [2. Tap screen](#2-tap-screen)
       - [3. Toggle Master Skill](#3-toggle-master-skill)
+      - [4. Update Support List](#4-update-support-list)
+      - [5. Battle ID related](#5-battle-id-related)
+    - [6. Dynamic Battle](#6-dynamic-battle)
   - [Making Templates](#making-templates)
   - [TO-DO](#to-do)
 
@@ -44,21 +52,26 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
 
 ## Install
 
-Required libs: *ADB*, *PIL*, *OpenCV* and *numpy*
+Required libs: *ADB*, *PIL*, *OpenCV*,  *numpy* and *pytesseract*
 
 1. Install *ADB*
    - macOS: ```brew cask install android-platform-tools```
    - Windows: ```choco install adb```
-2. Install *PIL*, *OpenCV* and *numpy*: ```pip install opencv-python numpy pillow```
-3. Clone the repo: ```git clone https://github.com/Meowcolm024/FGO-Automata.git```
+2. Install *PIL*, *OpenCV* and *numpy*: ```pip install opencv-python numpy pillow pytesseract```
+3. Install *Tesseract* (Required by `pytesseract`)
+   - macOS: ```brew install tesseract```
+   - Windows: Click [here](https://github.com/tesseract-ocr/tesseract/wiki#windows)
+4. Clone the repo: ```git clone https://github.com/Meowcolm024/FGO-Automata.git```
 
 ## Setup
 
-There are mainly 3 ways to set up the script:
+There are mainly 3 ways to set up *FGO-Automata*(as automation script):
 
 - If you are familiar with _Python_, you can try to manually write the scipt. (See: [References](#references)) (You can also checkout the [example.py](example.py))
 - If you are using _Windows_, double click `config.bat` to set up the script.（中文）
 - If you are using _macOS_(or _Linux_), run `demon.py` to set up the script.
+
+You can also use *FGO-Automata* as an API in your own project, just import the package :)
 
 ## ⚠️ Notice
 
@@ -83,16 +96,14 @@ from core.Automata import Automata
 #### 2. Setup the Class
 
 ```python
-shiki = Automata("assets/checkpoint.png", "assets/qp.png", (248, 0))
-```
-
-```python
-ryougi = Automata("assets/checkpoint.png", "assets/qp.png")
+rin = Automata("assets/checkpoint.png", "assets/qp.png")
+shiki = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0))
+ryougi = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0), apl=(1, "assets/silver.png"))
 ```
 
 * The first argument and the second one refers to the **path** of your **template** of checkpoint and **support servant**.
-* And the third argument is also optional, if you screen resolution is *1920x1080*, just leave it blank or replace it with `(0,0)`.
-* In the third argument, only add them if there are blues straps at the edges. For `(x, y)`, *x* refers to the shifts in x-axis shift, *y* refers to y-axis shift.
+* For the *optional* param `sft`: if you screen resolution is *1920x1080*, just ignore it. But if there are blues straps at the edges, it is the shift of the top left corner. For `(x, y)`, *x* refers to the shifts in x-axis shift, *y* refers to y-axis shift.
+* For the *optional* param `apl`: it is a tuple of `(int, str)`, the first item is number, representing how many apples will be consumed. The second one refers to the **path** of your **template** of the type of the apple (incl. *Quartz*). **(It has the same function as `set_apples`)**
 
 #### 3. AP related (Optional)
 
@@ -101,24 +112,64 @@ ryougi = Automata("assets/checkpoint.png", "assets/qp.png")
 shiki.set_apples(0, "assets/silver.png")
 ```
 
+* **NOTICE: It will override the set apples and the counter**
 * If you are using it as a automation bot, you may encounter AP problem which need to use *Gold Apples*.
 * Notice that the function recieves 2 arguments. The first item is number, representing how many apples will be consumed. The second one refers to the **path** of your **template** of the type of the apple (incl. *Quartz*).
 
 ### 2. Start battle
 
+#### 1. Quick Start (Recommended)
+
+```python
+# .quick_start(advance=True)
+shiki.quick_start()
+```
+
+* If you don't need to modify your checkpoints and supports you can use this. (Then you can skip the following 4 articles)
+* By default, this method will use the `Advance Support Selection`(See [Advance Support Selection](#4-use-advance-support-selection-optional)). But you can also turn it OFF, which use the old way, by setting `advance=False`.
+
+#### 2. Reset Checkpoint (Optional)
+
+```python
+shiki.select_checkpoint("assets/checkpoint2.png") # the argument is optional
+```
+
+* This method is implemented in `.quick_start()` without the argument.
+* You can reset checkpoint image if needed.
+
+#### 3. Reset Support (DEPRECATED)
+
 ```python
 # start
-shiki.select_checkpoint("assets/checkpoint2.png") # the argument is optional
 shiki.select_support("assets/qp2.png") # the argument is optional
+```
+
+* **NOTICE: The function of this method is replaced by `Advance Support Selection`**
+* This method is implemented in `.quick_start()` without the argument.
+* * You can reset support image if needed.
+
+> **About support selection**  
+> It will onlt select the *support servant* in first page(the first 3 servants) if there isn't any match, it will automatically select the **first** support servant by default
+
+#### 4. Use Advance Support Selection (Optional)
+
+```python
+rin.advance_support()  # w/o any param
+ryougi.advance_support(tms=5)  # update time only
+shiki.advance_support(spt="assets/sp3.png", tms=1)
+```
+
+* This is the advance support selection, it will check the first 3 support, if none matches, it will scroll down to have another check. If there is still isn't any matches, it will try to update the support list, then repeat the cycle.
+* The argument `spt` is optional, you can override the original support servant.
+* The argument `tms` is the times the script will update the support list, default is `3`.
+
+#### 5. Start Battle (Optional)
+
+```python
 shiki.start_battle()
 ```
 
-* You can choose other checkpoints and supports if needed
-* If you don't need to modify your checkpoints and supports you can use:
-
-```python
-shiki.quick_start()
-```
+- If you did **NOT** use `.quick_start()`, you need to use this command to start the battle.
 
 ### 3. During battle
 
@@ -127,9 +178,7 @@ shiki.quick_start()
 ```python
 # .select_cards(<list of the desired cards(in order)>)
 shiki.select_cards([7])
-```
-
-```python
+rin.select_cards([8,6])
 ryougi.select_cards([1,2,3])
 ```
 
@@ -154,7 +203,7 @@ shiki.select_servant_skill(4)
 ryougi.select_servant_skill(2, 3)
 ```
 
-* You can also add the second argument for the target *Servant*(See: [*Select Servants*](#4-select-servant-deprecated)). The second argument receives a number. The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
+* You can also add the second argument for the target *Servant*(See: [*Select Servants*](#4-select-servant)). The second argument receives a number. The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
 
 #### 3. Select Master skills
 
@@ -173,7 +222,7 @@ shiki.select_master_skill(2)
 ryougi.select_master_skill(1, 3)
 ```
 
-* You can also add the second argument for target *Servant*(See: [*Select Servants*](#4-select-servant-deprecated)). The second argument receives a number. The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
+* You can also add the second argument for target *Servant*(See: [*Select Servants*](#4-select-servant)). The second argument receives a number. The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
 
 ```python
 # Order Change
@@ -181,9 +230,9 @@ ryougi.select_master_skill(1, 3)
 rin.select_master_skill(3, 1, 1)
 ```
 
-* If the skill is *Order Change*, you can add the third argument(See: [*Change Servants*](#5-change-servants-deprecated)). In the second and third argument, each should be a number in the range of **1~3**. The second arg refers to the first 3 Servants and the third one refers to the last 3.
+* If the skill is *Order Change*, you can add the third argument(See: [*Change Servants*](#5-change-servants)). In the second and third argument, each should be a number in the range of **1~3**. The second arg refers to the first 3 Servants and the third one refers to the last 3.
 
-#### 4. Select Servant (DEPRECATED)
+#### 4. Select Servant
 
 ```python
 # .select_servant(<id of the skill>)
@@ -195,7 +244,7 @@ shiki.select_servant(1)
 * Notice this function receives a number.
 * The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
 
-#### 5. Change Servants (DEPRECATED)
+#### 5. Change Servants
 
 ```python
 # .change_servant(<id of the first servant>, <id of the second servant>)
@@ -244,20 +293,70 @@ shiki.toggle_master_skill()
 
 * You can use this function to turn on/off the _Master_ skill panel.
 
+#### 4. Update Support List
+
+```python
+# .update_support() -> bool
+x = shiki.update_support()
+```
+
+* It returns `True` if the *support list* is successfully updated, otherwise is `False`.
+
+#### 5. Battle ID related
+
+```python
+# .get_current_battle -> int
+x = shiki.get_current_battle()
+```
+
+* Returns the number of current battle id (like `1`, `2` or `3`)
+
+```python
+# .reached_battle(target) -> bool
+x = shiki.reached_battle(2)
+```
+
+* Receives a number of the target battle (like `2` in battle `2/3`)
+* Returns `True` if reached else `False`
+
+### 6. Dynamic Battle
+
+```python
+# use_dynamica(target)
+shiki.use_dynamica(2)
+```
+
+* The param `target` is the target battle id.
+* It allows the script to run fully automatically (See: [FGO-One](https://github.com/Meowcolm024/FGO-One) for the basic idea and how it works)
+* Do notice that `tesseract` **fails frequently**
+
+> The `Dynamica` will ignore *Brave Chain*, *NP Cards* and *Skills*
+
 ## Making Templates
 
 Here are two examples of the template:
 
-![checkpoint](assets/event.png)
+<details>
 
-* This is a template of a _checkpoint_
+![checkpoint](assets/eg-ckp.png)
+![another checkpoint](assets/Training4.png)
 
-![support](assets/sp2.png)
+* These are templates of _checkpoints_
 
-* This is a template of the _support_
+![support](assets/eg-sp2.png)
+![another support](assets/eg-sp3.png)
+
+* These are templates of _supports_
+
+</details>
+
+> The template image of the support can either be an image of a *Craft Essence* or a *Servant*(You don't need to precisely cut the image like above.).  
+> You can use the *filter feature* in the game to filter the crafts and use an image of a desired *Servant* for selection.
 
 **Notice that your template should be distinctive.**
 
 ## TO-DO
 
-- [ ] Advance support selection
+- [x] Advance support selection
+- [x] Battle recognition
+- [x] Dynamic battle analysis (See: [FGO-One](https://github.com/Meowcolm024/FGO-One) for the idea)

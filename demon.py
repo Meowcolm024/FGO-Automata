@@ -1,15 +1,20 @@
 class BB():
     def __init__(self):
-        self.script = ["from core.Automata import Automata"]
+        self.script = [
+            "from core.Automata import Automata",
+            "import logging",
+            "logging.basicConfig(filename='automata.log',filemode='w',level=logging.INFO,format='%(asctime)s %("
+            "levelname)s %(message)s',datefmt='%y/%m/%d %I:%M:%S %p') "
+        ]
         self.battle = 1
 
     def init_sc(self):  # checkpoint, support, shifts
         print("------------------------------------------------------------")
-        print("Enter the name of the Checkpoint (template image name, WITHOUT extension name)")
+        print("Enter the name of the Checkpoint image (PNG in /assets) (WITHOUT extension name)")
         ckp = input("Checkpoint: ")
 
         print("------------------------------------------------------------")
-        print("Enter the name of the Support (template image name, WITHOUT extension name)")
+        print("Enter the name of the Support image (PNG in /assets) (WITHOUT extension name)")
         spt = input("Suppport: ")
 
         print("------------------------------------------------------------")
@@ -19,16 +24,17 @@ class BB():
         print("Enter shifts of Y coordinate (Enter 0 if your res is 1920x1080)")
         sft_y = input("Y shift: ")
 
-        sc = f"bb = Automata(\"Automata(assets/{ckp}.png\", \"assets/{spt}.png\", ({sft_x}, {sft_y}))" # class name: bb
+        sc = f"bb = Automata(\"assets/{ckp}.png\", \"assets/{spt}.png\", ({sft_x}, {sft_y}))"  # class name: bb
         self.script.append(sc)
+        self.script.append("bb.quick_start()")
 
-    def menu(self) -> bool: 
+    def menu(self) -> bool:
         # menu
         print("------------------------------------------------------------")
         print("BATTLE", self.battle)
         print("------------------------------------------------------------")
         print("1 = select Servant skill(optional)")
-        print("2 = select Master sill(optional)")
+        print("2 = select Master skill(optional)")
         print("3 = select Card order and finish current battle setting")
         print("------------------------------------------------------------")
         # select
@@ -106,20 +112,12 @@ class BB():
         btl = [False, False, False]
         # init
         self.init_sc()
-        # battle 1
-        self.script.append("# BATTLE " + str(self.battle))
-        while not btl[0]:
-            btl[0] = self.menu()
-        self.battle += 1
-        # battle 2
-        self.script.append("# BATTLE " + str(self.battle))
-        while not btl[1]:
-            btl[1] = self.menu()
-        self.battle += 1
-        # battle 3
-        self.script.append("# BATTLE " + str(self.battle))
-        while not btl[2]:
-            btl[2] = self.menu()
+        # battles
+        for i in range(3):
+            self.script.append("# BATTLE " + str(self.battle))
+            while not btl[i]:
+                btl[i] = self.menu()
+            self.battle += 1
         # end'
         self.script.append("# FINISH")
         self.script.append("bb.finish_battle()")

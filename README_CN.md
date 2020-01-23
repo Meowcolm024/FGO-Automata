@@ -55,18 +55,37 @@ shiki.set_apples(0, "assets.silver.png")
 
 ### 2. 开始战斗
 
-```python
-# start
-shiki.select_checkpoint("assets/checkpoint2.png") # the argument is optional
-shiki.select_support("assets/qp2.png") # the argument is optional
-shiki.start_battle()
-```
-
-* 您也可以手动设定其他的关卡和助战
-* 但一般情况使用下面的语句即可
+#### 1. 快速开始
 
 ```python
 shiki.quick_start()
+```
+
+* 使用这个语句开始战斗
+* **注意**：如果不使用`quick_start()`，需要分别设置下面三个命令
+
+#### 2. 重新设定关卡（可选）
+
+```python
+shiki.select_checkpoint("assets/checkpoint2.png") # the argument is optional
+```
+
+* 参数为模板图片路径
+
+#### 3. 使用进阶助战选择（可选）
+
+```python
+rin.advance_support()  # w/o any param
+ryougi.advance_support(tms=5)  # update time only
+shiki.advance_support(spt="assets/sp3.png", tms=1)
+```
+
+* `spt`是模板图片路径（可选），`tms`是助战列表刷新次数（可选）
+
+#### 4. 开始战斗（可选）
+
+```python
+shiki.start_battle()
 ```
 
 ### 3. 战斗中
@@ -125,3 +144,17 @@ rin.select_master_skill(3, 1, 1)
 # finish
 shiki.finish_battle()
 ```
+
+## 制作模板图片
+
+以下是模板图片的两个例子：
+
+![checkpoint](assets/event.png)
+
+* 关卡模板图片
+
+![support](assets/sp2.png)
+
+* 助战模板图片
+
+> 关于助战的模板图片，可以考虑先用游戏中的礼装过滤，再使用从者头像作为助战的模板图片。

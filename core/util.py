@@ -108,3 +108,13 @@ def split_cards(img: str):
         low = up + y
         region = im.crop((left, up, right, low))
         region.save(f"./temp/{i}.png")
+
+def split_servant(img: str, i: int):
+    im = Image.open(img)
+    size = (138, 144, 238, 226)
+    region = im.crop(size)
+    region.save(f"./temp/_s{i}.png")
+
+def get_servant():
+    same_img = lambda img, val: standby(val, img)
+    

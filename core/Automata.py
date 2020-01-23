@@ -39,7 +39,7 @@ class Automata():
         """ Select Order Cards
         Parameters
         ----------
-            cards: [int]
+            cards: list
         A list of numbers of the card id (1~5 -> normal cards, 6,7,8 -> NP cards). 
         It should have maximum 3 number.   
 

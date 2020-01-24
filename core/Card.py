@@ -42,12 +42,3 @@ class Card():
 
     def __str__(self):
         return f"ID: {self.identity}, Mark: {self.mark}, Color: {self.atk}"
-
-
-if __name__ == "__main__":
-    t = Card(1, 2, 0.8)
-    q = Card(1, 0.5, 0.8)
-    s = Card(2, 1, 1)
-    print(t.get_atk(2, True))
-    print(t == s)
-    print(t)

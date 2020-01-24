@@ -1,0 +1,30 @@
+# example of FGO-Automata Script
+
+# Setting checkpoint etc
+sft=(248,0)
+ckp="assets/Qp4.png"
+spt="assets/eg-sp1.png"
+
+# start the battle
+start
+
+# in battle
+# t1
+s7
+s5
+s6
+s9
+c7
+
+# t2
+s8
+c8
+
+# t3
+m2t1
+s1
+s2
+c6
+
+# finish battle
+finish

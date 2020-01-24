@@ -41,56 +41,76 @@ class Interpreter():
     def _eval(self, cmd: str):
         if cmd == 'show':
             return self.automata
+
         if cmd == 'start':
             self.automata.start_battle()
             return 'Start battle'
+
         if cmd == 'finish':
             self.automata.finish_battle()
             return 'Finish battle'
+
         if cmd == 'quickstart':
             self.automata.quick_start()
             return 'Quick start'
+
         if re.match(r'sft=\([0-9]+,[0-9]+\)', cmd) != None:
             out0 = cmd.split('(')[1].split(',')
             out = [out0[0], out0[1].split(')')[0]]
             self.automata.reset_shifts((int(out[0]), int(out[1])))
             return ('Reset shifts to ' + str(out))
+
         if re.match(r'spt="[^\s]*"', cmd) != None:
             out = cmd.split('\"')[1]
             self.automata.advance_support(out)
             return ('Select support: ' + out)
+
         if re.match(r'ckp="[^\s]*"', cmd) != None:
             out = cmd.split('\"')[1]
             self.automata.select_checkpoint(out)
             return ('Select checkpoint: ' + out)
+
         if re.match(r'rspt="[^\s]*"', cmd) != None:
             out = cmd.split('\"')[1]
             self.automata.reset_support(out)
             return ('Reset support to ' + out)
+
         if re.match(r'rckp="[^\s]*"', cmd) != None:
             out = cmd.split('\"')[1]
             self.automata.reset_checkpoint(out)
             return ('Reset checkpoint to ' + out)
+
         if re.match(r's[1-9]t[1-3]', cmd) != None:
             out = [cmd[1], cmd[3]]
-            self.automata.select_servant_skill(out[0], out[1])
+            self.automata.select_servant_skill(int(out[0]), int(out[1]))
+
             return ('Servant skill: ' + out)
         if re.match(r'^s[1-9]$', cmd) != None:
             out = cmd[1]
-            self.automata.select_servant_skill(out)
+            self.automata.select_servant_skill(int(out))
             return ('Servant skill: ' + out)
+
         if re.match(r'm3o[1-3]t[1-3]', cmd) != None:
             out = [cmd[3], cmd[5]]
-            self.automata.select_master_skill(3, out[0], out[1])
+            self.automata.select_master_skill(3, int(out[0]), int(out[1]))
             return ('Master skill: ' + out)
+
         if re.match(r'm[1-3]t[1-3]', cmd) != None:
             out = [cmd[1], cmd[3]]
-            self.automata.select_master_skill(out[0], out[1])
+            self.automata.select_master_skill(int(out[0]), int(out[1]))
             return ('Master skill: ' + out)
+
         if re.match(r'^m[1-3]$', cmd) != None:
             out = cmd[1]
-            self.automata.select_master_skill(out)
+            self.automata.select_master_skill(int(out))
             return ('Master skill: ' + out)
+
+        if re.match(r'c[1-8]+', cmd) != None:
+            out0 = cmd.split('c')[1]
+            out = map(lambda x: int(x), out0)
+            self.automata.select_cards(list(out))
+            return ('Select cards: ', out0)
+
         return "ERROR: Invalid Input"
 
 
@@ -114,5 +134,5 @@ class Repl():
 
 def main():
     rp = Repl()
-    # rp.main_loop()
-    rp.load_file("battle.txt")
+    rp.main_loop()
+    # rp.load_file("battle.txt")

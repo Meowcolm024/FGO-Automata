@@ -7,7 +7,7 @@ shiki.quick_start()
 # battle 1
 shiki.select_servant_skill(5)
 shiki.select_servant_skill(6)
-shik.select_servant_skill(7)
+shiki.select_servant_skill(7)
 shiki.select_cards([7])
 # battle 2
 shiki.select_servant_skill(8)

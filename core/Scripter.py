@@ -34,33 +34,85 @@ class Parser():
 class Interpreter():
     def __init__(self, sft=(0, 0)):
         self.automata = Automata("", "", sft)
-        self.act = [lambda path: self.automata.select_checkpoint(path),
-                    lambda path: self.automata.advance_support(path),
-                    lambda x: self.automata.select_servant_skill(x),
-                    lambda x, y: self.automata.select_servant_skill(x, y),
-                    lambda x: self.automata.select_master_skill(x),
-                    lambda x, y: self.automata.select_master_skill(x, y),
-                    lambda x, y, z: self.automata.select_master_skill(x, y, z),
-                    lambda: self.automata.start_battle(),
-                    lambda: self.automata.finish_battle()]
 
     def evaluate(self, cmd: str):
-        pass
+        return self._eval(cmd)
 
     def _eval(self, cmd: str):
+        if cmd == 'show':
+            return self.automata
         if cmd == 'start':
-            return 7
+            self.automata.start_battle()
+            return 'Start battle'
         if cmd == 'finish':
-            return 8
-        matches = [lambda x: re.match('ckp', x),
-                   lambda x: re.match('spt', x),
-                   lambda x: re.match('sft', x),
-                   lambda x: re.match('s', x),
-                   lambda x: re.match('m', x)
-                   ]
+            self.automata.finish_battle()
+            return 'Finish battle'
+        if cmd == 'quickstart':
+            self.automata.quick_start()
+            return 'Quick start'
+        if re.match(r'sft=\([0-9]+,[0-9]+\)', cmd) != None:
+            out0 = cmd.split('(')[1].split(',')
+            out = [out0[0], out0[1].split(')')[0]]
+            self.automata.reset_shifts((int(out[0]), int(out[1])))
+            return ('Reset shifts to ' + str(out))
+        if re.match(r'spt="[^\s]*"', cmd) != None:
+            out = cmd.split('\"')[1]
+            self.automata.advance_support(out)
+            return ('Select support: ' + out)
+        if re.match(r'ckp="[^\s]*"', cmd) != None:
+            out = cmd.split('\"')[1]
+            self.automata.select_checkpoint(out)
+            return ('Select checkpoint: ' + out)
+        if re.match(r'rspt="[^\s]*"', cmd) != None:
+            out = cmd.split('\"')[1]
+            self.automata.reset_support(out)
+            return ('Reset support to ' + out)
+        if re.match(r'rckp="[^\s]*"', cmd) != None:
+            out = cmd.split('\"')[1]
+            self.automata.reset_checkpoint(out)
+            return ('Reset checkpoint to ' + out)
+        if re.match(r's[1-9]t[1-3]', cmd) != None:
+            out = [cmd[1], cmd[3]]
+            self.automata.select_servant_skill(out[0], out[1])
+            return ('Servant skill: ' + out)
+        if re.match(r'^s[1-9]$', cmd) != None:
+            out = cmd[1]
+            self.automata.select_servant_skill(out)
+            return ('Servant skill: ' + out)
+        if re.match(r'm3o[1-3]t[1-3]', cmd) != None:
+            out = [cmd[3], cmd[5]]
+            self.automata.select_master_skill(3, out[0], out[1])
+            return ('Master skill: ' + out)
+        if re.match(r'm[1-3]t[1-3]', cmd) != None:
+            out = [cmd[1], cmd[3]]
+            self.automata.select_master_skill(out[0], out[1])
+            return ('Master skill: ' + out)
+        if re.match(r'^m[1-3]$', cmd) != None:
+            out = cmd[1]
+            self.automata.select_master_skill(out)
+            return ('Master skill: ' + out)
+        return "ERROR: Invalid Input"
 
+
+class Repl():
+    def __init__(self):
+        self.itp = Interpreter()
+
+    def main_loop(self):
+        print("FGO-Automata REPL")
+        while True:
+            cmd = input("*> ")
+            print(self.itp.evaluate(cmd.replace(' ', '')))
+
+    def load_file(self, raw: str):
+        par = Parser()
+        out = par.parse(raw)
+        print("FGO-Automata REPL")
+        print("Executing:", raw)
+        for i in out:
+            self.itp.evaluate(i)
 
 def main():
-    sc = Parser()
-    print(sc.parse("battle.txt"))
-    it = Interpreter()
+    rp = Repl()
+    # rp.main_loop()
+    rp.load_file("battle.txt")

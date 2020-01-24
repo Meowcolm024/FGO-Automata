@@ -395,6 +395,12 @@ class Automata():
         """
         self.shifts = sft
 
+    def reset_checkpoint(self, ckp: str):
+        self.checkpoint = ckp
+    
+    def reset_support(self, spt: str):
+        self.support = spt
+
     def tap(self, crd: (int, int), i: int = 10, j: int = 10):
         x = crd[0] + self.shifts[0]
         y = crd[1] + self.shifts[1]

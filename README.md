@@ -91,7 +91,7 @@ When using FGO-Automata as a automation script, notice the following things:
 from core.Automata import Automata
 ```
 
-* First import the package
+- First import the package
 
 #### 2. Setup the Class
 
@@ -112,9 +112,9 @@ ryougi = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0), apl=(1
 shiki.set_apples(0, "assets/silver.png")
 ```
 
-* **NOTICE: It will override the set apples and the counter**
-* If you are using it as a automation bot, you may encounter AP problem which need to use *Gold Apples*.
-* Notice that the function recieves 2 arguments. The first item is number, representing how many apples will be consumed. The second one refers to the **path** of your **template** of the type of the apple (incl. *Quartz*).
+- **NOTICE: It will override the set apples and the counter**
+- If you are using it as a automation bot, you may encounter AP problem which need to use *Gold Apples*.
+- Notice that the function recieves 2 arguments. The first item is number, representing how many apples will be consumed. The second one refers to the **path** of your **template** of the type of the apple (incl. *Quartz*).
 
 ### 2. Start battle
 
@@ -125,8 +125,8 @@ shiki.set_apples(0, "assets/silver.png")
 shiki.quick_start()
 ```
 
-* If you don't need to modify your checkpoints and supports you can use this. (Then you can skip the following 4 articles)
-* By default, this method will use the `Advance Support Selection`(See [Advance Support Selection](#4-use-advance-support-selection-optional)). But you can also turn it OFF, which use the old way, by setting `advance=False`.
+- If you don't need to modify your checkpoints and supports you can use this. (Then you can skip the following 4 articles)
+- By default, this method will use the `Advance Support Selection`(See [Advance Support Selection](#4-use-advance-support-selection-optional)). But you can also turn it OFF, which use the old way, by setting `advance=False`.
 
 #### 2. Reset Checkpoint (Optional)
 
@@ -134,8 +134,8 @@ shiki.quick_start()
 shiki.select_checkpoint("assets/checkpoint2.png") # the argument is optional
 ```
 
-* This method is implemented in `.quick_start()` without the argument.
-* You can reset checkpoint image if needed.
+- This method is implemented in `.quick_start()` without the argument.
+- You can reset checkpoint image if needed.
 
 #### 3. Reset Support (DEPRECATED)
 
@@ -144,9 +144,9 @@ shiki.select_checkpoint("assets/checkpoint2.png") # the argument is optional
 shiki.select_support("assets/qp2.png") # the argument is optional
 ```
 
-* **NOTICE: The function of this method is replaced by `Advance Support Selection`**
-* This method is implemented in `.quick_start()` without the argument.
-* * You can reset support image if needed.
+- **NOTICE: The function of this method is replaced by `Advance Support Selection`**
+- This method is implemented in `.quick_start()` without the argument.
+- * You can reset support image if needed.
 
 > **About support selection**  
 > It will onlt select the *support servant* in first page(the first 3 servants) if there isn't any match, it will automatically select the **first** support servant by default
@@ -159,9 +159,9 @@ ryougi.advance_support(tms=5)  # update time only
 shiki.advance_support(spt="assets/sp3.png", tms=1)
 ```
 
-* This is the advance support selection, it will check the first 3 support, if none matches, it will scroll down to have another check. If there is still isn't any matches, it will try to update the support list, then repeat the cycle.
-* The argument `spt` is optional, you can override the original support servant.
-* The argument `tms` is the times the script will update the support list, default is `3`.
+- This is the advance support selection, it will check the first 3 support, if none matches, it will scroll down to have another check. If there is still isn't any matches, it will try to update the support list, then repeat the cycle.
+- The argument `spt` is optional, you can override the original support servant.
+- The argument `tms` is the times the script will update the support list, default is `3`.
 
 #### 5. Start Battle (Optional)
 
@@ -182,9 +182,9 @@ rin.select_cards([8,6])
 ryougi.select_cards([1,2,3])
 ```
 
-* Notice this function receives a *list* of maximum **3** numbers. If the list is empty or has less numbers, more cards from normal cards will be selected randomly.
-* For the numbers' meaning: Number **1~5** refer to the *normal cards* from **left** to **right**. Number **6,7,8** refer to *NP cards*.
-* Cards will be taped in orders
+- Notice this function receives a *list* of maximum **3** numbers. If the list is empty or has less numbers, more cards from normal cards will be selected randomly.
+- For the numbers' meaning: Number **1~5** refer to the *normal cards* from **left** to **right**. Number **6,7,8** refer to *NP cards*.
+- Cards will be taped in orders
 
 #### 2. Select Servant skills
 
@@ -194,8 +194,8 @@ ryougi.select_cards([1,2,3])
 shiki.select_servant_skill(4)
 ```
 
-* Notice this function receives a number.
-* The number can be in the range of **1~9**, each refers to the skill counted from left.
+- Notice this function receives a number.
+- The number can be in the range of **1~9**, each refers to the skill counted from left.
 
 ```python
 # with target Servant
@@ -203,7 +203,7 @@ shiki.select_servant_skill(4)
 ryougi.select_servant_skill(2, 3)
 ```
 
-* You can also add the second argument for the target *Servant*(See: [*Select Servants*](#4-select-servant)). The second argument receives a number. The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
+- You can also add the second argument for the target *Servant*(See: [*Select Servants*](#4-select-servant)). The second argument receives a number. The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
 
 #### 3. Select Master skills
 
@@ -213,8 +213,8 @@ ryougi.select_servant_skill(2, 3)
 shiki.select_master_skill(2)
 ```
 
-* Notice this function receives a number.
-* The number can be in the range of **1~3**, each refers to the skill counted from left.
+- Notice this function receives a number.
+- The number can be in the range of **1~3**, each refers to the skill counted from left.
 
 ```python
 # with target Servant
@@ -222,7 +222,7 @@ shiki.select_master_skill(2)
 ryougi.select_master_skill(1, 3)
 ```
 
-* You can also add the second argument for target *Servant*(See: [*Select Servants*](#4-select-servant)). The second argument receives a number. The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
+- You can also add the second argument for target *Servant*(See: [*Select Servants*](#4-select-servant)). The second argument receives a number. The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
 
 ```python
 # Order Change
@@ -230,7 +230,7 @@ ryougi.select_master_skill(1, 3)
 rin.select_master_skill(3, 1, 1)
 ```
 
-* If the skill is *Order Change*, you can add the third argument(See: [*Change Servants*](#5-change-servants)). In the second and third argument, each should be a number in the range of **1~3**. The second arg refers to the first 3 Servants and the third one refers to the last 3.
+- If the skill is *Order Change*, you can add the third argument(See: [*Change Servants*](#5-change-servants)). In the second and third argument, each should be a number in the range of **1~3**. The second arg refers to the first 3 Servants and the third one refers to the last 3.
 
 #### 4. Select Servant
 
@@ -239,10 +239,10 @@ rin.select_master_skill(3, 1, 1)
 shiki.select_servant(1)
 ```
 
-* **NOTICE: This function has been integrated to `select_servant_skill` and `select_master_skill`, so you don't need to use it explicitly. (Besides, the reference below is still vaild.)**
-* There are some skills in *FGO* have target servant, if the skill you have chosen is this kind of skill, you may need to use this function to choose the desired *Servant*.
-* Notice this function receives a number.
-* The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
+- **NOTICE: This function has been integrated to `select_servant_skill` and `select_master_skill`, so you don't need to use it explicitly. (Besides, the reference below is still vaild.)**
+- There are some skills in *FGO* have target servant, if the skill you have chosen is this kind of skill, you may need to use this function to choose the desired *Servant*.
+- Notice this function receives a number.
+- The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
 
 #### 5. Change Servants
 
@@ -251,9 +251,9 @@ shiki.select_servant(1)
 shiki.change_servant(1, 1)
 ```
 
-* **NOTICE: This function has been integrated to `select_master_skill`, so you don't need to use it explicitly. (Besides, the reference below is still vaild.)**
-* This function receives 2 numbers, each should be in the range of **1~3**.
-* The first arg refers to the first 3 Servants and the second one refers to the last 3.
+- **NOTICE: This function has been integrated to `select_master_skill`, so you don't need to use it explicitly. (Besides, the reference below is still vaild.)**
+- This function receives 2 numbers, each should be in the range of **1~3**.
+- The first arg refers to the first 3 Servants and the second one refers to the last 3.
 
 ### 4. Finish battle
 
@@ -262,7 +262,7 @@ shiki.change_servant(1, 1)
 shiki.finish_battle()
 ```
 
-* This function allows the program tap through the ending of battle.
+- This function allows the program tap through the ending of battle.
 
 ### 5. Other functions
 
@@ -272,8 +272,8 @@ shiki.finish_battle()
 shiki.wait("assets/checkpoint.png")
 ```
 
-* It allows you idle the script till a certain scene
-* It receives an argument of the *path* of the template image.
+- It allows you idle the script till a certain scene
+- It receives an argument of the *path* of the template image.
 
 #### 2. Tap screen
 
@@ -281,9 +281,9 @@ shiki.wait("assets/checkpoint.png")
 shiki.tap((100, 100), 0, 0)
 ```
 
-* Allows to tap a certain point in the screen
-* The first arg is a tuple of the coordinate `(x, y)`
-* The 2nd and the 3rd args are random shifts in x and y, if you don't want have any shifts, replace with `0`
+- Allows to tap a certain point in the screen
+- The first arg is a tuple of the coordinate `(x, y)`
+- The 2nd and the 3rd args are random shifts in x and y, if you don't want have any shifts, replace with `0`
 
 #### 3. Toggle Master Skill
 
@@ -291,7 +291,7 @@ shiki.tap((100, 100), 0, 0)
 shiki.toggle_master_skill()
 ```
 
-* You can use this function to turn on/off the _Master_ skill panel.
+- You can use this function to turn on/off the _Master_ skill panel.
 
 #### 4. Update Support List
 
@@ -300,7 +300,7 @@ shiki.toggle_master_skill()
 x = shiki.update_support()
 ```
 
-* It returns `True` if the *support list* is successfully updated, otherwise is `False`.
+- It returns `True` if the *support list* is successfully updated, otherwise is `False`.
 
 #### 5. Battle ID related
 
@@ -309,15 +309,15 @@ x = shiki.update_support()
 x = shiki.get_current_battle()
 ```
 
-* Returns the number of current battle id (like `1`, `2` or `3`)
+- Returns the number of current battle id (like `1`, `2` or `3`)
 
 ```python
 # .reached_battle(target) -> bool
 x = shiki.reached_battle(2)
 ```
 
-* Receives a number of the target battle (like `2` in battle `2/3`)
-* Returns `True` if reached else `False`
+- Receives a number of the target battle (like `2` in battle `2/3`)
+- Returns `True` if reached else `False`
 
 ### 6. Dynamic Battle
 
@@ -326,9 +326,9 @@ x = shiki.reached_battle(2)
 shiki.use_dynamica(2)
 ```
 
-* The param `target` is the target battle id.
-* It allows the script to run fully automatically (See: [FGO-One](https://github.com/Meowcolm024/FGO-One) for the basic idea and how it works)
-* Do notice that `tesseract` **fails frequently**
+- The param `target` is the target battle id.
+- It allows the script to run fully automatically (See: [FGO-One](https://github.com/Meowcolm024/FGO-One) for the basic idea and how it works)
+- Do notice that `tesseract` **fails frequently**
 
 > The `Dynamica` will ignore *Brave Chain*, *NP Cards* and *Skills*
 
@@ -341,12 +341,12 @@ Here are two examples of the template:
 ![checkpoint](assets/eg-ckp.png)
 ![another checkpoint](assets/Training4.png)
 
-* These are templates of _checkpoints_
+- These are templates of _checkpoints_
 
 ![support](assets/eg-sp2.png)
 ![another support](assets/eg-sp3.png)
 
-* These are templates of _supports_
+- These are templates of _supports_
 
 </details>
 
@@ -360,3 +360,6 @@ Here are two examples of the template:
 - [x] Advance support selection
 - [x] Battle recognition
 - [x] Dynamic battle analysis (See: [FGO-One](https://github.com/Meowcolm024/FGO-One) for the idea)
+- [ ] Dynamica: Brave Chain and NP card support
+- [ ] Mulitple support servants
+- [ ] FGO-Automata Script

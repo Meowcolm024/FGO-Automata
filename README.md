@@ -69,7 +69,7 @@ Required libs: *ADB*, *PIL*, *OpenCV*,  *numpy* and *pytesseract*
 
 ## Setup
 
-There are mainly 3 ways to set up *FGO-Automata*(as automation script):
+There are mainly 4 ways to set up *FGO-Automata*(as automation script):
 
 - If you are familiar with _Python_, you can try to manually write the scipt. (See: [References](#references)) (You can also checkout the [example.py](example.py))
 - If you are using _Windows_, double click `config.bat` to set up the script.（中文）
@@ -410,7 +410,7 @@ Here are two examples of the template:
 
 - [x] Advance support selection
 - [x] Battle recognition
+- [x] FGO-Automata Script
 - [x] Dynamic battle analysis (See: [FGO-One](https://github.com/Meowcolm024/FGO-One) for the idea)
 - [ ] Dynamica: Brave Chain and NP card support
 - [ ] Mulitple support servants
-- [ ] FGO-Automata Script

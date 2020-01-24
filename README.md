@@ -45,6 +45,7 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
       - [4. Update Support List](#4-update-support-list)
       - [5. Battle ID related](#5-battle-id-related)
     - [6. Dynamic Battle](#6-dynamic-battle)
+    - [7. Reset Shifts](#7-reset-shifts)
   - [Making Templates](#making-templates)
   - [TO-DO](#to-do)
 
@@ -331,6 +332,14 @@ shiki.use_dynamica(2)
 - Do notice that `tesseract` **fails frequently**
 
 > The `Dynamica` will ignore *Brave Chain*, *NP Cards* and *Skills*
+
+### 7. Reset Shifts
+
+``` python
+shiki.reset_shifts((0, 0))
+```
+
+- You can reset shift using this function
 
 ## Making Templates
 

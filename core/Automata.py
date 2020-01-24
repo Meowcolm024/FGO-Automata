@@ -312,7 +312,7 @@ class Automata():
                 # end if finished battle
                 if util.standby("tmp.png", "assets/finish.png", 0.8):
                     return
-            
+
             if self.reached_battle(target):
                 return
             # select cards
@@ -386,6 +386,15 @@ class Automata():
             self.select_support()
         self.start_battle()
 
+    def reset_shifts(self, sft: (int, int)):
+        """ Reset Shifts
+        Parameters
+        ----------
+            sft: (int, int)
+        Coordinate shifts in (x, y). When there are blues straps at the edges. (Default: (0, 0))
+        """
+        self.shifts = sft
+
     def tap(self, crd: (int, int), i: int = 10, j: int = 10):
         x = crd[0] + self.shifts[0]
         y = crd[1] + self.shifts[1]
@@ -402,3 +411,8 @@ class Automata():
     def wait(self, pic: str):
         while not util.standby(util.get_sh(self.shifts), pic):
             time.sleep(0.2)
+
+    def __str__(self):
+        return ("Checkpoint: " + self.checkpoint + "\n" +
+                "Support: " + self.support + "\n" +
+                "Shift: " + str(self.shifts))

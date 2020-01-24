@@ -19,7 +19,10 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
   - [Table of Contents](#table-of-contents)
   - [Install](#install)
   - [Setup](#setup)
-  - [⚠️ Notice](#%e2%9a%a0%ef%b8%8f-notice)
+  - [Notice](#notice)
+  - [FGO-Automata Script](#fgo-automata-script)
+    - [Usage](#usage)
+    - [Cheatsheet](#cheatsheet)
   - [References](#references)
     - [1. Initialization](#1-initialization)
       - [1. Import package](#1-import-package)
@@ -71,16 +74,55 @@ There are mainly 3 ways to set up *FGO-Automata*(as automation script):
 - If you are familiar with _Python_, you can try to manually write the scipt. (See: [References](#references)) (You can also checkout the [example.py](example.py))
 - If you are using _Windows_, double click `config.bat` to set up the script.（中文）
 - If you are using _macOS_(or _Linux_), run `demon.py` to set up the script.
+- You can also use the *FGO-Automata Script* (See: [FGO-Automata Script](#fgo-automata-script))
 
 You can also use *FGO-Automata* as an API in your own project, just import the package :)
 
-## ⚠️ Notice
+## Notice
 
 When using FGO-Automata as a automation script, notice the following things:
 
 1. Turn **OFF** skill confirmation(*Quick Cast*).
 2. When using `config.bat` or `demon.py`, make sure you can pass the Checkpoint within **3 turns**.
 3. Recommended: turn ON *Speed Up Death Animation* and *2x Speed*
+
+## FGO-Automata Script
+
+### Usage
+
+- Start REPL: `python REPL.py` (Interactive environment)
+- Run `FGO-Automata Script`: `python REPL.py [script file]`
+
+### Cheatsheet
+
+<details>
+
+``` python
+# comments start with '#'
+
+sft=(248,0) # set shifts
+
+ckp="assets/Qp4.png" # reset checkpoint
+spt="assets/eg-sp1.png" # reset support
+
+start # quick start
+
+s7 # select servant skill 7
+s5t1 # select servant skill 5 target 1
+
+m1 # select master skill 1
+m2t3 # select master skill 2 target 3
+m3o1t2 # select Order Change org 1 tar 2
+
+c2 # select card 2
+c65 # select card 6, 5
+
+finish # finish battle
+
+show # show current setting
+```
+
+</details>
 
 ## References
 

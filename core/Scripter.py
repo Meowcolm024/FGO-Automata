@@ -42,15 +42,11 @@ class Interpreter():
         if cmd == 'show':
             return self.automata
 
-        if cmd == 'start':
-            self.automata.start_battle()
-            return 'Start battle'
-
         if cmd == 'finish':
             self.automata.finish_battle()
             return 'Finish battle'
 
-        if cmd == 'quickstart':
+        if cmd == 'start':
             self.automata.quick_start()
             return 'Quick start'
 
@@ -62,20 +58,10 @@ class Interpreter():
 
         if re.match(r'spt="[^\s]*"', cmd) != None:
             out = cmd.split('\"')[1]
-            self.automata.advance_support(out)
-            return ('Select support: ' + out)
-
-        if re.match(r'ckp="[^\s]*"', cmd) != None:
-            out = cmd.split('\"')[1]
-            self.automata.select_checkpoint(out)
-            return ('Select checkpoint: ' + out)
-
-        if re.match(r'rspt="[^\s]*"', cmd) != None:
-            out = cmd.split('\"')[1]
-            self.automata.reset_support(out)
+            self.automata.reset_support(str(out))
             return ('Reset support to ' + out)
 
-        if re.match(r'rckp="[^\s]*"', cmd) != None:
+        if re.match(r'ckp="[^\s]*"', cmd) != None:
             out = cmd.split('\"')[1]
             self.automata.reset_checkpoint(out)
             return ('Reset checkpoint to ' + out)
@@ -98,7 +84,7 @@ class Interpreter():
         if re.match(r'm[1-3]t[1-3]', cmd) != None:
             out = [cmd[1], cmd[3]]
             self.automata.select_master_skill(int(out[0]), int(out[1]))
-            return ('Master skill: ' + out)
+            return ('Master skill: ' + str(out))
 
         if re.match(r'^m[1-3]$', cmd) != None:
             out = cmd[1]
@@ -131,8 +117,3 @@ class Repl():
         print("Executing:", raw)
         for i in out:
             self.itp.evaluate(i)
-
-def main():
-    rp = Repl()
-    rp.main_loop()
-    # rp.load_file("battle.txt")

@@ -391,14 +391,26 @@ class Automata():
         Parameters
         ----------
             sft: (int, int)
-        Coordinate shifts in (x, y). When there are blues straps at the edges. (Default: (0, 0))
+        Coordinate shifts in (x, y). When there are blues straps at the edges.
         """
         self.shifts = sft
 
     def reset_checkpoint(self, ckp: str):
+        """ Reset Checkpoint
+        Parameters
+        ----------
+            ckp: (int, int)
+        Path to the checkpoint image
+        """
         self.checkpoint = ckp
     
     def reset_support(self, spt: str):
+        """ Reset Support
+        Parameters
+        ----------
+            spt: (int, int)
+        Path to the support image
+        """
         self.support = spt
 
     def tap(self, crd: (int, int), i: int = 10, j: int = 10):

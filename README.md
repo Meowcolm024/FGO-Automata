@@ -9,6 +9,8 @@
 
 **注意FGO-Automata适用于国服的Fate/Grand Order.** PS：[中文版README](README_CN.md)
 
+For other related materials, see [Wiki](https://github.com/Meowcolm024/FGO-Automata/wiki)
+
 If you're playing with other versions of _Fate/GO_ (like TW or US), you may need to remake the template images in `/assets`
 
 ## Table of Contents
@@ -48,7 +50,7 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
       - [4. Update Support List](#4-update-support-list)
       - [5. Battle ID related](#5-battle-id-related)
     - [6. Dynamic Battle](#6-dynamic-battle)
-    - [7. Reset Shifts](#7-reset-shifts)
+    - [7. Reset Ckp/Spt/Sft/](#7-reset-ckpsptsft)
   - [Making Templates](#making-templates)
   - [TO-DO](#to-do)
 
@@ -375,13 +377,15 @@ shiki.use_dynamica(2)
 
 > The `Dynamica` will ignore *Brave Chain*, *NP Cards* and *Skills*
 
-### 7. Reset Shifts
+### 7. Reset Ckp/Spt/Sft/
 
 ``` python
+shiki.reset_checkpoint("assets/Qp4.png")
+shiki.reset_support("assets/eg-sp1.png")
 shiki.reset_shifts((0, 0))
 ```
 
-- You can reset shift using this function
+- You can reset checkpoint/support/shift using these functions
 
 ## Making Templates
 

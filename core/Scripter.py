@@ -6,10 +6,8 @@ from core.Automata import Automata
 class Parser():
     def __init__(self):
         self.__org = []
-        self.__scrtpt = []
-        self.__eve = ([], [])
 
-    def parse(self, target: str):
+    def parse(self, target: str) -> [str]:
         self.__readfile(target)
         (x, y) = self.__sep(map((lambda x: x.strip()),
                                 filter((lambda x: x[0] != '#' and x[0] != '\n'),
@@ -32,8 +30,32 @@ class Parser():
 
 
 class Interpreter():
-    def __init__(self, sft=(0, 0)):
-        self.automata = Automata("", "", sft)
+    def __init__(self):
+        self.automata = Automata("", "")
+        self.__help = \
+        """
+    Commands:
+
+        help                -- show help
+        show                -- show info
+
+    Settings:
+
+        sft=(,)             -- set shifts [eg: sft=(248,0)]
+        ckp=""              -- set checkpoint [eg: ckp="assets/Qp4.png"]
+        spt=""              -- set support [eg: spt="assets/eg-sp1.png"]
+
+    Actions:
+
+        start               -- start battle
+        finish              -- finish battle
+        s[1-9]              -- servant skill [eg: s1]
+        s[1-9]t[1-3]        -- seravnt skill w/ target [eg: s5t3]
+        m[1-3]              -- master skill [eg: m1]
+        m[1-3]t[1-3]        -- master skill w/ target [eg: m2t1]
+        m3o[1-3]t[1-3]      -- Order Change [eg: m3o1t2]
+        c[1-8]+             -- select cards [eg: c1] [eg: c723] 
+        """
 
     def evaluate(self, cmd: str):
         return self._eval(cmd)
@@ -41,6 +63,9 @@ class Interpreter():
     def _eval(self, cmd: str):
         if cmd == 'show':
             return self.automata
+
+        if cmd == 'help':
+            return self.__help
 
         if cmd == 'finish':
             self.automata.finish_battle()

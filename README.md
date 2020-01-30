@@ -75,7 +75,7 @@ There are mainly 4 ways to set up *FGO-Automata*(as automation script):
 
 - If you are familiar with _Python_, you can try to manually write the scipt. (See: [References](#references)) (You can also checkout the [example.py](example.py))
 - If you are using _Windows_, double click `config.bat` to set up the script.（中文）
-- If you are using _macOS_(or _Linux_), run `demon.py` to set up the script.
+- If you are using _macOS_(or _Linux_), run `daemon.py` to set up the script.
 - You can also use the *FGO-Automata Script* (See: [FGO-Automata Script](#fgo-automata-script))
 
 You can also use *FGO-Automata* as an API in your own project, just import the package :)
@@ -114,7 +114,7 @@ s5t1 # select servant skill 5 target 1
 
 m1 # select master skill 1
 m2t3 # select master skill 2 target 3
-m3o1t2 # select Order Change org 1 tar 2
+m3o1t2 # select Order Change: change servant 1 for servant 2
 
 c2 # select card 2
 c65 # select card 6, 5

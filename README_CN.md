@@ -6,9 +6,14 @@
 
 需要的外部应用： *ADB*。 需要的Python Package： *PIL*, *OpenCV* 和 *numpy*
 
-1. 安装 *ADB*(macOS): ```brew cask install android-platform-tools``` （Windows可以考虑使用Chocolately安装： ```choco install adb```）
-2. 安装 *PIL*, *OpenCV* 和 *numpy*: ```pip install opencv-python numpy pillow```
-3. Clone 这个 repo: ```git clone https://github.com/Meowcolm024/FGO-Automata.git```
+1. 安装 *ADB*
+    - (macOS): ```brew cask install android-platform-tools``` 
+    - （Windows可以考虑使用Chocolately安装： ```choco install adb```）
+2. 安装 *PIL*, *OpenCV* 和 *numpy*: ```pip install opencv-python numpy pillow pytesseract```
+3. 安装 *Tesseract* (`pytesseract`要用到的)
+   - macOS: ```brew install tesseract```
+   - Windows: 点击 [这里](https://github.com/tesseract-ocr/tesseract/wiki#windows)
+4. Clone 这个 repo: ```git clone https://github.com/Meowcolm024/FGO-Automata.git```
 
 ## 设定
 

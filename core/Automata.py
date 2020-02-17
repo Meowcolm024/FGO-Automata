@@ -430,6 +430,15 @@ class Automata():
         while not util.standby(util.get_sh(self.shifts), pic):
             time.sleep(0.2)
 
+    def aquire_screenshot(self) -> str:
+        """ aquire screenshot
+        Returns
+        -------
+            str
+        Path of the screenshot image
+        """
+        return util.get_sh(self.shifts)
+
     def __str__(self):
         return ("Checkpoint: " + self.checkpoint + "\n" +
                 "Support: " + self.support + "\n" +

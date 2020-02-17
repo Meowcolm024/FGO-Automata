@@ -50,7 +50,8 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
       - [4. Update Support List](#4-update-support-list)
       - [5. Battle ID related](#5-battle-id-related)
     - [6. Dynamic Battle](#6-dynamic-battle)
-    - [7. Reset Ckp/Spt/Sft/](#7-reset-ckpsptsft)
+    - [7. Reset Ckp/Spt/Sft](#7-reset-ckpsptsft)
+    - [8. Get screenshot](#8-get-screenshot)
   - [Making Templates](#making-templates)
   - [TO-DO](#to-do)
 
@@ -377,7 +378,7 @@ shiki.use_dynamica(2)
 
 > The `Dynamica` will ignore *Brave Chain*, *NP Cards* and *Skills*
 
-### 7. Reset Ckp/Spt/Sft/
+### 7. Reset Ckp/Spt/Sft
 
 ``` python
 shiki.reset_checkpoint("assets/Qp4.png")
@@ -386,6 +387,15 @@ shiki.reset_shifts((0, 0))
 ```
 
 - You can reset checkpoint/support/shift using these functions
+
+### 8. Get screenshot
+
+``` python
+# .aquire_screenshot() -> str:
+shiki.aquire_screenshot()
+```
+
+- Take a screenshot on the device and returns the path of the image.
 
 ## Making Templates
 

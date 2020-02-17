@@ -38,6 +38,7 @@ class Interpreter():
 
         help                -- show help
         show                -- show info
+        shot                -- get screenshot
 
     Settings:
 
@@ -61,6 +62,10 @@ class Interpreter():
         return self._eval(cmd)
 
     def _eval(self, cmd: str):
+        if cmd == 'shot':
+            s = self.automata.aquire_screenshot()
+            return 'Get screenshot: ' + s
+
         if cmd == 'show':
             return self.automata
 

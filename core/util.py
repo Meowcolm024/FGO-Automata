@@ -91,6 +91,10 @@ def get_battle_id(img_path: str):
     try:
         x = int(text[0])
     except IndexError:
+        print("Failed to recognize battle id.")
+        return 0
+    except ValueError:
+        print("Failed to recognize battle id.")
         return 0
     else:
         return int(text[0])

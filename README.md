@@ -88,6 +88,7 @@ When using FGO-Automata as a automation script, notice the following things:
 1. Turn **OFF** skill confirmation(*Quick Cast*).
 2. When using `config.bat` or `demon.py`, make sure you can pass the Checkpoint within **3 turns**.
 3. Recommended: turn ON *Speed Up Death Animation* and *2x Speed*
+4. **Resolution requirement: 1920x1080(recommended), or other 1080p screens (`shifts` setting required)**
 
 ## FGO-Automata Script
 

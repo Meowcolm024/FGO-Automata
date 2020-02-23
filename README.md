@@ -9,7 +9,7 @@
 
 **注意FGO-Automata适用于国服的Fate/Grand Order.** PS：[中文版README](README_CN.md)
 
-For other related materials, see [Wiki](https://github.com/Meowcolm024/FGO-Automata/wiki)
+更多相关资料（如*演示视频*）For other related materials, see [Wiki](https://github.com/Meowcolm024/FGO-Automata/wiki)
 
 If you're playing with other versions of _Fate/GO_ (like TW or US), you may need to remake the template images in `/assets`
 
@@ -49,7 +49,7 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
       - [3. Toggle Master Skill](#3-toggle-master-skill)
       - [4. Update Support List](#4-update-support-list)
       - [5. Battle ID related](#5-battle-id-related)
-    - [6. Dynamic Battle](#6-dynamic-battle)
+    - [6. Auto Battle](#6-auto-battle)
     - [7. Reset Ckp/Spt/Sft](#7-reset-ckpsptsft)
     - [8. Get screenshot](#8-get-screenshot)
   - [Making Templates](#making-templates)
@@ -61,14 +61,14 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
 
 Required libs: *ADB*, *PIL*, *OpenCV*,  *numpy* and *pytesseract*
 
-1. Install *ADB*
-   - macOS: ```brew cask install android-platform-tools```
-   - Windows: ```choco install adb```
-2. Install *PIL*, *OpenCV* and *numpy*: ```pip install opencv-python numpy pillow pytesseract```
-3. Install *Tesseract* (Required by `pytesseract`)
-   - macOS: ```brew install tesseract```
+1. Clone the repo: `git clone https://github.com/Meowcolm024/FGO-Automata.git`
+2. Install *ADB*:
+   - macOS: `brew cask install android-platform-tools`
+   - Windows: `choco install adb`
+3. Install required packages: `pip install -r requirements.txt`
+4. Install *Tesseract* (Required by `pytesseract`)
+   - macOS: `brew install tesseract`
    - Windows: Click [here](https://github.com/tesseract-ocr/tesseract/wiki#windows)
-4. Clone the repo: ```git clone https://github.com/Meowcolm024/FGO-Automata.git```
 
 ## Setup
 
@@ -148,9 +148,9 @@ shiki = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0))
 ryougi = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0), apl=(1, "assets/silver.png"))
 ```
 
-* The first argument and the second one refers to the **path** of your **template** of checkpoint and **support servant**.
-* For the *optional* param `sft`: if you screen resolution is *1920x1080*, just ignore it. But if there are blues straps at the edges, it is the shift of the top left corner. For `(x, y)`, *x* refers to the shifts in x-axis shift, *y* refers to y-axis shift.
-* For the *optional* param `apl`: it is a tuple of `(int, str)`, the first item is number, representing how many apples will be consumed. The second one refers to the **path** of your **template** of the type of the apple (incl. *Quartz*). **(It has the same function as `set_apples`)**
+- The first argument and the second one refers to the **path** of your **template** of checkpoint and **support servant**.
+- For the *optional* param `sft`: if you screen resolution is *1920x1080*, just ignore it. But if there are blues straps at the edges, it is the shift of the top left corner. For `(x, y)`, *x* refers to the shifts in x-axis shift, *y* refers to y-axis shift.
+- For the *optional* param `apl`: it is a tuple of `(int, str)`, the first item is number, representing how many apples will be consumed. The second one refers to the **path** of your **template** of the type of the apple (incl. *Quartz*). **(It has the same function as `set_apples`)**
 
 #### 3. AP related (Optional)
 
@@ -193,7 +193,7 @@ shiki.select_support("assets/qp2.png") # the argument is optional
 
 - **NOTICE: The function of this method is replaced by `Advance Support Selection`**
 - This method is implemented in `.quick_start()` without the argument.
-- * You can reset support image if needed.
+- You can reset support image if needed.
 
 > **About support selection**  
 > It will onlt select the *support servant* in first page(the first 3 servants) if there isn't any match, it will automatically select the **first** support servant by default
@@ -366,7 +366,7 @@ x = shiki.reached_battle(2)
 - Receives a number of the target battle (like `2` in battle `2/3`)
 - Returns `True` if reached else `False`
 
-### 6. Dynamic Battle
+### 6. Auto Battle
 
 ```python
 # use_dynamica(target)

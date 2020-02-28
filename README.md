@@ -426,6 +426,7 @@ Here are two examples of the template:
 - [x] Advance support selection
 - [x] Battle recognition
 - [x] FGO-Automata Script
-- [x] Dynamic battle analysis (See: [FGO-One](https://github.com/Meowcolm024/FGO-One) for the idea)
+- [x] Auto battle analysis (See: [FGO-One](https://github.com/Meowcolm024/FGO-One) for the idea)
 - [ ] Dynamica: Brave Chain and NP card support
 - [ ] Mulitple support servants
+- [ ] Party selection

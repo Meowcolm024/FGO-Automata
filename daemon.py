@@ -96,9 +96,9 @@ class BB():
         self.script.append(f"bb.select_cards([{n}])")
 
     def start(self) -> str:
-        print("**********************")
-        print("* FGO-Automata Demon *")
-        print("**********************")
+        print("***********************")
+        print("* FGO-Automata Daemon *")
+        print("***********************")
         print("------------------------------------------------------------")
         print("This script will help you create your FGO-Automat Script")
         print("------------------------------------------------------------")

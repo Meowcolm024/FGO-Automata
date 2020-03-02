@@ -6,9 +6,14 @@
 
 需要的外部应用： *ADB*。 需要的Python Package： *PIL*, *OpenCV* 和 *numpy*
 
-1. 安装 *ADB*(macOS): ```brew cask install android-platform-tools``` （Windows可以考虑使用Chocolately安装： ```choco install adb```）
-2. 安装 *PIL*, *OpenCV* 和 *numpy*: ```pip install opencv-python numpy pillow```
-3. Clone 这个 repo: ```git clone https://github.com/Meowcolm024/FGO-Automata.git```
+1. Clone 这个 repo: ```git clone https://github.com/Meowcolm024/FGO-Automata.git```
+2. 安装 *ADB*
+    - (macOS): ```brew cask install android-platform-tools```
+    - Windows可以考虑使用Chocolately安装： ```choco install adb```
+3. 安装必要的Python包: ```pip install -r requirements.txt```
+4. 安装 *Tesseract* (`pytesseract`要用到的)
+   - macOS: ```brew install tesseract```
+   - Windows: 点击 [这里](https://github.com/tesseract-ocr/tesseract/wiki#windows)
 
 ## 设定
 
@@ -19,6 +24,11 @@
 1. 需要**关闭**技能确认。
 2. 如果使用`config.bat`或`demon.py`来配置脚本，需要保证能**3T**过关。
 3. 建议缩短敌人消失时间和使用二倍速
+4. 推荐分辨率为`1920x1080`，非16:9长宽比需要设定画面偏移（`shift`）
+
+## FGO-Automata Script
+
+请参见Wiki中[Automata Script](https://github.com/Meowcolm024/FGO-Automata/wiki/Automata-Script)条目。
 
 ## 指南
 
@@ -144,6 +154,19 @@ rin.select_master_skill(3, 1, 1)
 # finish
 shiki.finish_battle()
 ```
+
+## 自动战斗
+
+```python
+# use_dynamica(target)
+shiki.use_dynamica(2)
+```
+
+- 参数`target`为目标battle数
+- 注：这是类似项目[FGO-One](https://github.com/Meowcolm024/FGO-One)的全自动战斗功能
+- 但是要注意`tesseract`可能会经常识别错误
+
+> 目前`Dynamica`会忽略*EX攻击*,，*宝具卡*和*技能*
 
 ## 制作模板图片
 

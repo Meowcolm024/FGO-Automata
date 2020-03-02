@@ -9,6 +9,8 @@
 
 **注意FGO-Automata适用于国服的Fate/Grand Order.** PS：[中文版README](README_CN.md)
 
+更多相关资料（如*演示视频*）For other related materials, see [Wiki](https://github.com/Meowcolm024/FGO-Automata/wiki)
+
 If you're playing with other versions of _Fate/GO_ (like TW or US), you may need to remake the template images in `/assets`
 
 ## Table of Contents
@@ -47,8 +49,9 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
       - [3. Toggle Master Skill](#3-toggle-master-skill)
       - [4. Update Support List](#4-update-support-list)
       - [5. Battle ID related](#5-battle-id-related)
-    - [6. Dynamic Battle](#6-dynamic-battle)
-    - [7. Reset Shifts](#7-reset-shifts)
+    - [6. Auto Battle](#6-auto-battle)
+    - [7. Reset Ckp/Spt/Sft](#7-reset-ckpsptsft)
+    - [8. Get screenshot](#8-get-screenshot)
   - [Making Templates](#making-templates)
   - [TO-DO](#to-do)
 
@@ -58,22 +61,22 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
 
 Required libs: *ADB*, *PIL*, *OpenCV*,  *numpy* and *pytesseract*
 
-1. Install *ADB*
-   - macOS: ```brew cask install android-platform-tools```
-   - Windows: ```choco install adb```
-2. Install *PIL*, *OpenCV* and *numpy*: ```pip install opencv-python numpy pillow pytesseract```
-3. Install *Tesseract* (Required by `pytesseract`)
-   - macOS: ```brew install tesseract```
+1. Clone the repo: `git clone https://github.com/Meowcolm024/FGO-Automata.git`
+2. Install *ADB*:
+   - macOS: `brew cask install android-platform-tools`
+   - Windows: `choco install adb`
+3. Install required packages: `pip install -r requirements.txt`
+4. Install *Tesseract* (Required by `pytesseract`)
+   - macOS: `brew install tesseract`
    - Windows: Click [here](https://github.com/tesseract-ocr/tesseract/wiki#windows)
-4. Clone the repo: ```git clone https://github.com/Meowcolm024/FGO-Automata.git```
 
 ## Setup
 
-There are mainly 3 ways to set up *FGO-Automata*(as automation script):
+There are mainly 4 ways to set up *FGO-Automata*(as automation script):
 
 - If you are familiar with _Python_, you can try to manually write the scipt. (See: [References](#references)) (You can also checkout the [example.py](example.py))
 - If you are using _Windows_, double click `config.bat` to set up the script.（中文）
-- If you are using _macOS_(or _Linux_), run `demon.py` to set up the script.
+- If you are using _macOS_(or _Linux_), run `daemon.py` to set up the script.
 - You can also use the *FGO-Automata Script* (See: [FGO-Automata Script](#fgo-automata-script))
 
 You can also use *FGO-Automata* as an API in your own project, just import the package :)
@@ -85,6 +88,7 @@ When using FGO-Automata as a automation script, notice the following things:
 1. Turn **OFF** skill confirmation(*Quick Cast*).
 2. When using `config.bat` or `demon.py`, make sure you can pass the Checkpoint within **3 turns**.
 3. Recommended: turn ON *Speed Up Death Animation* and *2x Speed*
+4. **Resolution requirement: 1920x1080(recommended), or other 1080p screens (`shifts` setting required)**
 
 ## FGO-Automata Script
 
@@ -112,7 +116,7 @@ s5t1 # select servant skill 5 target 1
 
 m1 # select master skill 1
 m2t3 # select master skill 2 target 3
-m3o1t2 # select Order Change org 1 tar 2
+m3o1t2 # select Order Change: change servant 1 for servant 2
 
 c2 # select card 2
 c65 # select card 6, 5
@@ -144,9 +148,9 @@ shiki = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0))
 ryougi = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0), apl=(1, "assets/silver.png"))
 ```
 
-* The first argument and the second one refers to the **path** of your **template** of checkpoint and **support servant**.
-* For the *optional* param `sft`: if you screen resolution is *1920x1080*, just ignore it. But if there are blues straps at the edges, it is the shift of the top left corner. For `(x, y)`, *x* refers to the shifts in x-axis shift, *y* refers to y-axis shift.
-* For the *optional* param `apl`: it is a tuple of `(int, str)`, the first item is number, representing how many apples will be consumed. The second one refers to the **path** of your **template** of the type of the apple (incl. *Quartz*). **(It has the same function as `set_apples`)**
+- The first argument and the second one refers to the **path** of your **template** of checkpoint and **support servant**.
+- For the *optional* param `sft`: if you screen resolution is *1920x1080*, just ignore it. But if there are blues straps at the edges, it is the shift of the top left corner. For `(x, y)`, *x* refers to the shifts in x-axis shift, *y* refers to y-axis shift.
+- For the *optional* param `apl`: it is a tuple of `(int, str)`, the first item is number, representing how many apples will be consumed. The second one refers to the **path** of your **template** of the type of the apple (incl. *Quartz*). **(It has the same function as `set_apples`)**
 
 #### 3. AP related (Optional)
 
@@ -189,7 +193,7 @@ shiki.select_support("assets/qp2.png") # the argument is optional
 
 - **NOTICE: The function of this method is replaced by `Advance Support Selection`**
 - This method is implemented in `.quick_start()` without the argument.
-- * You can reset support image if needed.
+- You can reset support image if needed.
 
 > **About support selection**  
 > It will onlt select the *support servant* in first page(the first 3 servants) if there isn't any match, it will automatically select the **first** support servant by default
@@ -362,7 +366,7 @@ x = shiki.reached_battle(2)
 - Receives a number of the target battle (like `2` in battle `2/3`)
 - Returns `True` if reached else `False`
 
-### 6. Dynamic Battle
+### 6. Auto Battle
 
 ```python
 # use_dynamica(target)
@@ -375,13 +379,24 @@ shiki.use_dynamica(2)
 
 > The `Dynamica` will ignore *Brave Chain*, *NP Cards* and *Skills*
 
-### 7. Reset Shifts
+### 7. Reset Ckp/Spt/Sft
 
 ``` python
+shiki.reset_checkpoint("assets/Qp4.png")
+shiki.reset_support("assets/eg-sp1.png")
 shiki.reset_shifts((0, 0))
 ```
 
-- You can reset shift using this function
+- You can reset checkpoint/support/shift using these functions
+
+### 8. Get screenshot
+
+``` python
+# .aquire_screenshot() -> str:
+shiki.aquire_screenshot()
+```
+
+- Take a screenshot on the device and returns the path of the image.
 
 ## Making Templates
 
@@ -410,7 +425,8 @@ Here are two examples of the template:
 
 - [x] Advance support selection
 - [x] Battle recognition
-- [x] Dynamic battle analysis (See: [FGO-One](https://github.com/Meowcolm024/FGO-One) for the idea)
+- [x] FGO-Automata Script
+- [x] Auto battle analysis (See: [FGO-One](https://github.com/Meowcolm024/FGO-One) for the idea)
 - [ ] Dynamica: Brave Chain and NP card support
 - [ ] Mulitple support servants
-- [ ] FGO-Automata Script
+- [ ] Party selection

@@ -2,6 +2,8 @@
 
 注：这版本的README仅包括安装和配置。
 
+**关于展示视频和安装/脚本编写教程可以参考 [Wiki](https://github.com/Meowcolm024/FGO-Automata/wiki)**
+
 ## 安装
 
 需要的外部应用： *ADB*。 需要的Python Package： *PIL*, *OpenCV* 和 *numpy*
@@ -19,7 +21,7 @@
 
 对于*Windows*用户，双击`config.bat`以配置脚本。
 
-## ⚠️ 注意事项
+## 注意事项
 
 1. 需要**关闭**技能确认。
 2. 如果使用`config.bat`或`demon.py`来配置脚本，需要保证能**3T**过关。
@@ -164,7 +166,7 @@ shiki.use_dynamica(2)
 
 - 参数`target`为目标battle数
 - 注：这是类似项目[FGO-One](https://github.com/Meowcolm024/FGO-One)的全自动战斗功能
-- 但是要注意`tesseract`可能会经常识别错误
+- 但是要注意`tesseract`可能会经常识别错误（应该在issue[#19](https://github.com/Meowcolm024/FGO-Automata/issues/19)里面修好了）
 
 > 目前`Dynamica`会忽略*EX攻击*,，*宝具卡*和*技能*
 

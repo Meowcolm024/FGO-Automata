@@ -188,7 +188,7 @@ class Automata():
         self.tap(crds.MASTER_SKILLS[skill-1], 8, 8)
         if org != 0 and tar == 0:
             self.select_servant(org)
-        elif org != 0 and tar != 0:
+        elif org != 0:
             self.change_servant(org, tar)
 
     # pre-battle related
@@ -207,7 +207,7 @@ class Automata():
         self.wait(self.checkpoint)
         if ckp is None:
             ckp = self.checkpoint
-        crds = util.get_crd(util.get_sh(self.shifts), self.checkpoint)
+        crds = util.get_crd(util.get_sh(self.shifts), ckp)
         self.tap(crds[0], 100)
         time.sleep(0.2)
         # check whether out of AP

@@ -1,5 +1,6 @@
 from core.Card import Card
-from core import util
+from core import util, crds
+
 
 class Dynamica():
     def __init__(self, sft=(0, 0)):
@@ -13,7 +14,7 @@ class Dynamica():
         self.shifts = sft
 
     def read_cards(self):
-        #util.split_cards(util.get_sh(self.shifts))
+        # util.split_cards(util.get_sh(self.shifts))
         tmp = []
         for i in range(5):
             mark = self.match_mark(i)
@@ -22,8 +23,8 @@ class Dynamica():
         self.cards = tmp
 
     def match_mark(self, cur: int) -> float:
-        resist = "assets/extra/resist.png"
-        weak = "assets/extra/weak.png"
+        resist = crds.CARD_IMAGE["resist"]
+        weak = crds.CARD_IMAGE["weak"]
         mark = f"temp/{cur}.png"
         if util.standby(mark, resist, threshold=0.8):
             return 0.5
@@ -33,9 +34,9 @@ class Dynamica():
             return 1
 
     def match_color(self, cur: int) -> float:
-        quick = "assets/extra/quick.png"
+        quick = crds.CARD_IMAGE["quick"]
         # arts = "assets/extra/arts.png"
-        buster = "assets/extra/buster.png"
+        buster = crds.CARD_IMAGE["buster"]
         mark = f"temp/{cur}.png"
         if util.check_color(mark, quick, threshold=0.8):
             return 0.8
@@ -57,7 +58,8 @@ class Dynamica():
                     ex = False
                     if fst.atk == 2:
                         ex = True
-                    cur_atk = sum([fst.get_atk(1, ex), sec.get_atk(1.2, ex), trd.get_atk(1.4, ex)])
+                    cur_atk = sum([fst.get_atk(1, ex), sec.get_atk(
+                        1.2, ex), trd.get_atk(1.4, ex)])
                     if cur_atk > max_atk:
                         max_atk = cur_atk
                         max_comb = [fst, sec, trd]

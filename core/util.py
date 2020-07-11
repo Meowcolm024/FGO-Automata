@@ -7,8 +7,6 @@ import logging
 from pytesseract import image_to_string
 
 # ADB related
-
-
 def tap(crd: (int, int)):
     cmdTap = 'adb shell input tap {x} {y}'.format(
         x=crd[0],

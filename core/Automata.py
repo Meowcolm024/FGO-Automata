@@ -69,7 +69,7 @@ class Automata():
 
     # new: self, skill, tar
     # combine select servant
-    def select_servant_skill(self, skill: int, tar: int = 0):
+    def select_servant_skill(self, skill: int, tar: int = 0, extend=false):
         """ Select Servant Skill
         Parameters
         ----------
@@ -80,6 +80,9 @@ class Automata():
         The id of target servant. 1~3 counted from left.
         (If the skill has target servant)
 
+            extend: bool
+        Extend skill time for 1 sec if needed. Default: false
+
         Examples
         --------
         Here are examples::
@@ -87,12 +90,14 @@ class Automata():
             select_servant_skill(1) # skill w/o target servants
             select_servant_skill(3, 2) # skill w/ target servants
         """
-        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"], threshold=0.8 ):
+        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"]):
             time.sleep(0.2)
         self.tap(crds.SERVANT_SKILLS[skill-1], 5, 5)
         time.sleep(1)
         if tar != 0:
             self.select_servant(tar)
+        if extend:
+            time.sleep(1)
 
     def select_servant_skill2(self, servant: int, skill: int, target: int = 0):
         """ Select Servant Skill 2
@@ -157,7 +162,7 @@ class Automata():
         self.tap((950, 950), 100)  # confirm btn
 
     def toggle_master_skill(self):
-        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"], threshold=0.8):
+        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"]):
             time.sleep(0.2)
         self.tap(crds.MASTER)
 

@@ -69,7 +69,7 @@ class Automata():
 
     # new: self, skill, tar
     # combine select servant
-    def select_servant_skill(self, skill: int, tar: int = 0, extend=false):
+    def select_servant_skill(self, skill: int, tar: int = 0, extend=False):
         """ Select Servant Skill
         Parameters
         ----------

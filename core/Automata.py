@@ -87,7 +87,7 @@ class Automata():
             select_servant_skill(1) # skill w/o target servants
             select_servant_skill(3, 2) # skill w/ target servants
         """
-        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"]):
+        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"], threshold=0.8 ):
             time.sleep(0.2)
         self.tap(crds.SERVANT_SKILLS[skill-1], 5, 5)
         time.sleep(1)
@@ -157,7 +157,7 @@ class Automata():
         self.tap((950, 950), 100)  # confirm btn
 
     def toggle_master_skill(self):
-        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"]):
+        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"], threshold=0.8):
             time.sleep(0.2)
         self.tap(crds.MASTER)
 

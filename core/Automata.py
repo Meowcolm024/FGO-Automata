@@ -69,7 +69,7 @@ class Automata():
 
     # new: self, skill, tar
     # combine select servant
-    def select_servant_skill(self, skill: int, tar: int = 0):
+    def select_servant_skill(self, skill: int, tar: int = 0, extend=false):
         """ Select Servant Skill
         Parameters
         ----------
@@ -79,6 +79,9 @@ class Automata():
             tar: int, optional
         The id of target servant. 1~3 counted from left.
         (If the skill has target servant)
+
+            extend: bool
+        Extend skill time for 1 sec if needed. Default: false
 
         Examples
         --------
@@ -93,6 +96,8 @@ class Automata():
         time.sleep(1)
         if tar != 0:
             self.select_servant(tar)
+        if extend:
+            time.sleep(1)
 
     def select_servant_skill2(self, servant: int, skill: int, target: int = 0):
         """ Select Servant Skill 2

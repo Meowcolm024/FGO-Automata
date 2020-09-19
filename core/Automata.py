@@ -51,7 +51,7 @@ class Automata():
             select_cards([6,2]) # left the last 1 randomly choosen
             select_cards([1,2,3])
         """
-        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"]):
+        while not util.standby(self.aquire_screenshot(), crds.IMAGE["attack"]):
             time.sleep(0.2)
         # tap ATTACK
         self.tap(crds.ATTACK, 100, 100)
@@ -90,7 +90,7 @@ class Automata():
             select_servant_skill(1) # skill w/o target servants
             select_servant_skill(3, 2) # skill w/ target servants
         """
-        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"]):
+        while not util.standby(self.aquire_screenshot(), crds.IMAGE["attack"]):
             time.sleep(0.2)
         self.tap(crds.SERVANT_SKILLS[skill-1], 5, 5)
         time.sleep(1)
@@ -139,7 +139,7 @@ class Automata():
             servant: int
         The id of the servant. 1~3 counted from left.
         """
-        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["select"]):
+        while not util.standby(self.aquire_screenshot(), crds.IMAGE["select"]):
             time.sleep(0.2)
         self.tap(crds.TARGETS[servant-1], 100, 100)
 
@@ -153,7 +153,7 @@ class Automata():
             tar: int
         Servant id on the right side(1~3)
         """
-        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["order_change"]):
+        while not util.standby(self.aquire_screenshot(), crds.IMAGE["order_change"]):
             time.sleep(0.2)
         self.tap(crds.SERVANTS[org-1], 90, 90)
         time.sleep(0.1)
@@ -162,7 +162,7 @@ class Automata():
         self.tap((950, 950), 100)  # confirm btn
 
     def toggle_master_skill(self):
-        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"]):
+        while not util.standby(self.aquire_screenshot(), crds.IMAGE["attack"]):
             time.sleep(0.2)
         self.tap(crds.MASTER)
 
@@ -212,13 +212,13 @@ class Automata():
         self.wait(self.checkpoint)
         if ckp is None:
             ckp = self.checkpoint
-        coordinates = util.get_crd(util.get_sh(self.shifts), ckp)
+        coordinates = util.get_crd(self.aquire_screenshot(), ckp)
         self.tap(coordinates[0], 100)
         time.sleep(0.2)
         # check whether out of AP
         # Not tested
         # in progress
-        if util.standby(util.get_sh(self.shifts), crds.IMAGE["no_ap"]):
+        if util.standby(self.aquire_screenshot(), crds.IMAGE["no_ap"]):
             if self.counts > 0:
                 self.eat_apple()
             else:
@@ -235,7 +235,7 @@ class Automata():
         time.sleep(0.3)
         if spt is None:
             spt = self.support
-        x = util.get_crd(util.get_sh(self.shifts), spt)
+        x = util.get_crd(self.aquire_screenshot(), spt)
         if len(x) == 0:
             self.tap((860, 430), 300, 100)
         else:
@@ -260,7 +260,7 @@ class Automata():
         time.sleep(0.3)
         if spt is None:
             spt = self.support
-        x = util.get_crd(util.get_sh(self.shifts), spt)
+        x = util.get_crd(self.aquire_screenshot(), spt)
         counter = False
         times = tms
         while len(x) == 0:
@@ -289,11 +289,11 @@ class Automata():
             bool
         `True` if successfully updated, otherwise is `False`.
         """
-        btn = util.get_crd(util.get_sh(self.shifts),
+        btn = util.get_crd(self.aquire_screenshot(),
                            crds.IMAGE["update_support"])
         self.tap(btn[0], 1, 1)
         time.sleep(0.1)
-        if util.standby(util.get_sh(self.shifts), crds.IMAGE["confirm_update"]):
+        if util.standby(self.aquire_screenshot(), crds.IMAGE["confirm_update"]):
             self.tap((1240, 840), 10, 5)
             return True
         else:
@@ -307,7 +307,7 @@ class Automata():
             int
         a number of current battle
         """
-        return util.get_battle_id(util.get_sh(self.shifts))
+        return util.get_battle_id(self.aquire_screenshot())
 
     def reached_battle(self, btl: int) -> bool:
         """ Reached Battle
@@ -325,7 +325,7 @@ class Automata():
 
         """
         cur = self.get_current_battle()
-        return True if btl == cur else False
+        return btl == cur 
 
     # Dynamic battle related
     def dynamica_select(self):
@@ -334,7 +334,7 @@ class Automata():
         time.sleep(1)
         # init the class
         dym = Dynamica(sft=self.shifts)
-        util.get_sh(self.shifts)
+        self.aquire_screenshot()
         util.split_cards("tmp.png")
         out = dym.dynamic_battle()  # get order
         for i in out:
@@ -347,7 +347,7 @@ class Automata():
         """
         while True:  # repeat until reached battle
             # wait for turn start
-            while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"]):
+            while not util.standby(self.aquire_screenshot(), crds.IMAGE["attack"]):
                 time.sleep(0.2)
                 # end if finished battle
                 if util.standby("tmp.png", crds.IMAGE["finish"], 0.8):
@@ -360,22 +360,33 @@ class Automata():
             time.sleep(1)
 
     # after-battle related
-    def finish_battle(self):
-        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["item"]):
-            xs = util.get_crd(util.get_sh(self.shifts), crds.IMAGE["close"])
+    def finish_battle(self, cont=True):
+        """ Finish Battle
+        In `Free Quest`, there will be a continue battle option
+
+        Parameters
+        ----------
+            cont: bool
+        Defalut: `True` this will tap `閉じる` or `关闭` (close). when set to `False`, no action will be taken.
+        """
+        while not util.standby(self.aquire_screenshot(), crds.IMAGE["item"]):
+            xs = util.get_crd(self.aquire_screenshot(), crds.IMAGE["close"])
             if len(xs) != 0:
                 self.tap(xs[0])
             self.tap((960, 540), 400, 200)
             time.sleep(0.2)
         time.sleep(0.2)
-        x = util.get_crd(util.get_sh(self.shifts), crds.IMAGE["item"])
+        x = util.get_crd(self.aquire_screenshot(), crds.IMAGE["item"])
         self.tap(x[0])
+        if cont:
+            time.sleep(0.5)
+            self.tap(650, 850)
         print("[INFO] Battle Finished.")
 
     # FLAWED
     def is_finished(self) -> bool:
         time.sleep(0.2)
-        return util.standby(util.get_sh(self.shifts), crds.IMAGE["finish"], 0.7)
+        return util.standby(self.aquire_screenshot(), crds.IMAGE["finish"], 0.7)
 
     # AP related
     # Not tested
@@ -393,18 +404,18 @@ class Automata():
         self.apple = apl
 
     def eat_apple(self):
-        x = util.get_crd(util.get_sh(self.shifts), self.apple)
+        x = util.get_crd(self.aquire_screenshot(), self.apple)
         self.tap(x[0])
         self.counts -= 1
         time.sleep(0.2)
-        y = util.get_crd(util.get_sh(self.shifts), crds.IMAGE["decide"])
+        y = util.get_crd(self.aquire_screenshot(), crds.IMAGE["decide"])
         self.tap(y[0])
 
     # others
     def start_battle(self):
-        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["start"]):
+        while not util.standby(self.aquire_screenshot(), crds.IMAGE["start"]):
             time.sleep(0.2)
-        x = util.get_crd(util.get_sh(self.shifts), crds.IMAGE["start"])
+        x = util.get_crd(self.aquire_screenshot(), crds.IMAGE["start"])
         self.tap(x[0])
         print("[INFO] Battle started.")
 
@@ -467,7 +478,7 @@ class Automata():
             delay)
 
     def wait(self, pic: str):
-        while not util.standby(util.get_sh(self.shifts), pic):
+        while not util.standby(self.aquire_screenshot(), pic):
             time.sleep(0.2)
 
     def aquire_screenshot(self) -> str:

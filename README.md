@@ -254,6 +254,20 @@ ryougi.select_servant_skill(2, 3)
 
 - You can also add the second argument for the target *Servant*(See: [*Select Servants*](#4-select-servant)). The second argument receives a number. The number can be in the range of **1~3**, each refers to the *Servant* counted from left.
 
+```python
+shiki.select_servant_skill2(2, 3)
+ryougi.select_servant_skill2(1, 2, 1)
+```
+
+- Usage: `select_servant_skill2([servant 1~3], [skill of the servant: 1~3], [target servant (optional)])`
+
+```python
+shiki.select_servant_skillM([(1,0)]) # skill 1 w/o target servants
+ryougi.select_servant_skill([(2,0), (4,1)]) # skill 2 w/o target and skill 4 w/ target servant 1
+```
+
+- usage: see comment above.
+
 #### 3. Select Master skills
 
 ```python
@@ -309,9 +323,11 @@ shiki.change_servant(1, 1)
 ```python
 # finish
 shiki.finish_battle()
+ryougi.finish_battle(cont=False)
 ```
 
 - This function allows the program tap through the ending of battle.
+- The arg `cont` is optional and defaults to `True`, it will clase the conversation asking whether to continue. When set to `False`, no action will be taken.
 
 ### 5. Other functions
 

@@ -99,8 +99,8 @@ class Interpreter():
         if re.match(r's[1-9]t[1-3]', cmd) != None:
             out = [cmd[1], cmd[3]]
             self.automata.select_servant_skill(int(out[0]), int(out[1]))
+            return ('Servant skill: ' + str(out))
 
-            return ('Servant skill: ' + out)
         if re.match(r'^s[1-9]$', cmd) != None:
             out = cmd[1]
             self.automata.select_servant_skill(int(out))

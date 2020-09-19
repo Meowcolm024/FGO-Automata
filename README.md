@@ -5,7 +5,7 @@
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/Meowcolm024/FGO-Automata)](https://github.com/Meowcolm024/FGO-Automata/pulls)
 [![GitHub](https://img.shields.io/github/license/meowcolm024/FGO-Automata)](https://github.com/Meowcolm024/FGO-Automata/blob/master/LICENSE)
 
-**FGO-Automata** allows you to play _Fate/GO_ just like writting *Python* Script
+**FGO-Automata** allows you to play _Fate/GO_ just like writting *Python* Script.
 
 **注意FGO-Automata适用于国服的Fate/Grand Order.** PS：[中文版README](README_CN.md)
 
@@ -148,8 +148,8 @@ shiki = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0))
 ryougi = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0), apl=(1, "assets/silver.png"))
 ```
 
-- The first argument and the second one refers to the **path** of your **template** of checkpoint and **support servant**.
-- For the *optional* param `sft`: if you screen resolution is *1920x1080*, just ignore it. But if there are blues straps at the edges, it is the shift of the top left corner. For `(x, y)`, *x* refers to the shifts in x-axis shift, *y* refers to y-axis shift.
+- The first argument and the second one refer to the **path** of your **template** of checkpoint and **support servant**.
+- For the *optional* param `sft`: if your screen resolution is *1920x1080*, just ignore it. But if there are blues straps at the edges, it is the shift of the top left corner. For `(x, y)`, *x* refers to the shifts in x-axis shift, *y* refers to y-axis shift.
 - For the *optional* param `apl`: it is a tuple of `(int, str)`, the first item is number, representing how many apples will be consumed. The second one refers to the **path** of your **template** of the type of the apple (incl. *Quartz*). **(It has the same function as `set_apples`)**
 
 #### 3. AP related (Optional)
@@ -160,7 +160,7 @@ shiki.set_apples(0, "assets/silver.png")
 ```
 
 - **NOTICE: It will override the set apples and the counter**
-- If you are using it as a automation bot, you may encounter AP problem which need to use *Gold Apples*.
+- If you are using it as a automation bot, you may encounter AP problem which needs to use *Gold Apples*.
 - Notice that the function recieves 2 arguments. The first item is number, representing how many apples will be consumed. The second one refers to the **path** of your **template** of the type of the apple (incl. *Quartz*).
 
 ### 2. Start battle
@@ -196,7 +196,7 @@ shiki.select_support("assets/qp2.png") # the argument is optional
 - You can reset support image if needed.
 
 > **About support selection**  
-> It will onlt select the *support servant* in first page(the first 3 servants) if there isn't any match, it will automatically select the **first** support servant by default
+> It will only select the *support servant* in first page(the first 3 servants) if there isn't any match, it will automatically select the **first** support servant by default
 
 #### 4. Use Advance Support Selection (Optional)
 
@@ -232,6 +232,8 @@ ryougi.select_cards([1,2,3])
 - Notice this function receives a *list* of maximum **3** numbers. If the list is empty or has less numbers, more cards from normal cards will be selected randomly.
 - For the numbers' meaning: Number **1~5** refer to the *normal cards* from **left** to **right**. Number **6,7,8** refer to *NP cards*.
 - Cards will be taped in orders
+
+> Notice there are **two** extra commands to select cards, which are documented in the source code :)
 
 #### 2. Select Servant skills
 

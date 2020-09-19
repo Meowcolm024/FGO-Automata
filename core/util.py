@@ -7,8 +7,6 @@ import logging
 from pytesseract import image_to_string
 
 # ADB related
-
-
 def tap(crd: (int, int)):
     cmdTap = 'adb shell input tap {x} {y}'.format(
         x=crd[0],
@@ -100,7 +98,7 @@ def get_battle_id(img_path: str):
         print("Failed to recognize battle id.")
         return 0
     else:
-        return int(text[0])
+        return x
 
 
 def split_cards(img: str):
@@ -123,7 +121,3 @@ def split_servant(img: str, i: int):
     size = (138, 144, 238, 226)
     region = im.crop(size)
     region.save(f"./temp/_s{i}.png")
-
-
-def get_servant():
-    def same_img(img, val): return standby(val, img)

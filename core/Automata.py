@@ -51,7 +51,7 @@ class Automata():
             select_cards([6,2]) # left the last 1 randomly choosen
             select_cards([1,2,3])
         """
-        while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
+        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"]):
             time.sleep(0.2)
         # tap ATTACK
         self.tap(crds.ATTACK, 100, 100)
@@ -87,7 +87,7 @@ class Automata():
             select_servant_skill(1) # skill w/o target servants
             select_servant_skill(3, 2) # skill w/ target servants
         """
-        while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
+        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"]):
             time.sleep(0.2)
         self.tap(crds.SERVANT_SKILLS[skill-1], 5, 5)
         time.sleep(1)
@@ -134,7 +134,7 @@ class Automata():
             servant: int
         The id of the servant. 1~3 counted from left.
         """
-        while not util.standby(util.get_sh(self.shifts), "assets/select.png"):
+        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["select"]):
             time.sleep(0.2)
         self.tap(crds.TARGETS[servant-1], 100, 100)
 
@@ -148,7 +148,7 @@ class Automata():
             tar: int
         Servant id on the right side(1~3)
         """
-        while not util.standby(util.get_sh(self.shifts), "assets/order_change.png"):
+        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["order_change"]):
             time.sleep(0.2)
         self.tap(crds.SERVANTS[org-1], 90, 90)
         time.sleep(0.1)
@@ -157,7 +157,7 @@ class Automata():
         self.tap((950, 950), 100)  # confirm btn
 
     def toggle_master_skill(self):
-        while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
+        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"]):
             time.sleep(0.2)
         self.tap(crds.MASTER)
 
@@ -188,7 +188,7 @@ class Automata():
         self.tap(crds.MASTER_SKILLS[skill-1], 8, 8)
         if org != 0 and tar == 0:
             self.select_servant(org)
-        elif org != 0 and tar != 0:
+        elif org != 0:
             self.change_servant(org, tar)
 
     # pre-battle related
@@ -207,12 +207,13 @@ class Automata():
         self.wait(self.checkpoint)
         if ckp is None:
             ckp = self.checkpoint
-        crds = util.get_crd(util.get_sh(self.shifts), self.checkpoint)
-        self.tap(crds[0], 100)
+        coordinates = util.get_crd(util.get_sh(self.shifts), ckp)
+        self.tap(coordinates[0], 100)
         time.sleep(0.2)
         # check whether out of AP
         # Not tested
-        if util.standby(util.get_sh(self.shifts), "assets/noap.png"):  # in progress
+        # in progress
+        if util.standby(util.get_sh(self.shifts), crds.IMAGE["no_ap"]):
             if self.counts > 0:
                 self.eat_apple()
             else:
@@ -283,10 +284,11 @@ class Automata():
             bool
         `True` if successfully updated, otherwise is `False`.
         """
-        btn = util.get_crd(util.get_sh(self.shifts), "assets/update.png")
+        btn = util.get_crd(util.get_sh(self.shifts),
+                           crds.IMAGE["update_support"])
         self.tap(btn[0], 1, 1)
         time.sleep(0.1)
-        if util.standby(util.get_sh(self.shifts), "assets/uplist.png"):
+        if util.standby(util.get_sh(self.shifts), crds.IMAGE["confirm_update"]):
             self.tap((1240, 840), 10, 5)
             return True
         else:
@@ -340,10 +342,10 @@ class Automata():
         """
         while True:  # repeat until reached battle
             # wait for turn start
-            while not util.standby(util.get_sh(self.shifts), "assets/attack.png"):
+            while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"]):
                 time.sleep(0.2)
                 # end if finished battle
-                if util.standby("tmp.png", "assets/finish.png", 0.8):
+                if util.standby("tmp.png", crds.IMAGE["finish"], 0.8):
                     return
 
             if self.reached_battle(target):
@@ -354,21 +356,21 @@ class Automata():
 
     # after-battle related
     def finish_battle(self):
-        while not util.standby(util.get_sh(self.shifts), "assets/item.png"):
-            xs = util.get_crd(util.get_sh(self.shifts), "assets/close.png")
+        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["item"]):
+            xs = util.get_crd(util.get_sh(self.shifts), crds.IMAGE["close"])
             if len(xs) != 0:
                 self.tap(xs[0])
             self.tap((960, 540), 400, 200)
             time.sleep(0.2)
         time.sleep(0.2)
-        x = util.get_crd(util.get_sh(self.shifts), "assets/item.png")
+        x = util.get_crd(util.get_sh(self.shifts), crds.IMAGE["item"])
         self.tap(x[0])
         print("[INFO] Battle Finished.")
 
     # FLAWED
     def is_finished(self) -> bool:
         time.sleep(0.2)
-        return util.standby(util.get_sh(self.shifts), "assets/finish.png", 0.7)
+        return util.standby(util.get_sh(self.shifts), crds.IMAGE["finish"], 0.7)
 
     # AP related
     # Not tested
@@ -390,14 +392,14 @@ class Automata():
         self.tap(x[0])
         self.counts -= 1
         time.sleep(0.2)
-        y = util.get_crd(util.get_sh(self.shifts), "assets/decide.png")
+        y = util.get_crd(util.get_sh(self.shifts), crds.IMAGE["decide"])
         self.tap(y[0])
 
     # others
     def start_battle(self):
-        while not util.standby(util.get_sh(self.shifts), "assets/start.png"):
+        while not util.standby(util.get_sh(self.shifts), crds.IMAGE["start"]):
             time.sleep(0.2)
-        x = util.get_crd(util.get_sh(self.shifts), "assets/start.png")
+        x = util.get_crd(util.get_sh(self.shifts), crds.IMAGE["start"])
         self.tap(x[0])
         print("[INFO] Battle started.")
 
@@ -436,7 +438,7 @@ class Automata():
         Path to the checkpoint image
         """
         self.checkpoint = ckp
-    
+
     def reset_support(self, spt: str):
         """ Reset Support
         Parameters

@@ -38,7 +38,7 @@ class Card():
         return dmg
 
     def __eq__(self, value):
-        return True if self.identity == value.identity else False
+        return self.identity == value.identity
 
     def __str__(self):
         return f"ID: {self.identity}, Mark: {self.mark}, Color: {self.atk}"

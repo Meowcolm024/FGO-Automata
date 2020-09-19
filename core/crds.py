@@ -1,4 +1,9 @@
-# This file stores the coordinates of the buttons
+# This file stores the coordinates of the buttons and the path to images
+
+
+def map_dict(f, a):
+    return dict(zip(a, map(f, a.values())))
+
 
 # shifts: 10, 10
 SERVANT_SKILLS = [
@@ -59,3 +64,30 @@ TARGETS = [
     (960, 680),
     (1440, 680)
 ]
+
+# path to images
+IMAGE_BASE = "assets/"
+
+IMAGE = map_dict(lambda x: IMAGE_BASE + x, {
+    "attack": "attack.png",
+    "select": "select.png",
+    "order_change": "order_change.png",
+    "no_ap": "noap.png",
+    "update_support": "update.png",
+    "confirm_update": "uplist.png",
+    "finish": "finish.png",
+    "item": "item.png",
+    "close": "close.png",
+    "decide": "decide.png",
+    "start": "start.png"
+})
+
+CARD_IMAGE_BASE = "assets/extra/"
+
+CARD_IMAGE = map_dict(lambda x: CARD_IMAGE_BASE + x, {
+    "resist": "resist.png",
+    "weak": "weak.png",
+    "quick": "quick.png",
+    "arts": "arts.png",
+    "buster": "buster.png"
+})

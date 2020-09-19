@@ -66,7 +66,7 @@ TARGETS = [
 ]
 
 # path to images
-IMAGE_BASE = "assets/"
+IMAGE_BASE = "assets/cn/"
 
 IMAGE = map_dict(lambda x: IMAGE_BASE + x, {
     "attack": "attack.png",

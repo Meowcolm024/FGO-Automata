@@ -380,7 +380,7 @@ class Automata():
         self.tap(x[0])
         if cont:
             time.sleep(0.5)
-            self.tap(650, 850)
+            self.tap((650, 850))
         print("[INFO] Battle Finished.")
 
     # FLAWED

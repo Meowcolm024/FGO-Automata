@@ -325,7 +325,7 @@ class Automata():
 
         """
         cur = self.get_current_battle()
-        return True if btl == cur else False
+        return btl == cur 
 
     # Dynamic battle related
     def dynamica_select(self):
@@ -360,7 +360,15 @@ class Automata():
             time.sleep(1)
 
     # after-battle related
-    def finish_battle(self):
+    def finish_battle(self, cont=True):
+        """ Finish Battle
+        In `Free Quest`, there will be a continue battle option
+
+        Parameters
+        ----------
+            cont: bool
+        Defalut: `True` this will tap `閉じる` or `关闭` (close). when set to `False`, no action will be taken.
+        """
         while not util.standby(util.get_sh(self.shifts), crds.IMAGE["item"]):
             xs = util.get_crd(util.get_sh(self.shifts), crds.IMAGE["close"])
             if len(xs) != 0:
@@ -370,6 +378,9 @@ class Automata():
         time.sleep(0.2)
         x = util.get_crd(util.get_sh(self.shifts), crds.IMAGE["item"])
         self.tap(x[0])
+        if cont:
+            time.sleep(0.5)
+            self.tap((650, 850))
         print("[INFO] Battle Finished.")
 
     # FLAWED

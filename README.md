@@ -7,7 +7,7 @@
 
 **FGO-Automata** allows you to play _Fate/GO_ just like writting *Python* Script.
 
-**注意FGO-Automata适用于国服的Fate/Grand Order.** PS：[中文版README](README_CN.md)
+**注意FGO-Automata适用于国服和[日服](README_CN.md#日服)的Fate/Grand Order.** PS：[中文版README](README_CN.md)
 
 更多相关资料（如*演示视频*）For other related materials, see [Wiki](https://github.com/Meowcolm024/FGO-Automata/wiki)
 
@@ -53,6 +53,7 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
     - [7. Reset Ckp/Spt/Sft](#7-reset-ckpsptsft)
     - [8. Get screenshot](#8-get-screenshot)
   - [Making Templates](#making-templates)
+  - [JP](#jp)
   - [TO-DO](#to-do)
 
 </details>
@@ -438,6 +439,16 @@ Here are two examples of the template:
 > You can use the *filter feature* in the game to filter the crafts and use an image of a desired *Servant* for selection.
 
 **Notice that your template should be distinctive.**
+
+## JP
+
+To use this script for JP version, change the variant `IMAGE_BASE` in the [crds.py](core/crds.py) file to:
+
+``` python
+IMAGE_BASE = "assets/jp/"
+```
+
+- Do notice that: **`Dynamica` doesn't support JP version so far!**
 
 ## TO-DO
 

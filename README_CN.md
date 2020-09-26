@@ -183,3 +183,13 @@ shiki.use_dynamica(2)
 - 助战模板图片
 
 > 关于助战的模板图片，可以考虑先用游戏中的礼装过滤，再使用从者头像作为助战的模板图片。
+
+## 日服
+
+切换为日服，修改[crds.py](core/crds.py)中的`IMAGE_BASE`到如下内容：
+
+``` python
+IMAGE_BASE = "assets/jp/"
+```
+
+- 注意：**日服暂不支持`Dynamica`**

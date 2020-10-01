@@ -37,6 +37,7 @@ class Automata():
     # battle related
     def select_cards(self, cards: [int]):
         """ Select Order Cards
+
         Parameters
         ----------
             cards: list
@@ -71,6 +72,7 @@ class Automata():
     # combine select servant
     def select_servant_skill(self, skill: int, tar: int = 0, extend=False):
         """ Select Servant Skill
+
         Parameters
         ----------
             skill: int
@@ -101,6 +103,7 @@ class Automata():
 
     def select_servant_skill2(self, servant: int, skill: int, target: int = 0):
         """ Select Servant Skill 2
+
         Parameters
         ----------
             servant: int
@@ -117,6 +120,7 @@ class Automata():
 
     def select_servant_skillM(self, skills: [(int, int)]):
         """ Select Multiple Servant Skill 
+
         Parameters
         ----------
             skills: list
@@ -134,6 +138,7 @@ class Automata():
 
     def select_servant(self, servant: int):
         """ Select Servant
+
         Parameters
         ----------
             servant: int
@@ -145,6 +150,7 @@ class Automata():
 
     def change_servant(self, org: int, tar: int):
         """ Change Servant
+
         Parameters
         ----------
             org: int
@@ -168,6 +174,7 @@ class Automata():
 
     def select_master_skill(self, skill: int, org: int = 0, tar: int = 0):
         """ Servant Master Skill
+
         Parameters
         ----------
             skill: int
@@ -199,6 +206,7 @@ class Automata():
     # pre-battle related
     def select_checkpoint(self, ckp: str = None):
         """ Select Checkpoint
+
         Parameters
         ----------
             ckp: str, optional
@@ -227,6 +235,7 @@ class Automata():
 
     def select_support(self, spt: str = None):
         """ Select Support
+
         Parameters
         ----------
             spt: str, optional
@@ -244,6 +253,7 @@ class Automata():
     # advance support
     def advance_support(self, spt: str = None, tms: int = 3):
         """ Advance Support Selection
+
         Parameters
         ----------
             spt: str, optional
@@ -284,6 +294,7 @@ class Automata():
 
     def update_support(self) -> bool:
         """ Update Support List
+
         Returns
         -------
             bool
@@ -291,6 +302,11 @@ class Automata():
         """
         btn = util.get_crd(util.get_sh(self.shifts),
                            crds.IMAGE["update_support"])
+        # something strange...
+        while len(btn) == 0:
+            time.sleep(1)
+            btn = util.get_crd(util.get_sh(self.shifts),
+                               crds.IMAGE["update_support"])
         self.tap(btn[0], 1, 1)
         time.sleep(0.1)
         if util.standby(util.get_sh(self.shifts), crds.IMAGE["confirm_update"]):
@@ -302,6 +318,7 @@ class Automata():
 
     def get_current_battle(self) -> int:
         """ Get current Battle ID
+
         Returns
         -------
             int
@@ -325,7 +342,7 @@ class Automata():
 
         """
         cur = self.get_current_battle()
-        return btl == cur 
+        return btl == cur
 
     # Dynamic battle related
     def dynamica_select(self):
@@ -392,6 +409,7 @@ class Automata():
     # Not tested
     def set_apples(self, cnt: int, apl: str):
         """ Set Apples
+
         Parameters
         ----------
             cnt: int

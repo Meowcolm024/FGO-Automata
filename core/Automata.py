@@ -291,6 +291,10 @@ class Automata():
         """
         btn = util.get_crd(util.get_sh(self.shifts),
                            crds.IMAGE["update_support"])
+        while len(btn) == 0:
+            time.sleep(1)
+            btn = util.get_crd(util.get_sh(self.shifts),
+                           crds.IMAGE["update_support"])
         self.tap(btn[0], 1, 1)
         time.sleep(0.1)
         if util.standby(util.get_sh(self.shifts), crds.IMAGE["confirm_update"]):

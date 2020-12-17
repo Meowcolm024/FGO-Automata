@@ -19,12 +19,12 @@
 
 ## 设定
 
-对于*Windows*用户，双击`config.bat`以配置脚本。
+对于*Windows*用户，**推荐**输入 `py daemoncn.py` 或双击 `config.bat`以配置脚本。
 
 ## 注意事项
 
 1. 需要**关闭**技能确认。
-2. 如果使用`config.bat`或`daemon.py`来配置脚本，需要保证能**3T**过关。
+2. 如果使用`config.bat`或`daemoncn.py`来配置脚本，需要保证能**3T**过关。
 3. 建议缩短敌人消失时间和使用二倍速
 4. 推荐分辨率为`1920x1080`，非16:9长宽比需要设定画面偏移（`shift`）
 
@@ -186,6 +186,7 @@ shiki.use_dynamica(2)
 
 ## 日服
 
+由于日服最近适配了全面屏，请使用1920x1080设备以运行本脚本。
 切换为日服，修改[crds.py](core/crds.py)中的`IMAGE_BASE`到如下内容：
 
 ``` python

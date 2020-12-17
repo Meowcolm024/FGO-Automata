@@ -4,7 +4,7 @@ echo 请确认已将本脚本放于FGO-Automata目录中
 if exist core/Automata.py (pause&&goto :init) else (goto wrong)
 :init
 echo ---------------------------------------------------------------------------------
-echo 1=配置.py文件[必须]                    2=重复运行.py文件
+echo 1=配置.py文件(国服)[必须]                    2=重复运行.py文件
 set /p zero=请选择(输入对应数字):
 if %zero%==1 (goto :create) else if %zero%==2 (goto :end) else (goto :init)
 :wrong
@@ -50,19 +50,19 @@ if %stage%==1 (goto :ember) else if %stage%==2 (goto :training) else if %stage%=
 echo 1=狗粮初级   2=狗粮中级   3=狗粮上级   4=狗粮超级
 echo ---------------------------------------------------------------------------------
 set /p start1=请选择等级(输入对应数字):
-echo fgo = Automata("assets/Ember%start1%.png", "assets/%support%.png", sft=(%x%, %y%)) >> %name%.py
+echo fgo = Automata("assets/cn/Ember%start1%.png", "assets/%support%.png", sft=(%x%, %y%)) >> %name%.py
 goto :appleconfirm
 :training
 echo ---------------------------------------------------------------------------------
 echo 1=修炼场初级 2=修炼场中级 3=修炼场上级 4=修炼场超级
 set /p start2=请选择等级(输入对应数字):
-echo fgo = Automata("assets/Training%start2%.png", "assets/%support%.png", sft=(%x%, %y%)) >> %name%.py
+echo fgo = Automata("assets/cn/Training%start2%.png", "assets/%support%.png", sft=(%x%, %y%)) >> %name%.py
 goto :appleconfirm
 :qp
 echo ---------------------------------------------------------------------------------
 echo 1=QP本初级   2=QP本中级  3=QP本上级  4=QP本超级
 set /p start3=请选择等级(输入对应数字):
-echo fgo = Automata("assets/Qp%start3%.png", "assets/%support%.png", sft=(%x%, %y%)) >> %name%.py
+echo fgo = Automata("assets/cn/Qp%start3%.png", "assets/%support%.png", sft=(%x%, %y%)) >> %name%.py
 goto :appleconfirm
 :custom
 echo ---------------------------------------------------------------------------------
@@ -79,13 +79,16 @@ goto :appleconfirm
 :applenext
 if %apple%==1 (goto :eat) else if %apple%==2 (goto :game) else (goto :game)
 :eat
-set /p a1=金苹果输入1 银苹果输入2:
-if %a1%==1 (goto :gold) else if %a1%==2 (goto :silver) else (goto :eat)
+set /p a1=金苹果输入1 银苹果输入2 圣晶石输入3:
+if %a1%==1 (goto :gold) else if %a1%==2 (goto :silver) else if %a1%==2 (goto :quartz) else (goto :eat)
 :gold
 echo fgo.set_apples(1, "assets/gold.png")>>%name%.py
 goto :game
 :silver
 echo fgo.set_apples(1, "assets/silver.png")>>%name%.py
+goto :game
+:quartz
+echo fgo.set_apples(1, "assets/quartz.png")>>%name%.py
 goto :game
 :game
 if %supportselect%==1 (goto :advancegame) else (goto :normalgame)

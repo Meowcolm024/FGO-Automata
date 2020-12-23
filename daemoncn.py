@@ -66,17 +66,19 @@ class BB():
         self.script.append(sc)
         print("------------------------------------------------------------")
         print("是否启用AP恢复")
-        print("1 = 不启用  2 = 金苹果  3 = 银苹果  4 = 圣晶石")    
+        print("1 = 不启用  2 = 金苹果  3 = 银苹果  4 = 圣晶石  5 = 铜苹果")
         ap = input("输入数字: ")
-        if ap == "2" or ap == "3" or ap == "4":
+        if ap == "2" or ap == "3" or ap == "4" or ap == "5":
             print("------------------------------------------------------------")
             apamt = input("输入使用个数: ")
             if ap == "2":
-                self.script.append(f"bb.set_apples({apamt}, \"assets/gold.png\")")
+                self.script.append(f"bb.set_apples({apamt}, \"gold\")")
             elif ap == "3":
-                self.script.append(f"bb.set_apples({apamt}, \"assets/silver.png\")")
+                self.script.append(f"bb.set_apples({apamt}, \"silver\")")
             elif ap == "4":
-                self.script.append(f"bb.set_apples({apamt}, \"assets/quartz.png\")")
+                self.script.append(f"bb.set_apples({apamt}, \"quartz\")")
+            elif ap == "4":
+                self.script.append(f"bb.set_apples({apamt}, \"bronze\")")
         self.script.append("bb.quick_start()")
 
     def menu(self) -> bool:

@@ -146,7 +146,7 @@ from core.Automata import Automata
 ```python
 rin = Automata("assets/checkpoint.png", "assets/qp.png")
 shiki = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0))
-ryougi = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0), apl=(1, "assets/silver.png"))
+ryougi = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0), apl=(1, "silver"))
 ```
 
 - The first argument and the second one refer to the **path** of your **template** of checkpoint and **support servant**.
@@ -156,13 +156,13 @@ ryougi = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0), apl=(1
 #### 3. AP related (Optional)
 
 ```python
-# .set_apples(<number of the apples>, <path to the apples>)
-shiki.set_apples(0, "assets/silver.png")
+# .set_apples(<number of the apples>, <apple type>)
+shiki.set_apples(0, "silver")
 ```
 
 - **NOTICE: It will override the set apples and the counter**
 - If you are using it as a automation bot, you may encounter AP problem which needs to use *Gold Apples*.
-- Notice that the function recieves 2 arguments. The first item is number, representing how many apples will be consumed. The second one refers to the **path** of your **template** of the type of the apple (incl. *Quartz*).
+- Notice that the function recieves 2 arguments. The first item is number, representing how many apples will be consumed. The second one refers to the *type of apples* (either `quatrz`, `gold`, `silver`, `bronze`).
 
 ### 2. Start battle
 

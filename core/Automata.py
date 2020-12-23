@@ -427,10 +427,9 @@ class Automata():
         path = f"assets/{self.apple}.png"
         # scroll up to reach bronze apple 
         if self.apple == "bronze":
-            self.swipe((1000, 600), (1000, 400), 0.5 +
-                           0.1 * random.randrange(1, 10))
+            self.swipe((1000, 600), (1000, 400), 0.2)
         x = util.get_crd(util.get_sh(self.shifts), path)
-        self.tap(x[0])
+        self.tap(x[0], j=5)
         self.counts -= 1
         time.sleep(0.2)
         y = util.get_crd(util.get_sh(self.shifts), crds.IMAGE["decide"])

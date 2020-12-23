@@ -19,11 +19,11 @@ class BB():
             with open(file,"w") as f:
                 f.write(file_data)
         print("------------------------------------------------------------")
-        print("Select Game Version")
-        print("If you select JPclient, you must use device with 1920x1080")
-        print("1 = JPclient")
-        print("2 = CNclient")
-        ver = input("Select a number: ")
+        print("选择游戏版本")
+        print("如果在日服使用, 请使用1920x1080设备")
+        print("1 = 日服")
+        print("2 = 国服")
+        ver = input("输入数字: ")
         if ver == "1":
             cli = "jp/"
             sw("core/crds.py", "cn", "jp")
@@ -31,14 +31,14 @@ class BB():
             cli = "cn/"
             sw("core/crds.py", "jp", "cn")
         print("------------------------------------------------------------")
-        print("Select the Checkpoint or Customize it")
-        print("1 = Ember     2 = Training     3 = Qp     4 = Customization")
-        selckp = input("Select a number: ")
+        print("选择关卡或自定义")
+        print("1 = 狗粮     2 = 修炼场     3 = QP     4 = 自定义")
+        selckp = input("输入数字: ")
         if selckp == "1" or selckp == "2" or selckp == "3":
             print("------------------------------------------------------------")
-            print("Select the Level")
-            print("1 = Novice    2 = Intermediate    3 = Advanced    4 = Expert")
-            sellv = input("Select a number: ")
+            print("选择等级")
+            print("1 = 初级    2 = 中级    3 = 上级    4 = 超级")
+            sellv = input("输入数字: ")
             if selckp == "1":
                 ckp = "Ember" + sellv
             if selckp == "2":
@@ -47,30 +47,30 @@ class BB():
                 ckp = "Qp" + sellv
         if selckp == "4":
             print("------------------------------------------------------------")
-            print("Enter the name of the Checkpoint image (PNG in /assets) (WITHOUT extension name)")
+            print("输入自定义关卡图片名 (PNG格式 位于 assets) (不需要输入后缀.png)")
             cli = ""
-            ckp = input("Checkpoint: ")
+            ckp = input("关卡图片: ")
 
         print("------------------------------------------------------------")
-        print("Enter the name of the Support image (PNG in /assets) (WITHOUT extension name)")
-        spt = input("Suppport: ")
+        print("输入助战图片名 (PNG格式 位于 assets) (不需要输入后缀.png)")
+        spt = input("助战图片: ")
 
         print("------------------------------------------------------------")
-        print("Enter shifts of X coordinate (Enter 0 if your res is 1920x1080)")
-        sft_x = input("X shift: ")
+        print("请设置游戏画面偏移X坐标 (1920x1080请填写0)")
+        sft_x = input("X: ")
 
-        print("Enter shifts of Y coordinate (Enter 0 if your res is 1920x1080)")
-        sft_y = input("Y shift: ")
+        print("请设置游戏画面偏移Y坐标 (1920x1080请填写0)")
+        sft_y = input("Y: ")
 
         sc = f"bb = Automata(\"assets/{cli}{ckp}.png\", \"assets/{spt}.png\", ({sft_x}, {sft_y}))"  # class name: bb
         self.script.append(sc)
         print("------------------------------------------------------------")
-        print("Auto Recovery AP")
-        print("1 = No  2 = Gold Apple  3 = Silver Apple  4 = Santa Quartz")    
-        ap = input("Select a number: ")
+        print("是否启用AP恢复")
+        print("1 = 不启用  2 = 金苹果  3 = 银苹果  4 = 圣晶石")    
+        ap = input("输入数字: ")
         if ap == "2" or ap == "3" or ap == "4":
             print("------------------------------------------------------------")
-            apamt = input("Enter the amount: ")
+            apamt = input("输入使用个数: ")
             if ap == "2":
                 self.script.append(f"bb.set_apples({apamt}, \"assets/gold.png\")")
             elif ap == "3":
@@ -84,12 +84,13 @@ class BB():
         print("------------------------------------------------------------")
         print("BATTLE", self.battle)
         print("------------------------------------------------------------")
-        print("1 = select Servant skill(optional)")
-        print("2 = select Master skill(optional)")
-        print("3 = select Card order and finish current battle setting")
+        print("[注意] 请在设置出卡顺序前进行添加技能等设定")
+        print("1 = 添加从者技能(可选)")
+        print("2 = 添加御主技能(可选)")
+        print("3 = 设置出卡顺序并结束本回合设置(必须)")
         print("------------------------------------------------------------")
         # select
-        n = input("Select a number: ")
+        n = input("输入数字: ")
         if n == "1":
             self.sv_skill()
             return False
@@ -103,47 +104,47 @@ class BB():
         
     def sv_skill(self):
         print("------------------------------------------------------------")
-        print("Servant skill types:")
-        print("1 = skill w/o target servant")
-        print("2 = skill w/ target servant")
+        print("从者技能类型:")
+        print("1 = 无目标从者")
+        print("2 = 有目标从者")
         print("------------------------------------------------------------")
-        n = input("Select the type of the Servant skill: ")
+        n = input("输入数字: ")
         if n == "1":
-            x = input("Enter skill id (1~9 count from left): ")
+            x = input("输入技能ID 1~9 [从左往右数]: ")
             self.script.append(f"bb.select_servant_skill({x})")
         if n == "2":
-            x = input("Enter skill id (1~9 count from left): ")
-            y = input("Enter target id (1~3 count from left): ")
+            x = input("输入技能ID 1~9 [从左往右数]: ")
+            y = input("输入从者ID 1~3 [从左往右数]: ")
             self.script.append(f"bb.select_servant_skill({x}, {y})")
 
     def ms_skill(self):
         print("------------------------------------------------------------")
-        print("Master skill types:")
-        print("1 = skill w/o target servant")
-        print("2 = skill w/ target servant")
+        print("御主技能类型:")
+        print("1 = 无目标从者")
+        print("2 = 有目标从者")
         print("3 = Order Change")
         print("------------------------------------------------------------")
-        n = input("Select the type of the Master skill: ")
+        n = input("输入数字: ")
         if n == "1":
-            x = input("Enter skill id (1~3 count from left): ")
+            x = input("输入技能ID 1~3 [从左往右数]: ")
             self.script.append(f"bb.select_master_skill({x})")
         if n == "2":
-            x = input("Enter skill id (1~3 count from left): ")
-            y = input("Enter target id (1~3 count from left): ")
+            x = input("输入技能ID 1~3 [从左往右数]: ")
+            y = input("输入从者ID 1~3 [从左往右数]: ")
             self.script.append(f"bb.select_master_skill({x}, {y})")
         if n == "3":
-            x = input("ID of Servant on the Left (1~3 count from left): ")
-            y = input("ID of Servant on the Right (1~3 count from left): ")
+            x = input("被替换的从者ID 1~3 [从左往右数]: ")
+            y = input("将上场的从者ID 1~3 [从左往右数]: ")
             self.script.append(f"bb.select_master_skill(3, {x}, {y})")
 
     def crd_order(self):
         print("------------------------------------------------------------")
-        print("Card Order:")
-        print("Card id: 1~5 -> normal card, 6,7,8 -> NP card")
-        print("if you only want to select 1 card, enter ONE number")
-        print("for multiple cards, separate each digits like: 1,2,3")
+        print("设置出卡顺序:")
+        print("数字1~5为从左到右的五张普通指令卡, 6~8为从左到右的3张宝具卡")
+        print("您也可以不选满, 比如只输入一个数字")
+        print("对于多张卡请用半角英文符号[ , ]分隔 如 1, 2, 3")
         print("------------------------------------------------------------")
-        n = input("Enter Card order: ")
+        n = input("输入顺序: ")
         self.script.append(f"bb.select_cards([{n}])")
 
     def start(self) -> str:
@@ -153,9 +154,9 @@ class BB():
         print("------------------------------------------------------------")
         print("This script will help you create your FGO-Automat Script")
         print("------------------------------------------------------------")
-        input("Press any key to continue: ")
+        input("按下任意键开始配置: ")
         print("------------------------------------------------------------")
-        name = input("Enter script name (WITHOUT extension name): ")
+        name = input("输入脚本名 (无需添加后缀.py): ")
         print("------------------------------------------------------------")
         return name
 

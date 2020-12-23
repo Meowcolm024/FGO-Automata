@@ -76,8 +76,8 @@ Required libs: *ADB*, *PIL*, *OpenCV*,  *numpy* and *pytesseract*
 There are mainly 4 ways to set up *FGO-Automata*(as automation script):
 
 - If you are familiar with _Python_, you can try to manually write the scipt. (See: [References](#references)) (You can also checkout the [example.py](example.py))
-- If you are using _Windows_, double click `config.bat` to set up the script.（中文）
-- If you are using _macOS_(or _Linux_), run `daemon.py` to set up the script.
+- If you are using _Windows_,**(recommended)** run `daemon.py(English)` or `daemoncn.py(Chinese)` or double click `config.bat(Chinese)` to set up the script.
+- If you are using _macOS_(or _Linux_), run `daemon.py(English)` or `daemoncn.py(Chinese)` to set up the script.
 - You can also use the *FGO-Automata Script* (See: [FGO-Automata Script](#fgo-automata-script))
 
 You can also use *FGO-Automata* as an API in your own project, just import the package :)

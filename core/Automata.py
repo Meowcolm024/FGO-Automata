@@ -428,7 +428,7 @@ class Automata():
         # scroll up to reach bronze apple 
         if self.apple == "bronze":
             # TODO: add scrolling up
-            self.swipe((1000, 700), (1000, 400), 0.5 +
+            self.swipe((1000, 700), (1000, 500), 0.5 +
                            0.1 * random.randrange(1, 10))
         x = util.get_crd(util.get_sh(self.shifts), path)
         self.tap(x[0])

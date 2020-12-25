@@ -67,6 +67,7 @@ TARGETS = [
 
 # path to images
 # change the path if you're play FGO other than the CN version
+# JP version: "assets/jp/"
 IMAGE_BASE = "assets/cn/"
 
 IMAGE = map_dict(lambda x: IMAGE_BASE + x, {
@@ -83,6 +84,7 @@ IMAGE = map_dict(lambda x: IMAGE_BASE + x, {
     "start": "start.png"
 })
 
+# JP version: "assets/jp/extra/"
 CARD_IMAGE_BASE = "assets/cn/extra/"
 
 CARD_IMAGE = map_dict(lambda x: CARD_IMAGE_BASE + x, {

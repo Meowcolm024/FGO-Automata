@@ -66,17 +66,19 @@ class BB():
         self.script.append(sc)
         print("------------------------------------------------------------")
         print("Auto Recovery AP")
-        print("1 = No  2 = Gold Apple  3 = Silver Apple  4 = Santa Quartz")    
+        print("1 = No  2 = Gold Apple  3 = Silver Apple  4 = Santa Quartz  5 = Bronze Apple")
         ap = input("Select a number: ")
-        if ap == "2" or ap == "3" or ap == "4":
+        if ap == "2" or ap == "3" or ap == "4" or ap == "5":
             print("------------------------------------------------------------")
             apamt = input("Enter the amount: ")
             if ap == "2":
-                self.script.append(f"bb.set_apples({apamt}, \"assets/gold.png\")")
+                self.script.append(f"bb.set_apples({apamt}, \"gold\")")
             elif ap == "3":
-                self.script.append(f"bb.set_apples({apamt}, \"assets/silver.png\")")
+                self.script.append(f"bb.set_apples({apamt}, \"silver\")")
             elif ap == "4":
-                self.script.append(f"bb.set_apples({apamt}, \"assets/quartz.png\")")
+                self.script.append(f"bb.set_apples({apamt}, \"quartz\")")
+            elif ap == "5":
+                self.script.append(f"bb.set_apples({apamt}, \"bronze\")")
         self.script.append("bb.quick_start()")
 
     def menu(self) -> bool:

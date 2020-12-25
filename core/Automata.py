@@ -19,20 +19,22 @@ class Automata():
         Coordinate shifts in (x, y). When there are blues straps at the edges. (Default: (0, 0))
 
             apl: (int, str), optional
-        Number of the apples willl be used and the Path to the image of the apple. (Default: (0, ""))
+        Number of the apples willl be used and the type of the apple. (Default: (0, ""))
+
+        Should be one of: `quartz`, `gold`, `silver` and `bronze`.
 
         Examples
         --------
         Here are examples::
 
             shiki = Automata("assets/checkpoint.png", "assets/qp.png")
-            bb = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0), apl=(1, "assets/silver.png"))
+            bb = Automata("assets/checkpoint.png", "assets/qp.png", sft=(248, 0), apl=(1, "silver"))
         """
         self.shifts = sft
         self.checkpoint = ckp
         self.support = spt
         self.counts = apl[0]  # apple counts
-        self.apple = apl[1]
+        self.apple = apl[1]   # apple type
 
     # battle related
     def select_cards(self, cards: [int]):
@@ -416,18 +418,20 @@ class Automata():
         Number of the apples willl be used.
 
             apl: str
-        Path to the image of the apple.
+        Type of the apple. (Either `quartz`, `gold`, `silver` or `bronze`)
         """
         self.counts = cnt
         self.apple = apl
 
     def eat_apple(self):
-        x = util.get_crd(util.get_sh(self.shifts), self.apple)
+        path = f"assets/{self.apple}.png"
+        x = util.get_crd(util.get_sh(self.shifts), path)
         self.tap(x[0])
         self.counts -= 1
         time.sleep(0.2)
         y = util.get_crd(util.get_sh(self.shifts), crds.IMAGE["decide"])
         self.tap(y[0])
+        print("[INFO] AP Recovered.")
 
     # others
     def start_battle(self):

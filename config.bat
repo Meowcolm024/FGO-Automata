@@ -79,16 +79,19 @@ goto :appleconfirm
 :applenext
 if %apple%==1 (goto :eat) else if %apple%==2 (goto :game) else (goto :game)
 :eat
-set /p a1=金苹果输入1 银苹果输入2 圣晶石输入3:
-if %a1%==1 (goto :gold) else if %a1%==2 (goto :silver) else if %a1%==2 (goto :quartz) else (goto :eat)
+set /p a1=金苹果输入1 银苹果输入2 铜苹果输入3 圣晶石输入4:
+if %a1%==1 (goto :gold) else if %a1%==2 (goto :silver) else if %a1%==3 (goto :bronze) else if %a1%==4 (goto :quartz) else (goto :eat)
 :gold
-echo fgo.set_apples(1, "assets/gold.png")>>%name%.py
+echo fgo.set_apples(1, "gold")>>%name%.py
 goto :game
 :silver
-echo fgo.set_apples(1, "assets/silver.png")>>%name%.py
+echo fgo.set_apples(1, "silver")>>%name%.py
+goto :game
+:bronze
+echo fgo.set_apples(1, "bronze")>>%name%.py
 goto :game
 :quartz
-echo fgo.set_apples(1, "assets/quartz.png")>>%name%.py
+echo fgo.set_apples(1, "quartz")>>%name%.py
 goto :game
 :game
 if %supportselect%==1 (goto :advancegame) else (goto :normalgame)

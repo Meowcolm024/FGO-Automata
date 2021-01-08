@@ -1,5 +1,6 @@
 from core.Card import Card
 from core import util, crds
+from cv2 import cv2
 
 
 class Dynamica():
@@ -26,6 +27,7 @@ class Dynamica():
         resist = crds.CARD_IMAGE["resist"]
         weak = crds.CARD_IMAGE["weak"]
         mark = f"temp/{cur}.png"
+        mark = cv2.imread(mark)
         if util.standby(mark, resist, threshold=0.8):
             return 0.5
         elif util.standby(mark, weak, threshold=0.8):
@@ -38,6 +40,7 @@ class Dynamica():
         # arts = "assets/extra/arts.png"
         buster = crds.CARD_IMAGE["buster"]
         mark = f"temp/{cur}.png"
+        mark = cv2.imread(mark)
         if util.check_color(mark, quick, threshold=0.8):
             return 0.8
         elif util.check_color(mark, buster, threshold=0.8):

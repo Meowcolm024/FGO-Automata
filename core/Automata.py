@@ -407,7 +407,7 @@ class Automata():
     # FLAWED
     def is_finished(self) -> bool:
         time.sleep(0.2)
-        return util.standby(util.get_sh(self.shifts), crds.IMAGE["finish"], 0.7)
+        return util.standby(crds.IMAGE["finish"], 0.7)
 
     # AP related
     # Not tested

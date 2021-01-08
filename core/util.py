@@ -61,6 +61,7 @@ def get_sh(edge: (int, int)) -> str:
 def screencap():
     pipe = subprocess.Popen("/adb/adb.exe shell screencap -p",
                             stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
+    # 基於bluestacks android7,如果用的是android5版的bluestacks的話要改成image_bytes = pipe.stdout.read().replace(b'\r\r\n', b'\n')
     image_bytes = pipe.stdout.read().replace(b'\r\n', b'\n')
     image = cv2.imdecode(np.frombuffer(
         image_bytes, dtype='uint8'), cv2.IMREAD_COLOR)
@@ -87,8 +88,8 @@ def check_color(sh: str, tmp: str, threshold: float = 0.8) -> bool:
     return False
 
 
-def get_crd(img, tmp: str, threshold: float = 0.85) -> [(int, int)]:
-    img = img
+def get_crd(imges, tmp: str, threshold: float = 0.85) -> [(int, int)]:
+    img = imges
     template = cv2.imread(tmp)
     res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)
     pos = []

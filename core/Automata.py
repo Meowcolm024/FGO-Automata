@@ -2,6 +2,8 @@ import time
 import random
 from core import util, crds
 from core.Dynamica import Dynamica
+# BUG 日版估計模板截圖要更新,沒法正卻的辨識
+# note 估計該改的都有改到
 
 
 class Automata():
@@ -500,7 +502,7 @@ class Automata():
             delay)
 
     def wait(self, pic: str):
-        while not util.standby(util.get_sh(self.shifts), pic):
+        while not util.standby(pic):
             time.sleep(0.2)
 
     def aquire_screenshot(self) -> str:

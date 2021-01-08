@@ -1,7 +1,7 @@
 # This is only an example of a battle that I used to test.
 from core.Automata import Automata
 # init
-shiki = Automata("assets/Qp4.png", "assets/eg-sp1.png", (248, 0))
+shiki = Automata("assets/jp/Qp4.png", "assets/eg-sp1.png", (248, 0))
 # start
 shiki.quick_start()
 # battle 1

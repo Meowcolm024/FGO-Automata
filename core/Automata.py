@@ -371,7 +371,7 @@ class Automata():
             while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"]):
                 time.sleep(0.2)
                 # end if finished battle
-                if util.standby("tmp.png", crds.IMAGE["finish"], 0.8):
+                if util.standby(util.get_sh(self.shifts), crds.IMAGE["finish"], 0.8):
                     return
 
             if self.reached_battle(target):
@@ -502,7 +502,7 @@ class Automata():
             delay)
 
     def wait(self, pic: str):
-        while not util.standby(pic):
+        while not util.standby(util.get_sh(self.shifts), pic):
             time.sleep(0.2)
 
     def aquire_screenshot(self) -> str:

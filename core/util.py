@@ -54,8 +54,8 @@ def get_sh(edge: (int, int)) -> str:
     img = screencap()
     PIL_img = Image.fromarray(img)
     out = PIL_img.crop((edge[0], edge[1], edge[0]+1920, edge[1]+1080))
-    our_array = np.array(out)
-    return our_array
+    out_array = np.array(out)
+    return out_array
 
 
 def screencap():
@@ -70,8 +70,9 @@ def screencap():
 # OpenCV related
 
 
-def standby(tmp: str, threshold: float = 0.85) -> bool:
-    img = screencap()
+# note 輸入分別為(從get_sh中處理完的圖片陣列,模板圖片名稱,準確度)
+def standby(images=get_sh((0, 0)), tmp: str = None, threshold: float = 0.85) -> bool:
+    img = images
     template = cv2.imread(tmp)
     res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)
     if (res >= threshold).any():

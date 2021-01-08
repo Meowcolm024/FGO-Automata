@@ -22,7 +22,7 @@ class Dynamica():
             tmp.append(Card(i, mark, color))
         self.cards = tmp
 
-    def match_mark(self, cur: int) -> float:
+    def match_mark(self, cur: int) -> float:  # note 看不是很懂這是怎麼運作的
         resist = crds.CARD_IMAGE["resist"]
         weak = crds.CARD_IMAGE["weak"]
         mark = f"temp/{cur}.png"

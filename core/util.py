@@ -120,7 +120,7 @@ def get_battle_id(img_path: str):
         return x
 
 
-def split_cards(img: str):
+def split_cards(img):
     im = Image.open(img)
     img_size = im.size
     x = img_size[0] // 5
@@ -135,6 +135,7 @@ def split_cards(img: str):
 
 
 # prepare for servant reo
+# currently not used
 def split_servant(img: str, i: int):
     im = Image.open(img)
     size = (138, 144, 238, 226)

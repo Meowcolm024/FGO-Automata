@@ -355,8 +355,7 @@ class Automata():
         time.sleep(1)
         # init the class
         dym = Dynamica(sft=self.shifts)
-        util.get_sh(self.shifts)
-        util.split_cards("tmp.png")
+        util.split_cards(util.get_sh(self.shifts)) 
         out = dym.dynamic_battle()  # get order
         for i in out:
             self.tap(crds.CARDS[i], 40, 90)

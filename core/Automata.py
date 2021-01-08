@@ -2,6 +2,8 @@ import time
 import random
 from core import util, crds
 from core.Dynamica import Dynamica
+# BUG 日版估計模板截圖要更新,沒法正卻的辨識
+# note 估計該改的都有改到
 
 
 class Automata():
@@ -369,7 +371,7 @@ class Automata():
             while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"]):
                 time.sleep(0.2)
                 # end if finished battle
-                if util.standby("tmp.png", crds.IMAGE["finish"], 0.8):
+                if util.standby(util.get_sh(self.shifts), crds.IMAGE["finish"], 0.8):
                     return
 
             if self.reached_battle(target):
@@ -405,7 +407,7 @@ class Automata():
     # FLAWED
     def is_finished(self) -> bool:
         time.sleep(0.2)
-        return util.standby(util.get_sh(self.shifts), crds.IMAGE["finish"], 0.7)
+        return util.standby(crds.IMAGE["finish"], 0.7)
 
     # AP related
     # Not tested

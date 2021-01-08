@@ -5,8 +5,11 @@ import numpy as np
 from PIL import Image
 import logging
 from pytesseract import image_to_string
+import subprocess
 
 # ADB related
+
+
 def tap(crd: (int, int)):
     cmdTap = 'adb shell input tap {x} {y}'.format(
         x=crd[0],
@@ -46,15 +49,31 @@ def split(path: str, edge: (int, int)):
 
 
 def get_sh(edge: (int, int)) -> str:
-    screenshot()
-    split("sh.png", edge)
-    return "tmp.png"
+    # screenshot()
+    #split(img, edge)
+    img = screencap()
+    PIL_img = Image.fromarray(img)
+    out = PIL_img.crop((edge[0], edge[1], edge[0]+1920, edge[1]+1080))
+    out_array = np.array(out)
+    return out_array
 
+
+def screencap():
+    pipe = subprocess.Popen("adb shell screencap -p",
+                            stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
+    # 基於bluestacks android7,如果用的是android5版的bluestacks的話要改成image_bytes = pipe.stdout.read().replace(b'\r\r\n', b'\n')
+    image_bytes = pipe.stdout.read().replace(b'\r\n', b'\n')
+    image = cv2.imdecode(np.frombuffer(
+        image_bytes, dtype='uint8'), cv2.IMREAD_COLOR)
+    return image
 
 # OpenCV related
-def standby(sh: str, tmp: str, threshold: float = 0.85) -> bool:
-    img = cv2.imread(sh, 0)
-    template = cv2.imread(tmp, 0)
+
+
+# note 輸入分別為(從get_sh中處理完的圖片陣列,模板圖片名稱,準確度)
+def standby(images=get_sh((0, 0)), tmp: str = None, threshold: float = 0.85) -> bool:
+    img = images
+    template = cv2.imread(tmp)
     res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)
     if (res >= threshold).any():
         return True
@@ -70,9 +89,9 @@ def check_color(sh: str, tmp: str, threshold: float = 0.8) -> bool:
     return False
 
 
-def get_crd(sh: str, tmp: str, threshold: float = 0.85) -> [(int, int)]:
-    img = cv2.imread(sh, 0)
-    template = cv2.imread(tmp, 0)
+def get_crd(imges, tmp: str, threshold: float = 0.85) -> [(int, int)]:
+    img = imges
+    template = cv2.imread(tmp)
     res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)
     pos = []
     loc = np.where(res >= threshold)

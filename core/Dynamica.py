@@ -1,5 +1,6 @@
 from core.Card import Card
 from core import util, crds
+from cv2 import cv2
 
 
 class Dynamica():
@@ -22,10 +23,11 @@ class Dynamica():
             tmp.append(Card(i, mark, color))
         self.cards = tmp
 
-    def match_mark(self, cur: int) -> float:
+    def match_mark(self, cur: int) -> float:  # note 看不是很懂這是怎麼運作的
         resist = crds.CARD_IMAGE["resist"]
         weak = crds.CARD_IMAGE["weak"]
         mark = f"temp/{cur}.png"
+        mark = cv2.imread(mark)
         if util.standby(mark, resist, threshold=0.8):
             return 0.5
         elif util.standby(mark, weak, threshold=0.8):
@@ -38,6 +40,7 @@ class Dynamica():
         # arts = "assets/extra/arts.png"
         buster = crds.CARD_IMAGE["buster"]
         mark = f"temp/{cur}.png"
+        mark = cv2.imread(mark)
         if util.check_color(mark, quick, threshold=0.8):
             return 0.8
         elif util.check_color(mark, buster, threshold=0.8):

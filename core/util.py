@@ -59,7 +59,7 @@ def get_sh(edge: (int, int)) -> str:
 
 
 def screencap():
-    pipe = subprocess.Popen("/adb/adb.exe shell screencap -p",
+    pipe = subprocess.Popen("adb shell screencap -p",
                             stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
     # 基於bluestacks android7,如果用的是android5版的bluestacks的話要改成image_bytes = pipe.stdout.read().replace(b'\r\r\n', b'\n')
     image_bytes = pipe.stdout.read().replace(b'\r\n', b'\n')

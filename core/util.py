@@ -1,13 +1,16 @@
 import os
-import cv2
+from cv2 import cv2
 import random
 import numpy as np
 from PIL import Image
 import logging
 from pytesseract import image_to_string
 import subprocess
+import os
 
-# ADB related
+# ADB related #note 先開啟adb以免載import時imco
+os.system('adb kill-server')
+os.system('adb start-server')
 
 
 def tap(crd: (int, int)):
@@ -31,10 +34,11 @@ def swipe(org: (int, int), tar: (int, int), delay):
     os.system(cmdSwipe)
 
 
-def screenshot() -> str:
+# nouse 舊版截圖
+"""def screenshot() -> str:
     os.system('adb shell screencap -p /sdcard/sh.png')
     os.system('adb pull /sdcard/sh.png .')
-    return "sh.png"
+    return "sh.png""""
 
 
 # helper function
@@ -75,7 +79,8 @@ def standby(images=get_sh((0, 0)), tmp: str = None, threshold: float = 0.85) -> 
     img = images
     template = cv2.imread(tmp)
     res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)
-    if (res >= threshold).any():
+    res = cv2.minMaxLoc(res)  # note改取得最相似之座標 res[0]為最小相似度的座標,res[1]為最大相似度的座標
+    if (res[1] >= threshold):
         return True
     return False
 

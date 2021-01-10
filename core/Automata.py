@@ -62,7 +62,7 @@ class Automata():
         self.tap(crds.ATTACK, 100, 100)
         time.sleep(1.3)
         while len(cards) < 3:
-            x = random.randrange(1, 6)
+            x = random.randrange(1, 5)  # in interval [1, 5]
             if x in cards:
                 continue
             cards.append(x)
@@ -400,7 +400,7 @@ class Automata():
         self.tap(x[0])
         if cont:
             time.sleep(0.5)
-            self.tap((650, 850))
+            self.tap((650, 850))    # tap `close` btn
         print("[INFO] Battle Finished.")
 
     # FLAWED
@@ -504,7 +504,7 @@ class Automata():
         while not util.standby(util.get_sh(self.shifts), pic):
             time.sleep(0.2)
 
-    def aquire_screenshot(self) -> str:
+    def aquire_screenshot(self):
         """ aquire screenshot
         Returns
         -------

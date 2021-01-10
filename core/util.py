@@ -35,10 +35,10 @@ def swipe(org: (int, int), tar: (int, int), delay):
 
 
 # nouse 舊版截圖
-"""def screenshot() -> str:
-    os.system('adb shell screencap -p /sdcard/sh.png')
-    os.system('adb pull /sdcard/sh.png .')
-    return "sh.png""""
+# def screenshot() -> str:
+#     os.system('adb shell screencap -p /sdcard/sh.png')
+#     os.system('adb pull /sdcard/sh.png .')
+#     return "sh.png"
 
 
 # helper function
@@ -52,7 +52,7 @@ def split(path: str, edge: (int, int)):
     out.save("tmp.png")
 
 
-def get_sh(edge: (int, int)) -> str:
+def get_sh(edge: (int, int)):
     # screenshot()
     #split(img, edge)
     img = screencap()

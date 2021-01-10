@@ -1,11 +1,6 @@
 class BB():
     def __init__(self):
-        self.script = [
-            "from core.Automata import Automata",
-            "import logging",
-            "logging.basicConfig(filename='automata.log',filemode='w',level=logging.INFO,format='%(asctime)s %("
-            "levelname)s %(message)s',datefmt='%y/%m/%d %I:%M:%S %p') "
-        ]
+        self.script = ["from core.Automata import Automata"]
         self.battle = 1
 
     def init_sc(self):  # checkpoint, support, shifts
@@ -16,7 +11,7 @@ class BB():
                     if old in line:
                         line = line.replace(old, new)
                     file_data += line
-            with open(file,"w") as f:
+            with open(file, "w") as f:
                 f.write(file_data)
         print("------------------------------------------------------------")
         print("Select Game Version")
@@ -47,12 +42,14 @@ class BB():
                 ckp = "Qp" + sellv
         if selckp == "4":
             print("------------------------------------------------------------")
-            print("Enter the name of the Checkpoint image (PNG in /assets) (WITHOUT extension name)")
+            print(
+                "Enter the name of the Checkpoint image (PNG in /assets) (WITHOUT extension name)")
             cli = ""
             ckp = input("Checkpoint: ")
 
         print("------------------------------------------------------------")
-        print("Enter the name of the Support image (PNG in /assets) (WITHOUT extension name)")
+        print(
+            "Enter the name of the Support image (PNG in /assets) (WITHOUT extension name)")
         spt = input("Suppport: ")
 
         print("------------------------------------------------------------")
@@ -62,11 +59,13 @@ class BB():
         print("Enter shifts of Y coordinate (Enter 0 if your res is 1920x1080)")
         sft_y = input("Y shift: ")
 
-        sc = f"bb = Automata(\"assets/{cli}{ckp}.png\", \"assets/{spt}.png\", ({sft_x}, {sft_y}))"  # class name: bb
+        # class name: bb
+        sc = f"bb = Automata(\"assets/{cli}{ckp}.png\", \"assets/{spt}.png\", ({sft_x}, {sft_y}))"
         self.script.append(sc)
         print("------------------------------------------------------------")
         print("Auto Recovery AP")
-        print("1 = No  2 = Gold Apple  3 = Silver Apple  4 = Santa Quartz  5 = Bronze Apple")
+        print(
+            "1 = No  2 = Gold Apple  3 = Silver Apple  4 = Santa Quartz  5 = Bronze Apple")
         ap = input("Select a number: ")
         if ap == "2" or ap == "3" or ap == "4" or ap == "5":
             print("------------------------------------------------------------")
@@ -102,7 +101,7 @@ class BB():
             self.crd_order()
             return True
         return False
-        
+
     def sv_skill(self):
         print("------------------------------------------------------------")
         print("Servant skill types:")
@@ -174,7 +173,7 @@ class BB():
         # end'
         self.script.append("# FINISH")
         self.script.append("bb.finish_battle()")
-        
+
     def main(self):
         name = self.start()
         self.setup_battle()
@@ -184,6 +183,7 @@ class BB():
         file = open(name + ".py", "w+")
         content = '\n'.join(self.script)
         file.write(content)
+
 
 if __name__ == "__main__":
     demon = BB()

@@ -1,11 +1,6 @@
 class BB():
     def __init__(self):
-        self.script = [
-            "from core.Automata import Automata",
-            "import logging",
-            "logging.basicConfig(filename='automata.log',filemode='w',level=logging.INFO,format='%(asctime)s %("
-            "levelname)s %(message)s',datefmt='%y/%m/%d %I:%M:%S %p') "
-        ]
+        self.script = ["from core.Automata import Automata"]
         self.battle = 1
 
     def init_sc(self):  # checkpoint, support, shifts
@@ -16,7 +11,7 @@ class BB():
                     if old in line:
                         line = line.replace(old, new)
                     file_data += line
-            with open(file,"w") as f:
+            with open(file, "w") as f:
                 f.write(file_data)
         print("------------------------------------------------------------")
         print("选择游戏版本")
@@ -62,7 +57,8 @@ class BB():
         print("请设置游戏画面偏移Y坐标 (1920x1080请填写0)")
         sft_y = input("Y: ")
 
-        sc = f"bb = Automata(\"assets/{cli}{ckp}.png\", \"assets/{spt}.png\", ({sft_x}, {sft_y}))"  # class name: bb
+        # class name: bb
+        sc = f"bb = Automata(\"assets/{cli}{ckp}.png\", \"assets/{spt}.png\", ({sft_x}, {sft_y}))"
         self.script.append(sc)
         print("------------------------------------------------------------")
         print("是否启用AP恢复")
@@ -103,7 +99,7 @@ class BB():
             self.crd_order()
             return True
         return False
-        
+
     def sv_skill(self):
         print("------------------------------------------------------------")
         print("从者技能类型:")
@@ -175,7 +171,7 @@ class BB():
         # end'
         self.script.append("# FINISH")
         self.script.append("bb.finish_battle()")
-        
+
     def main(self):
         name = self.start()
         self.setup_battle()
@@ -185,6 +181,7 @@ class BB():
         file = open(name + ".py", "w+")
         content = '\n'.join(self.script)
         file.write(content)
+
 
 if __name__ == "__main__":
     demon = BB()

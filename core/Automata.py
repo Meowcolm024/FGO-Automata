@@ -2,8 +2,6 @@ import time
 import random
 from core import util, crds
 from core.Dynamica import Dynamica
-# BUG 日版估計模板截圖要更新,沒法正卻的辨識
-# note 估計該改的都有改到
 
 
 class Automata():

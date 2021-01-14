@@ -54,6 +54,7 @@ If you're playing with other versions of _Fate/GO_ (like TW or US), you may need
     - [8. Get screenshot](#8-get-screenshot)
   - [Making Templates](#making-templates)
   - [JP](#jp)
+  - [Acknowledgements](#acknowledgements)
   - [TO-DO](#to-do)
 
 </details>
@@ -163,6 +164,7 @@ shiki.set_apples(0, "silver")
 - **NOTICE: It will override the set apples and the counter**
 - If you are using it as a automation bot, you may encounter AP problem which needs to use *Gold Apples*.
 - Notice that the function recieves 2 arguments. The first item is number, representing how many apples will be consumed. The second one refers to the *type of apples* (either `quatrz`, `gold`, `silver`, `bronze`).
+- Explicit control flow of the action body is required! (like an infinite loop)
 
 ### 2. Start battle
 
@@ -448,7 +450,15 @@ To use this script for JP version, change the variant `IMAGE_BASE` in the [crds.
 IMAGE_BASE = "assets/jp/"
 ```
 
-- Do notice that: **`Dynamica` doesn't support JP version so far!**
+- ~~Do notice that: **`Dynamica` doesn't support JP version so far!**~~
+
+## Acknowledgements
+
+Thanks
+
+- [Tsusahi](https://github.com/Tsuasahi) for all the testing, bug fixing and more.
+- [Zhen-Bo](https://github.com/Zhen-Bo) for improvements in the use of `adb`.
+- [yztxwd](https://github.com/yztxwd) for enhancements in the accuracy of OCR using `pytesseract`.
 
 ## TO-DO
 

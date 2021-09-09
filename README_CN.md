@@ -173,11 +173,11 @@ shiki.use_dynamica(2)
 
 以下是模板图片的两个例子：
 
-![checkpoint](assets/event.png)
+![checkpoint](assets/eg-ckp.png)
 
 - 关卡模板图片
 
-![support](assets/sp2.png)
+![support](assets/eg-sp2.png)
 
 - 助战模板图片
 

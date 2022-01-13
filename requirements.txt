@@ -1,4 +1,4 @@
 numpy==1.19.1
 opencv-python==4.4.0.42
-Pillow==8.3.2
+Pillow==9.0.0
 pytesseract==0.3.6
